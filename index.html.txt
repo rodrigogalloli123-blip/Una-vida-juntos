@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Una Vida Juntos</title>
+
+</head>
+
+<body>
+
+<div id="loader">Cargando nuestro futuro...</div>
+
+<header>
+<h1>Una Vida Juntos</h1>
+<div class="subtitle">Romina & Rodrigo</div>
+<br>
+<button onclick="like(event)">❤️ Me gusta</button>
+</header>
+
+<div class="section">
+
+<div class="card">
+<h2>Nuestra historia</h2>
+<p>
+Esto empezó con amor… y va a terminar siendo nuestra vida.
+Gracias por existir Romina.
+</p>
+</div>
+
+<div class="card">
+<h2>Galería</h2>
+<p>(Próximamente fotos nuestras)</p>
+<div class="gallery">
+<!--
+<img src="foto1.jpg">
+<img src="foto2.jpg">
+-->
+</div>
+</div>
+
+<div class="card">
+<h2>Lo que viene</h2>
+<p>🏡 Casa · ✈️ Viajes · 🐶 Mascota · 📈 Proyectos · 👨‍👩‍👧 Familia</p>
+</div>
+
+<div class="card">
+<h2>En proceso...</h2>
+<p>
+Esta página está creciendo, igual que nosotros ❤️  
+Pronto más recuerdos.
+</p>
+</div>
+
+</div>
+
+<footer>
+Nuestro comienzo · Nuestro futuro
+</footer>
+
+<script>
+function explode(x,y){
+for(let i=0;i<20;i++){
+const h=document.createElement("div");
+h.className="heart";
+h.innerText="❤️";
+h.style.left=x+"px";
+h.style.top=y+"px";
+h.style.setProperty("--x",(Math.random()*200-100)+"px");
+h.style.setProperty("--y",(Math.random()*200-100)+"px");
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),1000);
+}
+}
+
+function like(e){
+explode(e.clientX,e.clientY);
+}
+
+window.onload=()=>{
+document.getElementById("loader").style.display="none";
+explode(window.innerWidth/2,window.innerHeight/2);
+}
+</script>
+
+</body>
+</html>
