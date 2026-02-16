@@ -1,8 +1,10 @@
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Una Vida Juntos</title>
 
@@ -12,60 +14,54 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial, sans-serif;
+font-family:system-ui;
 }
 
 body{
-background:#0b0b0b;
+background:#080000;
 color:white;
-overflow-x:hidden;
+overflow:hidden;
 }
 
 /* HEADER */
 
 header{
 position:fixed;
-top:0;
-left:0;
-width:100%;
-padding:10px 15px;
-display:flex;
-flex-direction:column;
-z-index:1000;
+top:10px;
+left:10px;
+z-index:100;
 }
 
 .logo{
-font-size:14px;
-color:#ff2a2a;
-font-weight:bold;
+font-size:13px;
+color:#ff2b2b;
+letter-spacing:1px;
 }
 
 .hamburger{
 margin-top:6px;
-width:25px;
+width:22px;
 cursor:pointer;
 }
 
 .hamburger span{
 display:block;
-height:3px;
+height:2px;
 background:white;
-margin:5px 0;
-transition:.3s;
+margin:4px 0;
 }
 
 /* MENU */
 
 .menu{
 position:fixed;
+right:-220px;
 top:0;
-right:-260px;
-width:220px;
+width:200px;
 height:100%;
-background:#130000;
-padding:60px 20px;
+background:#100000;
+padding:60px 15px;
 transition:.4s;
-box-shadow:-5px 0 20px black;
 }
 
 .menu.active{
@@ -74,68 +70,56 @@ right:0;
 
 .menu a{
 display:block;
-margin:15px 0;
+font-size:13px;
+margin:14px 0;
 color:white;
 text-decoration:none;
-font-size:14px;
-transition:.3s;
 }
 
-.menu a:hover{
-color:#ff2a2a;
+.locked{
+opacity:.3;
+font-size:12px;
+margin:10px 0;
 }
 
 /* MAIN */
 
 main{
-margin-top:100px;
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
 text-align:center;
-padding:20px;
+padding:30px;
 }
 
 h1{
-font-size:26px;
+color:#ff2b2b;
 margin-bottom:20px;
-color:#ff2a2a;
-animation:fade 1.5s;
+animation:fade 2s;
 }
 
-@keyframes fade{
-from{opacity:0;transform:translateY(10px);}
-to{opacity:1;}
+.phrase{
+opacity:.8;
+margin:10px 0;
+animation:fade 3s;
 }
 
 /* CAT */
 
 #cat{
 position:absolute;
-width:80px;
+font-size:40px;
 pointer-events:none;
-transition:.08s linear;
+transition:.07s linear;
 }
 
-/* SECTIONS */
+/* ANIM */
 
-.section{
-margin:40px 0;
-padding:20px;
-background:#120000;
-border-radius:12px;
-box-shadow:0 0 15px #ff2a2a33;
-animation:fade 1s;
-}
-
-.locked{
-opacity:.4;
-}
-
-/* FOOTER */
-
-footer{
-text-align:center;
-font-size:11px;
-opacity:.4;
-margin:40px 0;
+@keyframes fade{
+from{opacity:0;transform:translateY(10px);}
+to{opacity:1;}
 }
 
 </style>
@@ -154,43 +138,35 @@ margin:40px 0;
 </header>
 
 <div class="menu" id="menu">
-<a href="#">Historia</a>
-<a href="#">Galería</a>
-<a href="#">Proyectos</a>
-<a href="#">Chat con IA</a>
-<a href="#">Chat conmigo</a>
-<a href="#">MiniJuego</a>
+<a>Historia</a>
+<a>Galería</a>
+<a>Proyectos</a>
+<a>Chat con IA</a>
+<a>Chat conmigo</a>
+<a>MiniJuego</a>
 
 <div class="locked">Bloqueado</div>
 <div class="locked">Bloqueado</div>
 <div class="locked">Bloqueado</div>
 <div class="locked">Bloqueado</div>
-<div class="locked">Bloqueado (próximamente)</div>
+<div class="locked">Próximamente</div>
 </div>
 
-<img id="cat" src="https://i.imgur.com/6o5VY8K.png">
+<div id="cat">🐱</div>
 
 <main>
 
-<h1>Bienvenidos</h1>
+<h1>Bienvenida</h1>
 
-<div class="section">
-Esta es nuestra página. Todavía está creciendo ❤️
-</div>
-
-<div class="section">
-Historia – Galería – Proyectos aparecen solo desde el menú.
-</div>
+<div class="phrase">“Elegirte todos los días.”</div>
+<div class="phrase">“No es perfecto, pero es nuestro.”</div>
+<div class="phrase">“Vos sos mi lugar seguro.”</div>
 
 </main>
 
-<footer>
-Hecho con amor 🔥
-</footer>
-
 <script>
 
-const menu = document.getElementById("menu");
+const menu=document.getElementById("menu");
 
 function toggleMenu(){
 menu.classList.toggle("active");
@@ -198,16 +174,16 @@ menu.classList.toggle("active");
 
 /* CAT FOLLOW */
 
-const cat = document.getElementById("cat");
+const cat=document.getElementById("cat");
 
-document.addEventListener("mousemove", e=>{
-cat.style.left = e.pageX - 40 + "px";
-cat.style.top = e.pageY - 40 + "px";
+document.addEventListener("mousemove",e=>{
+cat.style.left=e.pageX-20+"px";
+cat.style.top=e.pageY-20+"px";
 });
 
-document.addEventListener("touchmove", e=>{
-cat.style.left = e.touches[0].pageX - 40 + "px";
-cat.style.top = e.touches[0].pageY - 40 + "px";
+document.addEventListener("touchmove",e=>{
+cat.style.left=e.touches[0].pageX-20+"px";
+cat.style.top=e.touches[0].pageY-20+"px";
 });
 
 </script>
