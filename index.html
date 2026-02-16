@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Una Vida Juntos</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<title>Una Vida Juntos</title>
 
 <style>
 
@@ -12,225 +12,203 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Poppins,sans-serif;
+font-family:Arial, sans-serif;
 }
 
 body{
-background:linear-gradient(135deg,#ff9a9e,#fad0c4);
-min-height:100vh;
-color:#333;
-overflow-x:hidden;
-}
-
-/* LOADER */
-
-#loader{
-position:fixed;
-inset:0;
-background:#000;
+background:#0b0b0b;
 color:white;
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:9999;
-font-size:22px;
+overflow-x:hidden;
 }
 
 /* HEADER */
 
 header{
-padding:20px;
-}
-
-.topbar{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+padding:10px 15px;
 display:flex;
-justify-content:space-between;
-align-items:center;
+flex-direction:column;
+z-index:1000;
 }
 
 .logo{
-font-weight:600;
-font-size:20px;
+font-size:14px;
+color:#ff2a2a;
+font-weight:bold;
 }
 
 .hamburger{
-font-size:28px;
+margin-top:6px;
+width:25px;
 cursor:pointer;
+}
+
+.hamburger span{
+display:block;
+height:3px;
+background:white;
+margin:5px 0;
+transition:.3s;
 }
 
 /* MENU */
 
-#menu{
+.menu{
 position:fixed;
 top:0;
-right:-100%;
-width:70%;
+right:-260px;
+width:220px;
 height:100%;
-background:white;
-padding:40px;
-display:flex;
-flex-direction:column;
-gap:25px;
-transition:.3s;
-z-index:1000;
+background:#130000;
+padding:60px 20px;
+transition:.4s;
+box-shadow:-5px 0 20px black;
 }
 
-#menu.show{
+.menu.active{
 right:0;
 }
 
-#menu a{
-text-decoration:none;
-color:#333;
-font-size:18px;
-}
-
-/* HERO */
-
-.hero{
-text-align:center;
-margin-top:60px;
-}
-
-.hero h1{
-font-size:32px;
-}
-
-.hero button{
-margin-top:20px;
-padding:12px 25px;
-border:none;
-border-radius:25px;
-background:#ff5c8a;
+.menu a{
+display:block;
+margin:15px 0;
 color:white;
-font-size:16px;
-cursor:pointer;
-}
-
-/* SECCIONES */
-
-.section{
-padding:40px 20px;
-display:grid;
-gap:25px;
-}
-
-.card{
-background:white;
-border-radius:20px;
-padding:25px;
-box-shadow:0 10px 25px rgba(0,0,0,.1);
+text-decoration:none;
+font-size:14px;
 transition:.3s;
 }
 
-.card:hover{
-transform:translateY(-5px);
+.menu a:hover{
+color:#ff2a2a;
 }
+
+/* MAIN */
+
+main{
+margin-top:100px;
+text-align:center;
+padding:20px;
+}
+
+h1{
+font-size:26px;
+margin-bottom:20px;
+color:#ff2a2a;
+animation:fade 1.5s;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(10px);}
+to{opacity:1;}
+}
+
+/* CAT */
+
+#cat{
+position:absolute;
+width:80px;
+pointer-events:none;
+transition:.08s linear;
+}
+
+/* SECTIONS */
+
+.section{
+margin:40px 0;
+padding:20px;
+background:#120000;
+border-radius:12px;
+box-shadow:0 0 15px #ff2a2a33;
+animation:fade 1s;
+}
+
+.locked{
+opacity:.4;
+}
+
+/* FOOTER */
 
 footer{
 text-align:center;
-padding:30px;
-opacity:.6;
-}
-
-/* CORAZONES */
-
-.heart{
-position:fixed;
-animation:fly 1s ease forwards;
-}
-
-@keyframes fly{
-to{
-transform:translate(var(--x),var(--y));
-opacity:0;
-}
+font-size:11px;
+opacity:.4;
+margin:40px 0;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div id="loader">Cargando nuestro futuro...</div>
-
 <header>
-
-<div class="topbar">
 <div class="logo">Una Vida Juntos</div>
-<div class="hamburger" onclick="toggleMenu()">☰</div>
+
+<div class="hamburger" onclick="toggleMenu()">
+<span></span>
+<span></span>
+<span></span>
 </div>
-
-<nav id="menu">
-<a href="#historia">Historia</a>
-<a href="#galeria">Galería</a>
-<a href="#proyecto">Proyecto</a>
-<a href="#chat">Chat IA</a>
-</nav>
-
-<div class="hero">
-<h1>Romina & Rodrigo</h1>
-<button onclick="like(event)">❤️ Me gusta</button>
-</div>
-
 </header>
 
+<div class="menu" id="menu">
+<a href="#">Historia</a>
+<a href="#">Galería</a>
+<a href="#">Proyectos</a>
+<a href="#">Chat con IA</a>
+<a href="#">Chat conmigo</a>
+<a href="#">MiniJuego</a>
+
+<div class="locked">Bloqueado</div>
+<div class="locked">Bloqueado</div>
+<div class="locked">Bloqueado</div>
+<div class="locked">Bloqueado</div>
+<div class="locked">Bloqueado (próximamente)</div>
+</div>
+
+<img id="cat" src="https://i.imgur.com/6o5VY8K.png">
+
+<main>
+
+<h1>Bienvenidos</h1>
+
 <div class="section">
-
-<div class="card" id="historia">
-<h2>Nuestra historia</h2>
-<p>Esto empezó con amor… y va a terminar siendo nuestra vida.</p>
+Esta es nuestra página. Todavía está creciendo ❤️
 </div>
 
-<div class="card" id="galeria">
-<h2>Galería</h2>
-<p>Próximamente fotos nuestras.</p>
+<div class="section">
+Historia – Galería – Proyectos aparecen solo desde el menú.
 </div>
 
-<div class="card" id="proyecto">
-<h2>Proyecto</h2>
-<p>Casa · Viajes · Mascota · Familia</p>
-</div>
-
-<div class="card" id="chat">
-<h2>Chat IA</h2>
-<p>Muy pronto ❤️</p>
-</div>
-
-</div>
+</main>
 
 <footer>
-Nuestro comienzo · Nuestro futuro
+Hecho con amor 🔥
 </footer>
 
 <script>
 
+const menu = document.getElementById("menu");
+
 function toggleMenu(){
-document.getElementById("menu").classList.toggle("show");
+menu.classList.toggle("active");
 }
 
-function explode(x,y){
-for(let i=0;i<15;i++){
-const h=document.createElement("div");
-h.className="heart";
-h.innerText="❤️";
-h.style.left=x+"px";
-h.style.top=y+"px";
-h.style.setProperty("--x",(Math.random()*200-100)+"px");
-h.style.setProperty("--y",(Math.random()*200-100)+"px");
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),1000);
-}
-}
+/* CAT FOLLOW */
 
-function like(e){
-explode(e.clientX,e.clientY);
-}
+const cat = document.getElementById("cat");
 
-window.onload=()=>{
-document.getElementById("loader").style.display="none";
-}
+document.addEventListener("mousemove", e=>{
+cat.style.left = e.pageX - 40 + "px";
+cat.style.top = e.pageY - 40 + "px";
+});
+
+document.addEventListener("touchmove", e=>{
+cat.style.left = e.touches[0].pageX - 40 + "px";
+cat.style.top = e.touches[0].pageY - 40 + "px";
+});
 
 </script>
 
