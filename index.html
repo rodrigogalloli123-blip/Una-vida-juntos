@@ -16,7 +16,7 @@
 body {
   background: #f4a1a1; /* Rojo pastel */
   color: white;
-  overflow: hidden; /* Mantenemos el estilo original */
+  overflow: hidden;
   height: 100vh;
   position: relative;
 }
@@ -55,7 +55,6 @@ header {
   height: 3px;
   background: white;
   border-radius: 2px;
-  transition: 0.3s;
 }
 
 /* ==================== NOMBRE SECCIÓN ==================== */
@@ -98,12 +97,6 @@ header {
   margin: 15px 0;
   color: white;
   text-decoration: none;
-  transition: 0.2s;
-}
-
-.menu a:hover {
-  transform: translateX(-5px);
-  font-weight: bold;
 }
 
 .locked {
@@ -128,7 +121,7 @@ main, .section {
   position: absolute;
   top: 12%;
   width: 90%;
-  height: 60px; /* Espacio fijo para evitar saltos */
+  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -137,11 +130,10 @@ main, .section {
 .phrase {
   font-size: 18px;
   line-height: 1.4;
-  display: none; /* Corregido: oculto por defecto */
+  display: none; 
   animation: fadeIn 0.8s ease-in;
 }
 
-/* BIENVENIDA */
 h1#bienvenida {
   font-size: 42px;
   color: white;
@@ -160,13 +152,13 @@ h1#bienvenida span {
 #contador {
   margin-top: 25px;
   font-size: 18px;
-  font-weight: 300;
-  background: rgba(255,255,255,0.15);
-  padding: 10px 20px;
+  font-weight: bold;
+  background: rgba(255,255,255,0.2);
+  padding: 12px 25px;
   border-radius: 30px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* ==================== FRASE REGALO ==================== */
 #frase-regalo {
   margin-top: 25px;
   font-size: 15px;
@@ -184,9 +176,6 @@ h1#bienvenida span {
   pointer-events: none;
   z-index: 1000;
   transition: transform 0.1s linear;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 /* ==================== ANIMACIONES ==================== */
@@ -197,13 +186,6 @@ h1#bienvenida span {
 
 @keyframes drop {
   to { opacity: 1; transform: translateY(0); }
-}
-
-/* Para secciones vacías por ahora */
-.section h2 {
-    font-size: 30px;
-    border-bottom: 2px solid white;
-    padding-bottom: 10px;
 }
 </style>
 </head>
@@ -252,15 +234,15 @@ h1#bienvenida span {
   </div>
 
   <h1 id="bienvenida"></h1>
-  <div id="contador">Cargando nuestro tiempo...</div>
+  <div id="contador">Calculando nuestro tiempo...</div>
   <div id="frase-regalo">
     Hola Romina, mi amor. Quiero que esto sea tuyo, es mi regalo por este 18 de febrero. Quiero que con el pasar del tiempo podamos actualizarla y de acá a 30 años mostrarles esta página a nuestros hijos. Te amo amor de mi vida, felices 3 años y 3 meses...
   </div>
 </main>
 
-<div id="historia" class="section" style="display:none;"><h2>📖 Nuestra Historia</h2><p style="margin-top:20px">Próximamente escribiremos nuestro camino...</p></div>
-<div id="galeria" class="section" style="display:none;"><h2>📸 Galería</h2><p style="margin-top:20px">Fotos de nuestros momentos más lindos.</p></div>
-<div id="proyectos" class="section" style="display:none;"><h2>🚀 Proyectos</h2><p style="margin-top:20px">Todo lo que vamos a construir juntos.</p></div>
+<div id="historia" class="section" style="display:none;"><h2>📖 Nuestra Historia</h2></div>
+<div id="galeria" class="section" style="display:none;"><h2>📸 Galería</h2></div>
+<div id="proyectos" class="section" style="display:none;"><h2>🚀 Proyectos</h2></div>
 <div id="chatIA" class="section" style="display:none;"><h2>🤖 Chat con IA</h2></div>
 <div id="chatConmigo" class="section" style="display:none;"><h2>💬 Chat conmigo</h2></div>
 <div id="minijuego" class="section" style="display:none;"><h2>🎮 MiniJuego</h2></div>
@@ -270,7 +252,7 @@ h1#bienvenida span {
 const menu = document.getElementById("menu");
 function toggleMenu() { menu.classList.toggle("active"); }
 
-/* ==================== PANTALLA INICIAL (BIENVENIDA) ==================== */
+/* ==================== BIENVENIDA ANIMADA ==================== */
 const bienvenidaText = "Bienvenida";
 const bienvenidaContainer = document.getElementById("bienvenida");
 for(let i=0; i<bienvenidaText.length; i++){
@@ -280,7 +262,7 @@ for(let i=0; i<bienvenidaText.length; i++){
   bienvenidaContainer.appendChild(span);
 }
 
-/* ==================== FRASES ROTATORIAS (CORREGIDO) ==================== */
+/* ==================== FRASES ROTATORIAS ==================== */
 const frases = document.querySelectorAll(".phrase");
 let indiceFrase = 0;
 function mostrarFrases() {
@@ -291,28 +273,40 @@ function mostrarFrases() {
 mostrarFrases();
 setInterval(mostrarFrases, 4000); 
 
-/* ==================== CONTADOR ==================== */
-const contador = document.getElementById("contador");
-const inicio = new Date("2020-10-17T00:00:00"); 
+/* ==================== CONTADOR EXACTO (CORREGIDO) ==================== */
+// Para que mañana 18 de febrero a las 00:00 se cumplan 3 años y 3 meses:
+// 18 de Noviembre de 2022 -> Mes 10 en JavaScript (0=Ene, 10=Nov)
+const fechaInicio = new Date(2022, 10, 18, 0, 0, 0); 
 
 function actualizarContador() {
-  const ahora = new Date();
-  let diff = ahora - inicio;
+    const ahora = new Date();
+    
+    let anios = ahora.getFullYear() - fechaInicio.getFullYear();
+    let meses = ahora.getMonth() - fechaInicio.getMonth();
+    let dias = ahora.getDate() - fechaInicio.getDate();
 
-  const anios = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
-  const mesesTotal = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44));
-  const meses = mesesTotal % 12;
-  const dias = Math.floor((diff / (1000 * 60 * 60 * 24)) % 30.44);
-  const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutos = Math.floor((diff / (1000 * 60)) % 60);
-  const segundos = Math.floor((diff / 1000) % 60);
+    if (dias < 0) {
+        meses--;
+        const ultimoDiaMesAnterior = new Date(ahora.getFullYear(), ahora.getMonth(), 0).getDate();
+        dias += ultimoDiaMesAnterior;
+    }
 
-  contador.textContent = `${anios} años, ${meses} meses, ${dias} días, ${horas}h ${minutos}m ${segundos}s`;
+    if (meses < 0) {
+        anios--;
+        meses += 12;
+    }
+
+    const horas = ahora.getHours();
+    const minutos = ahora.getMinutes();
+    const segundos = ahora.getSeconds();
+
+    document.getElementById("contador").textContent = 
+        `${anios} años, ${meses} meses, ${dias} días, ${horas}h ${minutos}m ${segundos}s`;
 }
 setInterval(actualizarContador, 1000);
 actualizarContador();
 
-/* ==================== GATITO QUE SIGUE EL MOUSE ==================== */
+/* ==================== GATITO SIGUE MOUSE ==================== */
 const cat = document.getElementById("cat");
 let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2;
 let catX = mouseX, catY = mouseY;
@@ -325,10 +319,8 @@ function moverGato(){
   catY += (mouseY - catY) * 0.08;
   cat.style.left = (catX - 15) + "px";
   cat.style.top = (catY - 15) + "px";
-
   let dist = Math.hypot(catX - mouseX, catY - mouseY);
   cat.textContent = dist < 10 ? "😼" : "🐱"; 
-
   requestAnimationFrame(moverGato);
 }
 moverGato();
@@ -338,13 +330,11 @@ const sectionName = document.getElementById("section-name");
 function openSection(id, name){
   document.querySelectorAll(".section").forEach(s => s.style.display = "none");
   document.getElementById("pantalla-principal").style.display = "none";
-  const target = document.getElementById(id);
-  target.style.display = "flex";
+  document.getElementById(id).style.display = "flex";
   sectionName.textContent = name;
   sectionName.style.display = "block";
   menu.classList.remove("active");
 }
-
 function goHome(){
   document.querySelectorAll(".section").forEach(s => s.style.display = "none");
   document.getElementById("pantalla-principal").style.display = "flex";
