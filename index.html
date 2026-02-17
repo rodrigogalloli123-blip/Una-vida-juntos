@@ -3,165 +3,183 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>Una Vida Juntos</title>
 
 <style>
-*{margin:0; padding:0; box-sizing:border-box; font-family:system-ui;}
-body{
-  background:#FFB3AB; /* rojo pastel */
-  color:white;
-  overflow:hidden;
-  height:100vh;
-  width:100vw;
+/* ==================== RESET ==================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui;
+}
+body {
+  background: #f4a1a1; /* rojo pastel */
+  color: white;
+  overflow: hidden;
+  height: 100vh;
+  position: relative;
 }
 
-/* HEADER */
-header{
-  position:fixed;
-  top:10px;
-  left:10px;
-  z-index:100;
-  display:flex;
-  align-items:center;
-  gap:10px;
+/* ==================== HEADER ==================== */
+header {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-.logo{
-  font-size:18px;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
+.logo {
+  font-size: 18px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.hamburger{
-  width:25px;
-  cursor:pointer;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  height:18px;
+.hamburger {
+  margin-top: 6px;
+  width: 22px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 18px;
 }
 
-.hamburger span{
-  display:block;
-  height:3px;
-  background:white;
-  border-radius:2px;
+.hamburger span {
+  display: block;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
 }
 
-/* MENU */
-.menu{
-  position:fixed;
-  right:-220px;
-  top:0;
-  width:200px;
-  height:100%;
-  background:#E0A96F; /* caramelo */
-  padding:60px 15px;
-  transition:.4s;
-  z-index:99;
+/* ==================== NOMBRE SECCIÓN ==================== */
+#section-name {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+  display: none;
 }
 
-.menu.active{
-  right:0;
+/* ==================== MENU ==================== */
+.menu {
+  position: fixed;
+  right: -220px;
+  top: 0;
+  width: 220px;
+  height: 100%;
+  background: #d99b6d; /* caramelo */
+  padding: 60px 15px;
+  transition: 0.4s;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
 }
 
-.menu a{
-  display:block;
-  font-size:14px;
-  margin:12px 0;
-  color:white;
-  text-decoration:none;
-  cursor:pointer;
+.menu.active {
+  right: 0;
 }
 
-.locked{
-  opacity:.3;
-  font-size:12px;
-  margin:10px 0;
+.menu a {
+  display: block;
+  font-size: 14px;
+  margin: 14px 0;
+  color: white;
+  text-decoration: none;
 }
 
-/* MAIN */
-main{
-  height:100%;
-  width:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  position:relative;
+.locked {
+  opacity: 0.3;
+  font-size: 12px;
+  margin: 10px 0;
 }
 
-/* FRASES ESTÁTICAS */
-#frases-container{
-  position:absolute;
-  top:20px;
-  width:90%;
-  text-align:center;
-  font-size:16px;
-  line-height:1.5;
+/* ==================== MAIN ==================== */
+main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
+  position: relative;
+}
+
+#frases-container {
+  position: absolute;
+  top: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.phrase {
+  font-size: 18px;
+  margin: 5px 0;
+  opacity: 0.8;
+  text-align: center;
 }
 
 /* BIENVENIDA */
-h1#bienvenida{
-  font-size:32px;
-  color:white;
-  margin-top:120px;
-  text-align:center;
+h1#bienvenida {
+  font-size: 32px;
+  color: white;
+  margin-top: 150px; /* deja espacio para las frases arriba */
+  display: flex;
 }
 
-/* CONTADOR */
-#contador{
-  margin-top:15px;
-  font-size:18px;
+h1#bienvenida span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(-50px);
+  animation: drop 0.5s forwards;
 }
 
-/* MENSAJE */
-#mensaje{
-  margin-top:20px;
-  font-size:16px;
-  max-width:80%;
-  line-height:1.4;
-  color:white;
+/* ==================== CONTADOR ==================== */
+#contador {
+  margin-top: 20px;
+  font-size: 16px;
+  opacity: 0.8;
 }
 
-/* SECCION ACTIVA */
-.section-active{
-  position:absolute;
-  top:60px;
-  left:0;
-  width:100%;
-  height:calc(100% - 60px);
-  background:#FFB3AB;
-  display:none;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-start;
-  text-align:center;
-  overflow:auto;
-  padding:20px;
+/* ==================== FRASE REGALO ==================== */
+#frase-regalo {
+  margin-top: 15px;
+  font-size: 15px;
+  max-width: 500px;
+  text-align: center;
+  opacity: 0.9;
 }
 
-/* TITULO DE SECCION */
-#section-title{
-  position:fixed;
-  top:10px;
-  right:10px;
-  color:white;
-  font-size:18px;
-  font-weight:bold;
-  display:none;
-  z-index:101;
+/* ==================== GATITO PIXEL ART ==================== */
+#cat {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  pointer-events: none;
+  image-rendering: pixelated;
+  transition: 0.07s linear;
 }
 
-/* CAT */
-#cat{
-  position:absolute;
-  font-size:40px;
-  pointer-events:none;
-  transition:.07s linear;
+/* ==================== ANIM ==================== */
+@keyframes fadeInOut {
+  0% {opacity: 0;}
+  10% {opacity: 1;}
+  90% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+@keyframes drop {
+  0% {opacity:0; transform:translateY(-50px);}
+  100% {opacity:1; transform:translateY(0);}
 }
 </style>
 </head>
@@ -177,13 +195,15 @@ h1#bienvenida{
   </div>
 </header>
 
+<div id="section-name"></div>
+
 <div class="menu" id="menu">
-  <a onclick="openSection('historia')">Historia</a>
-  <a onclick="openSection('galeria')">Galería</a>
-  <a onclick="openSection('proyectos')">Proyectos</a>
-  <a onclick="openSection('chatIA')">Chat con IA</a>
-  <a onclick="openSection('chatConmigo')">Chat conmigo</a>
-  <a onclick="openSection('miniJuego')">MiniJuego</a>
+  <a href="#" onclick="openSection('historia','Historia')">Historia</a>
+  <a href="#" onclick="openSection('galeria','Galería')">Galería</a>
+  <a href="#" onclick="openSection('proyectos','Proyectos')">Proyectos</a>
+  <a href="#" onclick="openSection('chatIA','Chat con IA')">Chat con IA</a>
+  <a href="#" onclick="openSection('chatConmigo','Chat conmigo')">Chat conmigo</a>
+  <a href="#" onclick="openSection('minijuego','MiniJuego')">MiniJuego</a>
   <div class="locked">Bloqueado</div>
   <div class="locked">Bloqueado</div>
   <div class="locked">Bloqueado</div>
@@ -191,126 +211,135 @@ h1#bienvenida{
   <div class="locked">Próximamente</div>
 </div>
 
+<!-- GATITO PIXEL ART -->
 <div id="cat">🐱</div>
 
-<div id="section-title"></div>
-
-<main>
-  <!-- FRASES ESTÁTICAS -->
+<main id="pantalla-principal">
   <div id="frases-container">
-    <div>La Única forma de ver el futuro es con el amor que te tengo, por que sé que en 100 años seguiré amandote.</div>
-    <div>Cualquier necesidad tuya es mi nueva profesión.</div>
-    <div>Mi poema favorito es escucharte todos los días.</div>
-    <div>Amo que seas vos.</div>
-    <div>Desde la luna todavía podría verte brillar.</div>
-    <div>Haré lo posible e intentaré lo imposible por vos.</div>
-    <div>Sin omi no hay gatito.</div>
-    <div>Quiero que te sientas afortunada de tenerme, por que yo si lo soy por vos.</div>
-    <div>Cada parte de tu cuerpo necesita ser besada delicadamente.</div>
-    <div>Amo estar con vos, amo pasar tiempo con vos, amo ser yo por que yo estoy con vos.</div>
-    <div>Si alguna vez dudas de mí amor sobre vos, es tan simple con que vengas a hablarme.</div>
-    <div>Hasta el último respiro mi amor.</div>
-    <div>Por favor no huyas de mi.</div>
-    <div>Sé que mi amor puede ser intenso, pero es real.</div>
+    <div class="phrase">La Única forma de ver el futuro es con el amor que te tengo, por que sé que en 100 años seguiré amandote.</div>
+    <div class="phrase">Cualquier necesidad tuya es mi nueva profesión.</div>
+    <div class="phrase">Mi poema favorito es escucharte todos los días.</div>
+    <div class="phrase">Amo que seas vos.</div>
+    <div class="phrase">Desde la luna todavía podría verte brillar.</div>
+    <div class="phrase">Haré lo posible e intentaré lo imposible por vos.</div>
+    <div class="phrase">Sin omi no hay gatito.</div>
+    <div class="phrase">Quiero que te sientas afortunada de tenerme, por que yo si lo soy por vos.</div>
+    <div class="phrase">Cada parte de tu cuerpo necesita ser besada delicadamente.</div>
+    <div class="phrase">Amo estar con vos, amo pasar tiempo con vos, amo ser yo por que yo estoy con vos.</div>
+    <div class="phrase">Si alguna vez dudas de mí amor sobre vos, es tan simple con que vengas a hablarme.</div>
+    <div class="phrase">Hasta el último respiro mi amor.</div>
+    <div class="phrase">Por favor no huyas de mi.</div>
+    <div class="phrase">Sé que mi amor puede ser intenso, pero es real.</div>
   </div>
 
-  <h1 id="bienvenida">Bienvenida</h1>
-
+  <h1 id="bienvenida"></h1>
   <div id="contador"></div>
-
-  <div id="mensaje">
-    Hola mi amor, quiero que esto sea tuyo, es mi regalo por este 18 de febrero, quiero que con el pasar de los tiempos, podamos actualizarla, meterle más cosas y de acá a 30 años mostrarles esta pagina a nuestros hijos, te amo amor de mi vida, felices 3 años y 3 meses...
+  <div id="frase-regalo">
+    Hola mi amor, quiero que esto sea tuyo, es mi regalo por este 18 de febrero, quiero que con el pasar de los tiempos, podamos actualizarla, meterle más cosas y de acá a 30 años mostrarles esta página a nuestros hijos, te amo amor de mi vida, felices 3 años y 3 meses....
   </div>
 </main>
 
-<!-- SECCIONES INDEPENDIENTES -->
-<div id="historia" class="section-active">
-  <h2>Historia</h2>
-  <p>Aquí irá la historia...</p>
-</div>
-
-<div id="galeria" class="section-active">
-  <h2>Galería</h2>
-  <p>(Próximamente fotos)</p>
-</div>
-
-<div id="proyectos" class="section-active">
-  <h2>Proyectos</h2>
-  <p>Aquí irán los proyectos...</p>
-</div>
-
-<div id="chatIA" class="section-active">
-  <h2>Chat con IA</h2>
-  <p>(Próximamente)</p>
-</div>
-
-<div id="chatConmigo" class="section-active">
-  <h2>Chat conmigo</h2>
-  <p>(Próximamente)</p>
-</div>
-
-<div id="miniJuego" class="section-active">
-  <h2>MiniJuego</h2>
-  <p>(Próximamente)</p>
-</div>
+<!-- Secciones independientes -->
+<div id="historia" class="section" style="display:none; justify-content:center; align-items:center;"><h2>Historia</h2></div>
+<div id="galeria" class="section" style="display:none; justify-content:center; align-items:center;"><h2>Galería</h2></div>
+<div id="proyectos" class="section" style="display:none; justify-content:center; align-items:center;"><h2>Proyectos</h2></div>
+<div id="chatIA" class="section" style="display:none; justify-content:center; align-items:center;"><h2>Chat con IA</h2></div>
+<div id="chatConmigo" class="section" style="display:none; justify-content:center; align-items:center;"><h2>Chat conmigo</h2></div>
+<div id="minijuego" class="section" style="display:none; justify-content:center; align-items:center;"><h2>MiniJuego</h2></div>
 
 <script>
-// MENU
+/* ==================== MENU ==================== */
 const menu = document.getElementById("menu");
-function toggleMenu(){menu.classList.toggle("active");}
+function toggleMenu() { menu.classList.toggle("active"); }
 
-// CAT
+/* ==================== PANTALLA INICIAL ==================== */
+const bienvenidaText = "Bienvenida";
+const bienvenidaContainer = document.getElementById("bienvenida");
+for(let i=0;i<bienvenidaText.length;i++){
+  let span = document.createElement("span");
+  span.textContent = bienvenidaText[i];
+  span.style.animationDelay = (i*0.15) + "s";
+  bienvenidaContainer.appendChild(span);
+}
+
+/* ==================== FRASES ROTATORIAS ARRIBA ==================== */
+const frases = document.querySelectorAll("#frases-container .phrase");
+let indiceFrase = 0;
+function mostrarFrases() {
+  frases.forEach(f=>f.style.opacity=0);
+  frases[indiceFrase].style.opacity = 1;
+  indiceFrase = (indiceFrase+1)%frases.length;
+}
+mostrarFrases();
+setInterval(mostrarFrases,3000); // bucle constante
+
+/* ==================== CONTADOR ==================== */
+const contador = document.getElementById("contador");
+const inicio = new Date("2020-10-17T00:00:00"); // inicio de relación
+function actualizarContador() {
+  const ahora = new Date();
+  let diff = ahora - inicio;
+  const años = Math.floor(diff / (1000*60*60*24*365));
+  diff -= años*1000*60*60*24*365;
+  const meses = Math.floor(diff / (1000*60*60*24*30));
+  diff -= meses*1000*60*60*24*30;
+  const dias = Math.floor(diff / (1000*60*60*24));
+  diff -= dias*1000*60*60*24;
+  const horas = Math.floor(diff / (1000*60*60));
+  diff -= horas*1000*60*60;
+  const minutos = Math.floor(diff / (1000*60));
+  diff -= minutos*1000*60;
+  const segundos = Math.floor(diff/1000);
+  contador.textContent = `${años} años, ${meses} meses, ${dias} días, ${horas}h ${minutos}m ${segundos}s`;
+}
+actualizarContador();
+setInterval(actualizarContador,1000);
+
+/* ==================== GATITO PIXEL ART ==================== */
 const cat = document.getElementById("cat");
+let mouseX = window.innerWidth/2;
+let mouseY = window.innerHeight/2;
+let catX = mouseX, catY = mouseY;
+
 document.addEventListener("mousemove",e=>{
-  cat.style.left = e.pageX-20+"px";
-  cat.style.top = e.pageY-20+"px";
+  mouseX = e.pageX;
+  mouseY = e.pageY;
 });
 document.addEventListener("touchmove",e=>{
-  cat.style.left = e.touches[0].pageX-20+"px";
-  cat.style.top = e.touches[0].pageY-20+"px";
+  mouseX = e.touches[0].pageX;
+  mouseY = e.touches[0].pageY;
 });
 
-// SECCIONES
-function openSection(id){
-  document.querySelector("main").style.display="none";
-  document.querySelectorAll(".section-active").forEach(s=>s.style.display="none");
-  document.getElementById(id).style.display="flex";
-  document.getElementById("section-title").innerText = id.charAt(0).toUpperCase()+id.slice(1);
-  document.getElementById("section-title").style.display="block";
+function moverGato(){
+  catX += (mouseX - catX)*0.1;
+  catY += (mouseY - catY)*0.1;
+  cat.style.left = catX + "px";
+  cat.style.top = catY + "px";
+
+  let dx = Math.abs(catX-mouseX);
+  let dy = Math.abs(catY-mouseY);
+  if(dx<5 && dy<5){ cat.textContent = "😼"; } // mordiendo
+  else { cat.textContent = "🐱"; } // normal
+
+  requestAnimationFrame(moverGato);
+}
+moverGato();
+
+/* ==================== SECCIONES INDEPENDIENTES ==================== */
+const sectionName = document.getElementById("section-name");
+function openSection(id, name){
+  document.querySelectorAll(".section").forEach(s=>s.style.display="none");
+  document.getElementById("pantalla-principal").style.display="none";
+  document.getElementById(id).style.display = "flex";
+  sectionName.textContent = name;
+  sectionName.style.display = "block";
   menu.classList.remove("active");
 }
-
-// VOLVER AL PRINCIPAL
 function goHome(){
-  document.querySelector("main").style.display="flex";
-  document.querySelectorAll(".section-active").forEach(s=>s.style.display="none");
-  document.getElementById("section-title").style.display="none";
+  document.querySelectorAll(".section").forEach(s=>s.style.display="none");
+  document.getElementById("pantalla-principal").style.display = "flex";
+  sectionName.style.display = "none";
 }
-
-// CONTADOR
-function updateCounter(){
-  const start = new Date("2020-11-17T00:00:00"); // Inicio de relación
-  const now = new Date();
-  let diff = now - start;
-
-  const years = Math.floor(diff / (1000*60*60*24*365));
-  diff -= years*1000*60*60*24*365;
-  const months = Math.floor(diff / (1000*60*60*24*30));
-  diff -= months*1000*60*60*24*30;
-  const days = Math.floor(diff / (1000*60*60*24));
-  diff -= days*1000*60*60*24;
-  const hours = Math.floor(diff/1000/60/60);
-  diff -= hours*1000*60*60;
-  const minutes = Math.floor(diff/1000/60);
-  diff -= minutes*1000/60;
-  const seconds = Math.floor(diff/1000);
-
-  document.getElementById("contador").innerText = 
-    `${years} años, ${months} meses, ${days} días, ${hours}h ${minutes}m ${seconds}s`;
-}
-setInterval(updateCounter,1000);
-updateCounter();
 </script>
-
 </body>
 </html>
