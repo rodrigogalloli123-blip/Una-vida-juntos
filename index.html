@@ -7,7 +7,6 @@
 <title>Una Vida Juntos</title>
 
 <style>
-
 *{
 margin:0;
 padding:0;
@@ -22,7 +21,6 @@ overflow:hidden;
 }
 
 /* HEADER */
-
 header{
 position:fixed;
 top:10px;
@@ -50,7 +48,6 @@ margin:4px 0;
 }
 
 /* MENU */
-
 .menu{
 position:fixed;
 right:-220px;
@@ -81,7 +78,6 @@ margin:10px 0;
 }
 
 /* MAIN */
-
 main{
 height:100vh;
 display:flex;
@@ -90,34 +86,30 @@ justify-content:center;
 align-items:center;
 text-align:center;
 padding:30px;
+position:relative;
 }
 
 h1{
 color:#ff2b2b;
 margin-bottom:20px;
-animation:fade 2s;
 }
 
+/* Frases animadas */
 .phrase{
-opacity:.8;
-margin:10px 0;
-animation:fade 3s;
+opacity:0;
+position:absolute;
+transition:opacity 1s, transform 1s;
+color:white;
+font-size:20px;
+text-shadow: 0 0 8px #ff2b2b;
 }
 
 /* CAT */
-
 #cat{
 position:absolute;
 font-size:40px;
 pointer-events:none;
 transition:.07s linear;
-}
-
-/* ANIM */
-
-@keyframes fade{
-from{opacity:0;transform:translateY(10px);}
-to{opacity:1;}
 }
 
 </style>
@@ -127,7 +119,6 @@ to{opacity:1;}
 
 <header>
 <div class="logo">Una Vida Juntos</div>
-
 <div class="hamburger" onclick="toggleMenu()">
 <span></span>
 <span></span>
@@ -153,39 +144,67 @@ to{opacity:1;}
 <div id="cat">🐱</div>
 
 <main>
-
 <h1>Bienvenida</h1>
 
-<div class="phrase">“Elegirte todos los días.”</div>
-<div class="phrase">“No es perfecto, pero es nuestro.”</div>
-<div class="phrase">“Vos sos mi lugar seguro.”</div>
+<!-- FRASES -->
+<div class="phrase">La Única forma de ver el futuro es con el amor que te tengo, por que sé que en 100 años seguiré amandote.</div>
+<div class="phrase">Cualquier necesidad tuya es mi nueva profesión.</div>
+<div class="phrase">Mi poema favorito es escucharte todos los días.</div>
+<div class="phrase">Amo que seas vos.</div>
+<div class="phrase">Desde la luna todavía podría verte brillar.</div>
+<div class="phrase">Haré lo posible e intentaré lo imposible por vos.</div>
+<div class="phrase">Sin omi no hay gatito.</div>
+<div class="phrase">Quiero que te sientas afortunada de tenerme, por que yo si lo soy por vos.</div>
+<div class="phrase">Cada parte de tu cuerpo necesita ser besada delicadamente.</div>
+<div class="phrase">Amo estar con vos, amo pasar tiempo con vos, amo ser yo por que yo estoy con vos.</div>
+<div class="phrase">Si alguna vez dudas de mí amor sobre vos, es tan simple con que vengas a hablarme.</div>
+<div class="phrase">Hasta el último respiro mi amor.</div>
+<div class="phrase">Por favor no huyas de mi.</div>
+<div class="phrase">Sé que mi amor puede ser intenso, pero es real.</div>
 
 </main>
 
 <script>
-
 const menu=document.getElementById("menu");
-
 function toggleMenu(){
 menu.classList.toggle("active");
 }
 
 /* CAT FOLLOW */
-
 const cat=document.getElementById("cat");
-
 document.addEventListener("mousemove",e=>{
 cat.style.left=e.pageX-20+"px";
 cat.style.top=e.pageY-20+"px";
 });
-
 document.addEventListener("touchmove",e=>{
 cat.style.left=e.touches[0].pageX-20+"px";
 cat.style.top=e.touches[0].pageY-20+"px";
 });
 
+/* FRASES ROTANTES CON SUBIDA SUAVE */
+let phrases=document.querySelectorAll(".phrase");
+let current=0;
+
+function showPhrase(index){
+phrases.forEach((p,i)=>{
+if(i===index){
+p.style.opacity=1;
+p.style.transform="translateY(0px)";
+} else {
+p.style.opacity=0;
+p.style.transform="translateY(20px)";
+}
+})
+current++;
+if(current>=phrases.length)current=0;
+}
+
+showPhrase(current);
+setInterval(()=>showPhrase(current),4000);
+
 </script>
 
 </body>
 </html>
+
 
