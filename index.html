@@ -3,343 +3,232 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Una Vida Juntos - Rodrigo y Romina</title>
+<title>Una Vida Juntos - R&R</title>
 
 <style>
-/* ==================== RESET & BASE ==================== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-body {
-  background: #f4a1a1; /* Rojo pastel */
-  color: white;
-  overflow: hidden;
-  height: 100vh;
-  position: relative;
+/* ==================== ESTILO "GLASSMORPHISM" 2026 ==================== */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+
+body { 
+    background: radial-gradient(circle at center, #ffb3b3 0%, #f4a1a1 100%); 
+    color: white; 
+    overflow: hidden; 
+    height: 100vh; 
+    display: flex;
+    flex-direction: column;
 }
 
-/* ==================== HEADER ==================== */
-header {
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  z-index: 100;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+/* ==================== NAVEGACIÓN ==================== */
+header { position: fixed; top: 20px; left: 20px; z-index: 100; }
+.logo { font-size: 22px; font-weight: bold; cursor: pointer; text-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+.hamburger { margin-top: 10px; width: 28px; cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
+.hamburger span { display: block; height: 3px; background: white; border-radius: 5px; transition: 0.3s; }
+
+.menu { 
+    position: fixed; right: -280px; top: 0; width: 280px; height: 100%; 
+    background: rgba(217, 155, 109, 0.95); backdrop-filter: blur(10px);
+    padding: 80px 30px; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
+    z-index: 99; display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,0.1); 
+}
+.menu.active { right: 0; }
+.menu a { display: block; font-size: 18px; margin: 15px 0; color: white; text-decoration: none; font-weight: 500; }
+
+/* ==================== SECCIÓN CHAT (ESTILO IMAGEN) ==================== */
+.section { 
+    flex: 1; display: flex; flex-direction: column; justify-content: center; 
+    align-items: center; padding: 20px; transition: 0.5s;
 }
 
-.logo {
-  font-size: 20px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+#chat-card {
+    width: 100%;
+    max-width: 420px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    padding: 35px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1), 0 0 20px rgba(255, 180, 180, 0.5);
+    animation: float 4s ease-in-out infinite;
 }
 
-.hamburger {
-  margin-top: 10px;
-  width: 25px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 18px;
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+#ai-icon { font-size: 60px; margin-bottom: 10px; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1)); }
+
+#chat-messages {
+    width: 100%; height: 280px; overflow-y: auto;
+    display: flex; flex-direction: column; gap: 12px;
+    margin: 15px 0; padding-right: 8px;
 }
 
-.hamburger span {
-  display: block;
-  height: 3px;
-  background: white;
-  border-radius: 2px;
+/* Scrollbar personalizada */
+#chat-messages::-webkit-scrollbar { width: 4px; }
+#chat-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 10px; }
+
+.msg { padding: 12px 18px; border-radius: 25px; font-size: 14px; max-width: 85%; line-height: 1.5; }
+.bot { align-self: flex-start; background: #e69b6d; color: white; border-bottom-left-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+.user { align-self: flex-end; background: white; color: #f4a1a1; border-bottom-right-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+
+#chat-input-container {
+    width: 100%; display: flex; background: rgba(255, 255, 255, 0.95);
+    border-radius: 35px; padding: 6px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);
 }
 
-/* ==================== NOMBRE SECCIÓN ==================== */
-#section-name {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  font-size: 16px;
-  color: white;
-  font-weight: bold;
-  display: none;
-  background: rgba(255,255,255,0.2);
-  padding: 5px 12px;
-  border-radius: 20px;
-}
+#chat-input { flex: 1; border: none; padding: 10px 20px; background: transparent; outline: none; color: #444; font-size: 15px; }
 
-/* ==================== MENU ==================== */
-.menu {
-  position: fixed;
-  right: -250px;
-  top: 0;
-  width: 250px;
-  height: 100%;
-  background: #d99b6d; /* Caramelo */
-  padding: 80px 25px;
-  transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 99;
-  display: flex;
-  flex-direction: column;
-  box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-}
+#send-btn { background: #e69b6d; border: none; color: white; padding: 10px 22px; border-radius: 30px; cursor: pointer; font-weight: bold; }
 
-.menu.active {
-  right: 0;
-}
+/* ==================== PANTALLA PRINCIPAL ==================== */
+#contador { margin-top: 20px; font-size: 18px; font-weight: bold; background: rgba(255,255,255,0.25); padding: 15px 25px; border-radius: 40px; text-align: center; }
 
-.menu a {
-  display: block;
-  font-size: 16px;
-  margin: 15px 0;
-  color: white;
-  text-decoration: none;
-}
-
-.locked {
-  opacity: 0.4;
-  font-size: 13px;
-  margin: 12px 0;
-  font-style: italic;
-}
-
-/* ==================== MAIN ==================== */
-main, .section {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
-}
-
-#frases-container {
-  position: absolute;
-  top: 12%;
-  width: 90%;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.phrase {
-  font-size: 18px;
-  line-height: 1.4;
-  display: none; 
-  animation: fadeIn 0.8s ease-in;
-}
-
-h1#bienvenida {
-  font-size: 42px;
-  color: white;
-  margin-top: 40px;
-  display: flex;
-}
-
-h1#bienvenida span {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(-50px);
-  animation: drop 0.6s forwards;
-}
-
-/* ==================== CONTADOR ==================== */
-#contador {
-  margin-top: 25px;
-  font-size: 18px;
-  font-weight: bold;
-  background: rgba(255,255,255,0.2);
-  padding: 12px 25px;
-  border-radius: 30px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-#frase-regalo {
-  margin-top: 25px;
-  font-size: 15px;
-  max-width: 550px;
-  line-height: 1.6;
-  opacity: 0.95;
-}
-
-/* ==================== GATITO PIXEL ART ==================== */
-#cat {
-  position: absolute;
-  width: 35px;
-  height: 35px;
-  font-size: 30px;
-  pointer-events: none;
-  z-index: 1000;
-  transition: transform 0.1s linear;
-}
-
-/* ==================== ANIMACIONES ==================== */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes drop {
-  to { opacity: 1; transform: translateY(0); }
-}
+#cat-cursor { position: absolute; font-size: 28px; pointer-events: none; z-index: 1000; transition: 0.1s; }
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo" onclick="goHome()">Una Vida Juntos</div>
-  <div class="hamburger" onclick="toggleMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
+    <div class="logo" onclick="goHome()">Una Vida Juntos</div>
+    <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+    </div>
 </header>
 
-<div id="section-name"></div>
-
 <nav class="menu" id="menu">
-  <a href="#" onclick="openSection('historia','Historia')">Nuestra Historia</a>
-  <a href="#" onclick="openSection('galeria','Galería')">Nuestra Galería</a>
-  <a href="#" onclick="openSection('proyectos','Proyectos')">Futuros Proyectos</a>
-  <a href="#" onclick="openSection('chatIA','Chat con IA')">Chat con IA</a>
-  <a href="#" onclick="openSection('chatConmigo','Chat conmigo')">Chat conmigo</a>
-  <a href="#" onclick="openSection('minijuego','MiniJuego')">MiniJuego del Gatito</a>
-  <div class="locked">🔒 Planes de viaje</div>
-  <div class="locked">🔒 Nuestra Casita</div>
-  <div class="locked">🔒 Álbum de Bodas</div>
-  <div class="locked">Próximamente...</div>
+    <a href="#" onclick="goHome()">Inicio</a>
+    <a href="#" onclick="openSection('chatIA')">Chat con IA</a>
+    <a href="#" onclick="openSection('historia')">Historia</a>
+    <a href="#" onclick="openSection('galeria')">Galería</a>
 </nav>
 
-<div id="cat">🐱</div>
+<div id="cat-cursor">🐱</div>
 
-<main id="pantalla-principal">
-  <div id="frases-container">
-    <div class="phrase">La única forma de ver el futuro es con el amor que te tengo.</div>
-    <div class="phrase">Cualquier necesidad tuya es mi nueva profesión.</div>
-    <div class="phrase">Mi poema favorito es escucharte todos los días.</div>
-    <div class="phrase">Amo que seas vos.</div>
-    <div class="phrase">Desde la luna todavía podría verte brillar.</div>
-    <div class="phrase">Haré lo posible e intentaré lo imposible por vos.</div>
-    <div class="phrase">Sin omi no hay gatito.</div>
-    <div class="phrase">Cada parte de tu cuerpo necesita ser besada delicadamente.</div>
-    <div class="phrase">Amo ser yo porque yo estoy con vos.</div>
-    <div class="phrase">Hasta el último respiro mi amor.</div>
-    <div class="phrase">Sé que mi amor puede ser intenso, pero es real.</div>
-  </div>
-
-  <h1 id="bienvenida"></h1>
-  <div id="contador">Calculando nuestro tiempo...</div>
-  <div id="frase-regalo">
-    Hola Romina, mi amor. Quiero que esto sea tuyo, es mi regalo por este 18 de febrero. Quiero que con el pasar del tiempo podamos actualizarla y de acá a 30 años mostrarles esta página a nuestros hijos. Te amo amor de mi vida, felices 3 años y 3 meses...
-  </div>
+<main id="main-view" class="section">
+    <h1 style="font-size: 40px; text-align: center;">Hola Romi ❤️</h1>
+    <div id="contador">Cargando nuestro tiempo...</div>
+    <p style="margin-top: 25px; max-width: 300px; text-align: center; opacity: 0.9; line-height: 1.6;">
+        "Cada segundo con vos es un regalo que quiero guardar para siempre."
+    </p>
 </main>
 
-<div id="historia" class="section" style="display:none;"><h2>📖 Nuestra Historia</h2></div>
-<div id="galeria" class="section" style="display:none;"><h2>📸 Galería</h2></div>
-<div id="proyectos" class="section" style="display:none;"><h2>🚀 Proyectos</h2></div>
-<div id="chatIA" class="section" style="display:none;"><h2>🤖 Chat con IA</h2></div>
-<div id="chatConmigo" class="section" style="display:none;"><h2>💬 Chat conmigo</h2></div>
-<div id="minijuego" class="section" style="display:none;"><h2>🎮 MiniJuego</h2></div>
+<div id="chatIA" class="section" style="display:none;">
+    <div id="chat-card">
+        <div id="ai-icon">🐱</div>
+        <h3 style="margin-bottom: 5px;">Omi-Bot</h3>
+        <p style="font-size: 12px; opacity: 0.8;">Asistente de Rodrigo & Romina</p>
+        
+        <div id="chat-messages">
+            <div class="msg bot">¡Miau! Hola Romi. Soy Omi, el gatito que cuida su historia. ¿Querés saber cuánto te ama Rodrigo o recordar algo lindo? ✨</div>
+        </div>
+
+        <div id="chat-input-container">
+            <input type="text" id="chat-input" placeholder="Preguntame algo...">
+            <button id="send-btn" onclick="askIA()">Enviar</button>
+        </div>
+    </div>
+</div>
+
+<div id="historia" class="section" style="display:none;"><h2>Nuestra Historia</h2></div>
+<div id="galeria" class="section" style="display:none;"><h2>Nuestra Galería</h2></div>
+
+<script type="importmap">
+  { "imports": { "@google/generative-ai": "https://esm.run/@google/generative-ai" } }
+</script>
+
+<script type="module">
+  import { GoogleGenerativeAI } from "@google/generative-ai";
+
+  // RODRIGO: Poné tu clave acá abajo
+  const API_KEY = "TU_API_KEY_AQUI"; 
+  const genAI = new GoogleGenerativeAI(API_KEY);
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+  window.askIA = async function() {
+    const input = document.getElementById("chat-input");
+    const messages = document.getElementById("chat-messages");
+    if(!input.value) return;
+
+    const userMsg = input.value;
+    const userDiv = document.createElement("div");
+    userDiv.className = "msg user";
+    userDiv.textContent = userMsg;
+    messages.appendChild(userDiv);
+
+    // CONFIGURACIÓN DE PERSONALIDAD
+    const promptMaster = `
+      Tu nombre es Omi-Bot. Sos un gatito tierno, mimoso y experto en la relación de Rodrigo y Romina.
+      CONTEXTO: 
+      - Rodrigo y Romina son novios desde el 18 de noviembre de 2022.
+      - Rodrigo es el creador de esta página y la ama profundamente.
+      - Mañana 18 de febrero de 2026 cumplen 3 años y 3 meses.
+      - Rodrigo dice: "Cualquier necesidad tuya es mi nueva profesión" y "Sin omi no hay gatito".
+      INSTRUCCIONES:
+      - Responde siempre con mucho amor, usa emojis de gatitos (🐱, 🐾, 😼) y corazones.
+      - Si Romina está triste, decile que Rodrigo está ahí para abrazarla.
+      - Si pregunta cuánto tiempo llevan, hacé el cálculo basado en la fecha de inicio.
+      - Sé cómplice de Rodrigo. No seas aburrido, sé muy dulce.
+      PREGUNTA DE ROMINA: ${userMsg}
+    `;
+
+    input.value = "";
+    messages.scrollTop = messages.scrollHeight;
+
+    try {
+      const result = await model.generateContent(promptMaster);
+      const response = await result.response;
+      const botDiv = document.createElement("div");
+      botDiv.className = "msg bot";
+      botDiv.textContent = response.text();
+      messages.appendChild(botDiv);
+    } catch (e) {
+      const err = document.createElement("div");
+      err.className = "msg bot";
+      err.textContent = "¡Miau! Rodrigo todavía no me puso mi cerebro (API KEY), pedile que lo haga. ❤️";
+      messages.appendChild(err);
+    }
+    messages.scrollTop = messages.scrollHeight;
+  }
+</script>
 
 <script>
-/* ==================== MENU ==================== */
+/* NAVEGACIÓN Y CONTADOR */
 const menu = document.getElementById("menu");
 function toggleMenu() { menu.classList.toggle("active"); }
 
-/* ==================== BIENVENIDA ANIMADA ==================== */
-const bienvenidaText = "Bienvenida";
-const bienvenidaContainer = document.getElementById("bienvenida");
-for(let i=0; i<bienvenidaText.length; i++){
-  let span = document.createElement("span");
-  span.textContent = bienvenidaText[i];
-  span.style.animationDelay = (i*0.15) + "s";
-  bienvenidaContainer.appendChild(span);
-}
-
-/* ==================== FRASES ROTATORIAS ==================== */
-const frases = document.querySelectorAll(".phrase");
-let indiceFrase = 0;
-function mostrarFrases() {
-  frases.forEach(f => f.style.display = "none"); 
-  frases[indiceFrase].style.display = "block";
-  indiceFrase = (indiceFrase + 1) % frases.length;
-}
-mostrarFrases();
-setInterval(mostrarFrases, 4000); 
-
-/* ==================== CONTADOR EXACTO (CORREGIDO) ==================== */
-// Para que mañana 18 de febrero a las 00:00 se cumplan 3 años y 3 meses:
-// 18 de Noviembre de 2022 -> Mes 10 en JavaScript (0=Ene, 10=Nov)
 const fechaInicio = new Date(2022, 10, 18, 0, 0, 0); 
-
 function actualizarContador() {
     const ahora = new Date();
-    
     let anios = ahora.getFullYear() - fechaInicio.getFullYear();
     let meses = ahora.getMonth() - fechaInicio.getMonth();
     let dias = ahora.getDate() - fechaInicio.getDate();
-
-    if (dias < 0) {
-        meses--;
-        const ultimoDiaMesAnterior = new Date(ahora.getFullYear(), ahora.getMonth(), 0).getDate();
-        dias += ultimoDiaMesAnterior;
-    }
-
-    if (meses < 0) {
-        anios--;
-        meses += 12;
-    }
-
-    const horas = ahora.getHours();
-    const minutos = ahora.getMinutes();
-    const segundos = ahora.getSeconds();
-
-    document.getElementById("contador").textContent = 
-        `${anios} años, ${meses} meses, ${dias} días, ${horas}h ${minutos}m ${segundos}s`;
+    if (dias < 0) { meses--; const ultimo = new Date(ahora.getFullYear(), ahora.getMonth(), 0).getDate(); dias += ultimo; }
+    if (meses < 0) { anios--; meses += 12; }
+    document.getElementById("contador").innerHTML = `${anios} años, ${meses} meses, ${dias} días<br>${ahora.getHours()}h ${ahora.getMinutes()}m ${ahora.getSeconds()}s`;
 }
-setInterval(actualizarContador, 1000);
-actualizarContador();
+setInterval(actualizarContador, 1000); actualizarContador();
 
-/* ==================== GATITO SIGUE MOUSE ==================== */
-const cat = document.getElementById("cat");
-let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2;
-let catX = mouseX, catY = mouseY;
-
-document.addEventListener("mousemove", e => { mouseX = e.pageX; mouseY = e.pageY; });
-document.addEventListener("touchmove", e => { mouseX = e.touches[0].pageX; mouseY = e.touches[0].pageY; });
-
+const cat = document.getElementById("cat-cursor");
+let mX = 0, mY = 0, cX = 0, cY = 0;
+document.addEventListener("mousemove", e => { mX = e.pageX; mY = e.pageY; });
 function moverGato(){
-  catX += (mouseX - catX) * 0.08;
-  catY += (mouseY - catY) * 0.08;
-  cat.style.left = (catX - 15) + "px";
-  cat.style.top = (catY - 15) + "px";
-  let dist = Math.hypot(catX - mouseX, catY - mouseY);
-  cat.textContent = dist < 10 ? "😼" : "🐱"; 
-  requestAnimationFrame(moverGato);
+    cX += (mX - cX) * 0.1; cY += (mY - cY) * 0.1;
+    cat.style.left = (cX - 10) + "px"; cat.style.top = (cY - 10) + "px";
+    requestAnimationFrame(moverGato);
 }
 moverGato();
 
-/* ==================== NAVEGACIÓN ==================== */
-const sectionName = document.getElementById("section-name");
-function openSection(id, name){
-  document.querySelectorAll(".section").forEach(s => s.style.display = "none");
-  document.getElementById("pantalla-principal").style.display = "none";
-  document.getElementById(id).style.display = "flex";
-  sectionName.textContent = name;
-  sectionName.style.display = "block";
-  menu.classList.remove("active");
+function openSection(id){
+    document.querySelectorAll(".section, main").forEach(s => s.style.display = "none");
+    document.getElementById(id).style.display = "flex";
+    menu.classList.remove("active");
 }
 function goHome(){
-  document.querySelectorAll(".section").forEach(s => s.style.display = "none");
-  document.getElementById("pantalla-principal").style.display = "flex";
-  sectionName.style.display = "none";
-  menu.classList.remove("active");
+    document.querySelectorAll(".section").forEach(s => s.style.display = "none");
+    document.getElementById("main-view").style.display = "flex";
+    menu.classList.remove("active");
 }
 </script>
 </body>
