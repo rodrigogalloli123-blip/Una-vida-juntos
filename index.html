@@ -56,6 +56,17 @@ header {
   border-radius: 2px;
 }
 
+/* ==================== NOMBRE SECCIÓN ==================== */
+#section-name {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+  display: none;
+}
+
 /* ==================== MENU ==================== */
 .menu {
   position: fixed;
@@ -101,10 +112,27 @@ main {
   position: relative;
 }
 
+#frases-container {
+  position: absolute;
+  top: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.phrase {
+  font-size: 18px;
+  margin: 5px 0;
+  opacity: 0.8;
+  text-align: center;
+}
+
+/* BIENVENIDA */
 h1#bienvenida {
   font-size: 32px;
   color: white;
-  margin-bottom: 20px;
+  margin-top: 150px; /* deja espacio para las frases arriba */
   display: flex;
 }
 
@@ -115,21 +143,9 @@ h1#bienvenida span {
   animation: drop 0.5s forwards;
 }
 
-/* ==================== FRASES ==================== */
-.phrase {
-  opacity: 0;
-  font-size: 18px;
-  margin: 10px 0;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 90%;
-  text-align: center;
-}
-
 /* ==================== CONTADOR ==================== */
 #contador {
-  margin-top: 10px;
+  margin-top: 20px;
   font-size: 16px;
   opacity: 0.8;
 }
@@ -179,13 +195,15 @@ h1#bienvenida span {
   </div>
 </header>
 
+<div id="section-name"></div>
+
 <div class="menu" id="menu">
-  <a href="#" onclick="openSection('historia')">Historia</a>
-  <a href="#" onclick="openSection('galeria')">Galería</a>
-  <a href="#" onclick="openSection('proyectos')">Proyectos</a>
-  <a href="#" onclick="openSection('chatIA')">Chat con IA</a>
-  <a href="#" onclick="openSection('chatConmigo')">Chat conmigo</a>
-  <a href="#" onclick="openSection('minijuego')">MiniJuego</a>
+  <a href="#" onclick="openSection('historia','Historia')">Historia</a>
+  <a href="#" onclick="openSection('galeria','Galería')">Galería</a>
+  <a href="#" onclick="openSection('proyectos','Proyectos')">Proyectos</a>
+  <a href="#" onclick="openSection('chatIA','Chat con IA')">Chat con IA</a>
+  <a href="#" onclick="openSection('chatConmigo','Chat conmigo')">Chat conmigo</a>
+  <a href="#" onclick="openSection('minijuego','MiniJuego')">MiniJuego</a>
   <div class="locked">Bloqueado</div>
   <div class="locked">Bloqueado</div>
   <div class="locked">Bloqueado</div>
@@ -194,15 +212,9 @@ h1#bienvenida span {
 </div>
 
 <!-- GATITO PIXEL ART -->
-<div id="cat"></div>
+<div id="cat">🐱</div>
 
 <main id="pantalla-principal">
-  <h1 id="bienvenida"></h1>
-  <div id="contador"></div>
-  <div id="frase-regalo">
-    Hola mi amor, quiero que esto sea tuyo, es mi regalo por este 18 de febrero, quiero que con el pasar de los tiempos, podamos actualizarla, meterle más cosas y de acá a 30 años mostrarles esta página a nuestros hijos, te amo amor de mi vida, felices 3 años y 4 meses....
-  </div>
-
   <div id="frases-container">
     <div class="phrase">La Única forma de ver el futuro es con el amor que te tengo, por que sé que en 100 años seguiré amandote.</div>
     <div class="phrase">Cualquier necesidad tuya es mi nueva profesión.</div>
@@ -219,27 +231,30 @@ h1#bienvenida span {
     <div class="phrase">Por favor no huyas de mi.</div>
     <div class="phrase">Sé que mi amor puede ser intenso, pero es real.</div>
   </div>
+
+  <h1 id="bienvenida"></h1>
+  <div id="contador"></div>
+  <div id="frase-regalo">
+    Hola mi amor, quiero que esto sea tuyo, es mi regalo por este 18 de febrero, quiero que con el pasar de los tiempos, podamos actualizarla, meterle más cosas y de acá a 30 años mostrarles esta página a nuestros hijos, te amo amor de mi vida, felices 3 años y 3 meses....
+  </div>
 </main>
 
 <!-- Secciones independientes -->
-<div id="historia" class="section" style="display:none;"><h2>Historia</h2></div>
-<div id="galeria" class="section" style="display:none;"><h2>Galería</h2></div>
-<div id="proyectos" class="section" style="display:none;"><h2>Proyectos</h2></div>
-<div id="chatIA" class="section" style="display:none;"><h2>Chat con IA</h2></div>
-<div id="chatConmigo" class="section" style="display:none;"><h2>Chat conmigo</h2></div>
-<div id="minijuego" class="section" style="display:none;"><h2>MiniJuego</h2></div>
+<div id="historia" class="section" style="display:none; justify-content:center; align-items:center;"><h2>Historia</h2></div>
+<div id="galeria" class="section" style="display:none; justify-content:center; align-items:center;"><h2>Galería</h2></div>
+<div id="proyectos" class="section" style="display:none; justify-content:center; align-items:center;"><h2>Proyectos</h2></div>
+<div id="chatIA" class="section" style="display:none; justify-content:center; align-items:center;"><h2>Chat con IA</h2></div>
+<div id="chatConmigo" class="section" style="display:none; justify-content:center; align-items:center;"><h2>Chat conmigo</h2></div>
+<div id="minijuego" class="section" style="display:none; justify-content:center; align-items:center;"><h2>MiniJuego</h2></div>
 
 <script>
 /* ==================== MENU ==================== */
 const menu = document.getElementById("menu");
-function toggleMenu() {
-  menu.classList.toggle("active");
-}
+function toggleMenu() { menu.classList.toggle("active"); }
 
 /* ==================== PANTALLA INICIAL ==================== */
 const bienvenidaText = "Bienvenida";
 const bienvenidaContainer = document.getElementById("bienvenida");
-
 for(let i=0;i<bienvenidaText.length;i++){
   let span = document.createElement("span");
   span.textContent = bienvenidaText[i];
@@ -247,17 +262,16 @@ for(let i=0;i<bienvenidaText.length;i++){
   bienvenidaContainer.appendChild(span);
 }
 
-/* ==================== FRASES ROTATORIAS ==================== */
+/* ==================== FRASES ROTATORIAS ARRIBA ==================== */
 const frases = document.querySelectorAll("#frases-container .phrase");
 let indiceFrase = 0;
 function mostrarFrases() {
   frases.forEach(f=>f.style.opacity=0);
   frases[indiceFrase].style.opacity = 1;
-  frases[indiceFrase].style.animation = "fadeInOut 3s forwards";
   indiceFrase = (indiceFrase+1)%frases.length;
 }
 mostrarFrases();
-setInterval(mostrarFrases, 3000);
+setInterval(mostrarFrases,3000); // bucle constante
 
 /* ==================== CONTADOR ==================== */
 const contador = document.getElementById("contador");
@@ -302,31 +316,32 @@ function moverGato(){
   cat.style.left = catX + "px";
   cat.style.top = catY + "px";
 
-  // Gatito simple con simulación de morder
   let dx = Math.abs(catX-mouseX);
   let dy = Math.abs(catY-mouseY);
-  if(dx<5 && dy<5){
-    cat.textContent = "😼"; // mordiendo
-  } else {
-    cat.textContent = "🐱"; // normal
-  }
+  if(dx<5 && dy<5){ cat.textContent = "😼"; } // mordiendo
+  else { cat.textContent = "🐱"; } // normal
 
   requestAnimationFrame(moverGato);
 }
 moverGato();
 
 /* ==================== SECCIONES INDEPENDIENTES ==================== */
-function openSection(id){
+const sectionName = document.getElementById("section-name");
+function openSection(id, name){
   document.querySelectorAll(".section").forEach(s=>s.style.display="none");
-  document.getElementById("pantalla-principal").style.display = "none";
+  document.getElementById("pantalla-principal").style.display="none";
   document.getElementById(id).style.display = "flex";
+  sectionName.textContent = name;
+  sectionName.style.display = "block";
   menu.classList.remove("active");
 }
 function goHome(){
   document.querySelectorAll(".section").forEach(s=>s.style.display="none");
   document.getElementById("pantalla-principal").style.display = "flex";
+  sectionName.style.display = "none";
 }
 </script>
 </body>
 </html>
+
 
