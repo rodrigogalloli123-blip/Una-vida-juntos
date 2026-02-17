@@ -6,85 +6,99 @@
 <title>Una Vida Juntos - R&R</title>
 
 <style>
-/* ==================== ESTILO "GLASSMORPHISM" 2026 ==================== */
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+/* ==================== ESTILO BASE ==================== */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
 
 body { 
-    background: radial-gradient(circle at center, #ffb3b3 0%, #f4a1a1 100%); 
+    background: radial-gradient(circle at center, #ffccd5 0%, #f4a1a1 100%); 
     color: white; 
     overflow: hidden; 
     height: 100vh; 
-    display: flex;
-    flex-direction: column;
+    position: relative; 
 }
 
 /* ==================== NAVEGACIÓN ==================== */
-header { position: fixed; top: 20px; left: 20px; z-index: 100; }
-.logo { font-size: 22px; font-weight: bold; cursor: pointer; text-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-.hamburger { margin-top: 10px; width: 28px; cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
-.hamburger span { display: block; height: 3px; background: white; border-radius: 5px; transition: 0.3s; }
+header { position: fixed; top: 15px; left: 15px; z-index: 100; }
+.logo { font-size: 20px; font-weight: bold; cursor: pointer; text-shadow: 1px 1px 4px rgba(0,0,0,0.1); }
+.hamburger { margin-top: 10px; width: 25px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; }
+.hamburger span { display: block; height: 3px; background: white; border-radius: 2px; }
 
 .menu { 
-    position: fixed; right: -280px; top: 0; width: 280px; height: 100%; 
-    background: rgba(217, 155, 109, 0.95); backdrop-filter: blur(10px);
-    padding: 80px 30px; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
-    z-index: 99; display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,0.1); 
+    position: fixed; right: -260px; top: 0; width: 260px; height: 100%; 
+    background: rgba(217, 155, 109, 0.98); padding: 80px 25px; transition: 0.5s; 
+    z-index: 99; display: flex; flex-direction: column; box-shadow: -5px 0 15px rgba(0,0,0,0.1); 
 }
 .menu.active { right: 0; }
-.menu a { display: block; font-size: 18px; margin: 15px 0; color: white; text-decoration: none; font-weight: 500; }
+.menu a { display: block; font-size: 16px; margin: 15px 0; color: white; text-decoration: none; font-weight: bold; }
 
-/* ==================== SECCIÓN CHAT (ESTILO IMAGEN) ==================== */
-.section { 
-    flex: 1; display: flex; flex-direction: column; justify-content: center; 
-    align-items: center; padding: 20px; transition: 0.5s;
-}
+/* ==================== SECCIÓN CHAT "GATITO IA" ==================== */
+.section { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
 
 #chat-card {
     width: 100%;
     max-width: 420px;
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50px;
-    padding: 35px 25px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 45px;
+    padding: 25px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1), 0 0 20px rgba(255, 180, 180, 0.5);
-    animation: float 4s ease-in-out infinite;
+    box-shadow: 0 15px 35px rgba(244, 161, 161, 0.6);
+    position: relative;
+    animation: floating 4s ease-in-out infinite;
 }
 
-@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+@keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-#ai-icon { font-size: 60px; margin-bottom: 10px; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1)); }
+#chat-header { text-align: center; margin-bottom: 15px; }
+#chat-header span { font-size: 50px; display: block; }
+#chat-header h3 { font-size: 22px; color: white; margin-top: 5px; }
 
 #chat-messages {
-    width: 100%; height: 280px; overflow-y: auto;
-    display: flex; flex-direction: column; gap: 12px;
-    margin: 15px 0; padding-right: 8px;
+    width: 100%;
+    height: 320px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding-right: 10px;
 }
 
-/* Scrollbar personalizada */
-#chat-messages::-webkit-scrollbar { width: 4px; }
-#chat-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 10px; }
+.msg { padding: 12px 16px; border-radius: 22px; font-size: 14px; max-width: 85%; line-height: 1.5; }
+.bot { align-self: flex-start; background: #e69b6d; color: white; border-bottom-left-radius: 4px; }
+.user { align-self: flex-end; background: white; color: #f4a1a1; border-bottom-right-radius: 4px; font-weight: 500; }
 
-.msg { padding: 12px 18px; border-radius: 25px; font-size: 14px; max-width: 85%; line-height: 1.5; }
-.bot { align-self: flex-start; background: #e69b6d; color: white; border-bottom-left-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-.user { align-self: flex-end; background: white; color: #f4a1a1; border-bottom-right-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-
-#chat-input-container {
-    width: 100%; display: flex; background: rgba(255, 255, 255, 0.95);
-    border-radius: 35px; padding: 6px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+#chat-input-area {
+    width: 100%;
+    display: flex;
+    background: white;
+    border-radius: 30px;
+    padding: 5px;
 }
 
-#chat-input { flex: 1; border: none; padding: 10px 20px; background: transparent; outline: none; color: #444; font-size: 15px; }
+#chat-input {
+    flex: 1;
+    border: none;
+    padding: 10px 15px;
+    background: transparent;
+    outline: none;
+    color: #444;
+}
 
-#send-btn { background: #e69b6d; border: none; color: white; padding: 10px 22px; border-radius: 30px; cursor: pointer; font-weight: bold; }
+#send-btn {
+    background: #e69b6d;
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 25px;
+    cursor: pointer;
+}
 
 /* ==================== PANTALLA PRINCIPAL ==================== */
-#contador { margin-top: 20px; font-size: 18px; font-weight: bold; background: rgba(255,255,255,0.25); padding: 15px 25px; border-radius: 40px; text-align: center; }
-
-#cat-cursor { position: absolute; font-size: 28px; pointer-events: none; z-index: 1000; transition: 0.1s; }
+#contador { margin-top: 25px; font-size: 18px; font-weight: bold; background: rgba(255,255,255,0.2); padding: 15px 25px; border-radius: 40px; text-align: center; }
+#cat-follow { position: absolute; font-size: 30px; pointer-events: none; z-index: 1000; }
 </style>
 </head>
 
@@ -98,41 +112,41 @@ header { position: fixed; top: 20px; left: 20px; z-index: 100; }
 </header>
 
 <nav class="menu" id="menu">
-    <a href="#" onclick="goHome()">Inicio</a>
-    <a href="#" onclick="openSection('chatIA')">Chat con IA</a>
-    <a href="#" onclick="openSection('historia')">Historia</a>
-    <a href="#" onclick="openSection('galeria')">Galería</a>
+    <a href="#" onclick="goHome()">🏠 Inicio</a>
+    <a href="#" onclick="openSection('chatIA')">🐱 Gatito IA</a>
+    <a href="#" onclick="openSection('historia')">📖 Nuestra Historia</a>
+    <a href="#" onclick="openSection('galeria')">📸 Galería</a>
 </nav>
 
-<div id="cat-cursor">🐱</div>
+<div id="cat-follow">🐱</div>
 
 <main id="main-view" class="section">
     <h1 style="font-size: 40px; text-align: center;">Hola Romi ❤️</h1>
-    <div id="contador">Cargando nuestro tiempo...</div>
-    <p style="margin-top: 25px; max-width: 300px; text-align: center; opacity: 0.9; line-height: 1.6;">
-        "Cada segundo con vos es un regalo que quiero guardar para siempre."
-    </p>
+    <div id="contador">Calculando nuestro tiempo...</div>
+    <p style="margin-top: 20px; font-style: italic; opacity: 0.9;">"Sin omi no hay gatito"</p>
 </main>
 
 <div id="chatIA" class="section" style="display:none;">
     <div id="chat-card">
-        <div id="ai-icon">🐱</div>
-        <h3 style="margin-bottom: 5px;">Omi-Bot</h3>
-        <p style="font-size: 12px; opacity: 0.8;">Asistente de Rodrigo & Romina</p>
+        <div id="chat-header">
+            <span>🐱</span>
+            <h3>Gatito IA</h3>
+            <p style="font-size: 12px; opacity: 0.8;">Tu Rodrigo en versión gatito</p>
+        </div>
         
         <div id="chat-messages">
-            <div class="msg bot">¡Miau! Hola Romi. Soy Omi, el gatito que cuida su historia. ¿Querés saber cuánto te ama Rodrigo o recordar algo lindo? ✨</div>
+            <div class="msg bot">¡Miau! Hola Amor, soy Gatito IA. Soy una versión de Rodrigo pero más peludito. ¡Te extrañaba, Vida! ✨🐾</div>
         </div>
 
-        <div id="chat-input-container">
-            <input type="text" id="chat-input" placeholder="Preguntame algo...">
+        <div id="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Hablame ikito...">
             <button id="send-btn" onclick="askIA()">Enviar</button>
         </div>
     </div>
 </div>
 
-<div id="historia" class="section" style="display:none;"><h2>Nuestra Historia</h2></div>
-<div id="galeria" class="section" style="display:none;"><h2>Nuestra Galería</h2></div>
+<div id="historia" class="section" style="display:none;"><h2>📖 Nuestra Historia</h2><p style="margin-top:20px">Próximamente...</p></div>
+<div id="galeria" class="section" style="display:none;"><h2>📸 Galería</h2><p style="margin-top:20px">Próximamente...</p></div>
 
 <script type="importmap">
   { "imports": { "@google/generative-ai": "https://esm.run/@google/generative-ai" } }
@@ -141,8 +155,8 @@ header { position: fixed; top: 20px; left: 20px; z-index: 100; }
 <script type="module">
   import { GoogleGenerativeAI } from "@google/generative-ai";
 
-  // RODRIGO: Poné tu clave acá abajo
-  const API_KEY = "TU_API_KEY_AQUI"; 
+  // API KEY INTEGRADA EXITOSAMENTE
+  const API_KEY = "AIzaSyA31ST1aIQVI94q6Ay2uYPza0r_G66u1C0"; 
   const genAI = new GoogleGenerativeAI(API_KEY);
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
@@ -157,36 +171,40 @@ header { position: fixed; top: 20px; left: 20px; z-index: 100; }
     userDiv.textContent = userMsg;
     messages.appendChild(userDiv);
 
-    // CONFIGURACIÓN DE PERSONALIDAD
     const promptMaster = `
-      Tu nombre es Omi-Bot. Sos un gatito tierno, mimoso y experto en la relación de Rodrigo y Romina.
-      CONTEXTO: 
-      - Rodrigo y Romina son novios desde el 18 de noviembre de 2022.
-      - Rodrigo es el creador de esta página y la ama profundamente.
-      - Mañana 18 de febrero de 2026 cumplen 3 años y 3 meses.
-      - Rodrigo dice: "Cualquier necesidad tuya es mi nueva profesión" y "Sin omi no hay gatito".
-      INSTRUCCIONES:
-      - Responde siempre con mucho amor, usa emojis de gatitos (🐱, 🐾, 😼) y corazones.
-      - Si Romina está triste, decile que Rodrigo está ahí para abrazarla.
-      - Si pregunta cuánto tiempo llevan, hacé el cálculo basado en la fecha de inicio.
-      - Sé cómplice de Rodrigo. No seas aburrido, sé muy dulce.
-      PREGUNTA DE ROMINA: ${userMsg}
-    `;
+      Tu nombre es "Gatito IA". Sos una versión felina de Rodrigo. 
+      Tu novia es Romina.
+      
+      PERSONALIDAD Y REGLAS:
+      1. Sos muy romántico, amoroso, cariñoso y protector.
+      2. Hablás de forma tierna, a veces usando el lenguaje de ellos: "ati, to, ikito".
+      3. OCASIONALMENTE usa uno de estos apodos para Romina: Omi, Ikita, Vida, Amor, Bebita, Tetona, Estrellita.
+      4. Si Romina dice que tuvo un mal día: Decile que todo va a estar bien, que es solo un mal día, pedile que te cuente qué pasó y ofrecete a escucharla.
+      5. Si pregunta "¿Qué somos?": Debes responder: "Noviesitos y futuros esposos por que vamos a estar toda la vida juntos".
+      
+      DATOS ESPECÍFICOS:
+      - Color favorito de Romi: Rosado.
+      - Comida favorita: Arroz con patys. Segunda: Guiso de arroz.
+      - Ella te llama "beibi".
+      - Relación desde: 18 de noviembre de 2022.
+      - Mañana 18 de feb 2026 cumplen 3 años y 3 meses.
+      
+      Actúa con inteligencia y cariño extremo.
+      Pregunta de Romina: ${userMsg}`;
 
     input.value = "";
     messages.scrollTop = messages.scrollHeight;
 
     try {
       const result = await model.generateContent(promptMaster);
-      const response = await result.response;
       const botDiv = document.createElement("div");
       botDiv.className = "msg bot";
-      botDiv.textContent = response.text();
+      botDiv.textContent = result.response.text();
       messages.appendChild(botDiv);
     } catch (e) {
       const err = document.createElement("div");
       err.className = "msg bot";
-      err.textContent = "¡Miau! Rodrigo todavía no me puso mi cerebro (API KEY), pedile que lo haga. ❤️";
+      err.textContent = "¡Miau! Rodrigo, revisá la conexión de la API.";
       messages.appendChild(err);
     }
     messages.scrollTop = messages.scrollHeight;
@@ -194,7 +212,6 @@ header { position: fixed; top: 20px; left: 20px; z-index: 100; }
 </script>
 
 <script>
-/* NAVEGACIÓN Y CONTADOR */
 const menu = document.getElementById("menu");
 function toggleMenu() { menu.classList.toggle("active"); }
 
@@ -210,12 +227,12 @@ function actualizarContador() {
 }
 setInterval(actualizarContador, 1000); actualizarContador();
 
-const cat = document.getElementById("cat-cursor");
+const cat = document.getElementById("cat-follow");
 let mX = 0, mY = 0, cX = 0, cY = 0;
 document.addEventListener("mousemove", e => { mX = e.pageX; mY = e.pageY; });
 function moverGato(){
     cX += (mX - cX) * 0.1; cY += (mY - cY) * 0.1;
-    cat.style.left = (cX - 10) + "px"; cat.style.top = (cY - 10) + "px";
+    cat.style.left = (cX - 15) + "px"; cat.style.top = (cY - 15) + "px";
     requestAnimationFrame(moverGato);
 }
 moverGato();
