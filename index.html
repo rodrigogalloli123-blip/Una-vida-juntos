@@ -4,145 +4,166 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Una Vida Juntos</title>
+
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:system-ui;
+/* ==================== RESET ==================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui;
 }
-body{
-  background:#ff2b2b; /* rojo pasión */
-  color:white;
-  overflow:hidden;
-}
-
-/* HEADER */
-header{
-  position:fixed;
-  top:10px;
-  left:10px;
-  z-index:100;
-  display:flex;
-  align-items:center;
-  gap:15px;
+body {
+  background: #f4a1a1; /* rojo pastel */
+  color: white;
+  overflow: hidden;
+  height: 100vh;
+  position: relative;
 }
 
-.logo{
-  font-size:22px;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
+/* ==================== HEADER ==================== */
+header {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-.hamburger{
-  width:25px;
-  cursor:pointer;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  height:18px;
+.logo {
+  font-size: 18px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.hamburger span{
-  display:block;
-  height:3px;
-  background:white;
-  border-radius:2px;
+.hamburger {
+  margin-top: 6px;
+  width: 22px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 18px;
 }
 
-/* MENU */
-.menu{
-  position:fixed;
-  right:-220px;
-  top:0;
-  width:200px;
-  height:100%;
-  background:#d18c5b; /* caramelo */
-  padding:60px 15px;
-  transition:.4s;
-  z-index:99;
+.hamburger span {
+  display: block;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
 }
 
-.menu.active{
-  right:0;
+/* ==================== MENU ==================== */
+.menu {
+  position: fixed;
+  right: -220px;
+  top: 0;
+  width: 220px;
+  height: 100%;
+  background: #d99b6d; /* caramelo */
+  padding: 60px 15px;
+  transition: 0.4s;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
 }
 
-.menu a{
-  display:block;
-  font-size:14px;
-  margin:14px 0;
-  color:white;
-  text-decoration:none;
-  cursor:pointer;
+.menu.active {
+  right: 0;
 }
 
-.locked{
-  opacity:.3;
-  font-size:12px;
-  margin:10px 0;
+.menu a {
+  display: block;
+  font-size: 14px;
+  margin: 14px 0;
+  color: white;
+  text-decoration: none;
 }
 
-/* PANTALLAS */
-.pantalla{
-  width:100%;
-  height:100vh;
-  display:none;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding:30px;
+.locked {
+  opacity: 0.3;
+  font-size: 12px;
+  margin: 10px 0;
 }
 
-#pantalla-principal{
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
+/* ==================== MAIN ==================== */
+main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
+  position: relative;
 }
 
-/* FRASES */
-#phrases-container{
-  margin-top:50px;
+h1#bienvenida {
+  font-size: 32px;
+  color: white;
+  margin-bottom: 20px;
+  display: flex;
 }
 
-.phrase{
-  opacity:0;
-  transition:opacity 0.8s, transform 0.8s;
-  color:white;
-  font-size:20px;
-  text-shadow:0 0 8px #ff2b2b;
-  margin:10px 0;
-  transform:translateY(20px);
+h1#bienvenida span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(-50px);
+  animation: drop 0.5s forwards;
 }
 
-/* PIXEL ART GATITO */
-#cat{
-  position:absolute;
-  width:20px;
-  height:20px;
-  pointer-events:none;
-  transform:scale(1);
+/* ==================== FRASES ==================== */
+.phrase {
+  opacity: 0;
+  font-size: 18px;
+  margin: 10px 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 90%;
+  text-align: center;
 }
 
-/* Celdas pixel art */
-.pixel{
-  width:4px;
-  height:4px;
-  float:left;
+/* ==================== CONTADOR ==================== */
+#contador {
+  margin-top: 10px;
+  font-size: 16px;
+  opacity: 0.8;
 }
 
-.pixel-row{
-  height:4px;
-  width:100%;
-  display:flex;
+/* ==================== FRASE REGALO ==================== */
+#frase-regalo {
+  margin-top: 15px;
+  font-size: 15px;
+  max-width: 500px;
+  text-align: center;
+  opacity: 0.9;
 }
 
-/* ANIM */
-@keyframes fade{
-  from{opacity:0;transform:translateY(10px);}
-  to{opacity:1;}
+/* ==================== GATITO PIXEL ART ==================== */
+#cat {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  pointer-events: none;
+  image-rendering: pixelated;
+  transition: 0.07s linear;
+}
+
+/* ==================== ANIM ==================== */
+@keyframes fadeInOut {
+  0% {opacity: 0;}
+  10% {opacity: 1;}
+  90% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+@keyframes drop {
+  0% {opacity:0; transform:translateY(-50px);}
+  100% {opacity:1; transform:translateY(0);}
 }
 </style>
 </head>
@@ -150,7 +171,7 @@ header{
 <body>
 
 <header>
-  <div class="logo" onclick="mostrarPantalla('pantalla-principal')">Una Vida Juntos</div>
+  <div class="logo" onclick="goHome()">Una Vida Juntos</div>
   <div class="hamburger" onclick="toggleMenu()">
     <span></span>
     <span></span>
@@ -159,13 +180,12 @@ header{
 </header>
 
 <div class="menu" id="menu">
-  <a onclick="mostrarPantalla('pantalla-historia')">Historia</a>
-  <a onclick="mostrarPantalla('pantalla-galeria')">Galería</a>
-  <a onclick="mostrarPantalla('pantalla-proyectos')">Proyectos</a>
-  <a onclick="mostrarPantalla('pantalla-chat-ia')">Chat con IA</a>
-  <a onclick="mostrarPantalla('pantalla-chat-conmigo')">Chat conmigo</a>
-  <a onclick="mostrarPantalla('pantalla-minijuego')">MiniJuego</a>
-
+  <a href="#" onclick="openSection('historia')">Historia</a>
+  <a href="#" onclick="openSection('galeria')">Galería</a>
+  <a href="#" onclick="openSection('proyectos')">Proyectos</a>
+  <a href="#" onclick="openSection('chatIA')">Chat con IA</a>
+  <a href="#" onclick="openSection('chatConmigo')">Chat conmigo</a>
+  <a href="#" onclick="openSection('minijuego')">MiniJuego</a>
   <div class="locked">Bloqueado</div>
   <div class="locked">Bloqueado</div>
   <div class="locked">Bloqueado</div>
@@ -173,13 +193,17 @@ header{
   <div class="locked">Próximamente</div>
 </div>
 
-<!-- PIXEL GATITO -->
+<!-- GATITO PIXEL ART -->
 <div id="cat"></div>
 
-<!-- PANTALLA PRINCIPAL -->
-<div class="pantalla" id="pantalla-principal">
-  <h1>Bienvenida</h1>
-  <div id="phrases-container">
+<main id="pantalla-principal">
+  <h1 id="bienvenida"></h1>
+  <div id="contador"></div>
+  <div id="frase-regalo">
+    Hola mi amor, quiero que esto sea tuyo, es mi regalo por este 18 de febrero, quiero que con el pasar de los tiempos, podamos actualizarla, meterle más cosas y de acá a 30 años mostrarles esta página a nuestros hijos, te amo amor de mi vida, felices 3 años y 4 meses....
+  </div>
+
+  <div id="frases-container">
     <div class="phrase">La Única forma de ver el futuro es con el amor que te tengo, por que sé que en 100 años seguiré amandote.</div>
     <div class="phrase">Cualquier necesidad tuya es mi nueva profesión.</div>
     <div class="phrase">Mi poema favorito es escucharte todos los días.</div>
@@ -195,129 +219,114 @@ header{
     <div class="phrase">Por favor no huyas de mi.</div>
     <div class="phrase">Sé que mi amor puede ser intenso, pero es real.</div>
   </div>
-</div>
+</main>
 
-<!-- SECCIONES INDEPENDIENTES -->
-<div class="pantalla" id="pantalla-historia">
-  <h1>Nuestra Historia</h1>
-  <p>Esto empezó con amor… y va a terminar siendo nuestra vida. Gracias por existir Romina.</p>
-</div>
-
-<div class="pantalla" id="pantalla-galeria">
-  <h1>Galería</h1>
-  <div class="gallery"><p>(Próximamente fotos nuestras)</p></div>
-</div>
-
-<div class="pantalla" id="pantalla-proyectos">
-  <h1>Proyectos</h1>
-  <p>Lo que vamos a construir juntos…</p>
-</div>
-
-<div class="pantalla" id="pantalla-chat-ia">
-  <h1>Chat con IA</h1>
-  <p>Aquí podrás interactuar con nuestra IA personalizada.</p>
-</div>
-
-<div class="pantalla" id="pantalla-chat-conmigo">
-  <h1>Chat conmigo</h1>
-  <p>Escribime y te respondo yo mismo ❤️</p>
-</div>
-
-<div class="pantalla" id="pantalla-minijuego">
-  <h1>MiniJuego</h1>
-  <p>Próximamente...</p>
-</div>
+<!-- Secciones independientes -->
+<div id="historia" class="section" style="display:none;"><h2>Historia</h2></div>
+<div id="galeria" class="section" style="display:none;"><h2>Galería</h2></div>
+<div id="proyectos" class="section" style="display:none;"><h2>Proyectos</h2></div>
+<div id="chatIA" class="section" style="display:none;"><h2>Chat con IA</h2></div>
+<div id="chatConmigo" class="section" style="display:none;"><h2>Chat conmigo</h2></div>
+<div id="minijuego" class="section" style="display:none;"><h2>MiniJuego</h2></div>
 
 <script>
+/* ==================== MENU ==================== */
 const menu = document.getElementById("menu");
-function toggleMenu(){
+function toggleMenu() {
   menu.classList.toggle("active");
 }
 
-function mostrarPantalla(id){
-  document.querySelectorAll('.pantalla').forEach(p => p.style.display='none');
-  document.getElementById(id).style.display='flex';
-  menu.classList.remove("active");
+/* ==================== PANTALLA INICIAL ==================== */
+const bienvenidaText = "Bienvenida";
+const bienvenidaContainer = document.getElementById("bienvenida");
+
+for(let i=0;i<bienvenidaText.length;i++){
+  let span = document.createElement("span");
+  span.textContent = bienvenidaText[i];
+  span.style.animationDelay = (i*0.15) + "s";
+  bienvenidaContainer.appendChild(span);
 }
 
-/* FRASES ROTANDO */
-let phrases = document.querySelectorAll(".phrase");
-let current = 0;
-function showPhrase(index){
-  phrases.forEach((p,i)=>{
-    if(i===index){
-      p.style.opacity=1;
-      p.style.transform="translateY(0px)";
-    } else {
-      p.style.opacity=0;
-      p.style.transform="translateY(20px)";
-    }
-  });
-  current++;
-  if(current>=phrases.length) current=0;
+/* ==================== FRASES ROTATORIAS ==================== */
+const frases = document.querySelectorAll("#frases-container .phrase");
+let indiceFrase = 0;
+function mostrarFrases() {
+  frases.forEach(f=>f.style.opacity=0);
+  frases[indiceFrase].style.opacity = 1;
+  frases[indiceFrase].style.animation = "fadeInOut 3s forwards";
+  indiceFrase = (indiceFrase+1)%frases.length;
 }
-showPhrase(current);
-setInterval(()=>showPhrase(current),2500);
+mostrarFrases();
+setInterval(mostrarFrases, 3000);
 
-/* PIXEL ART GATITO */
+/* ==================== CONTADOR ==================== */
+const contador = document.getElementById("contador");
+const inicio = new Date("2020-10-17T00:00:00"); // inicio de relación
+function actualizarContador() {
+  const ahora = new Date();
+  let diff = ahora - inicio;
+  const años = Math.floor(diff / (1000*60*60*24*365));
+  diff -= años*1000*60*60*24*365;
+  const meses = Math.floor(diff / (1000*60*60*24*30));
+  diff -= meses*1000*60*60*24*30;
+  const dias = Math.floor(diff / (1000*60*60*24));
+  diff -= dias*1000*60*60*24;
+  const horas = Math.floor(diff / (1000*60*60));
+  diff -= horas*1000*60*60;
+  const minutos = Math.floor(diff / (1000*60));
+  diff -= minutos*1000*60;
+  const segundos = Math.floor(diff/1000);
+  contador.textContent = `${años} años, ${meses} meses, ${dias} días, ${horas}h ${minutos}m ${segundos}s`;
+}
+actualizarContador();
+setInterval(actualizarContador,1000);
+
+/* ==================== GATITO PIXEL ART ==================== */
 const cat = document.getElementById("cat");
-let mouse = {x: window.innerWidth/2, y: window.innerHeight/2};
-let idleCounter = 0;
-
-// Crear gatito pixel art simple
-function drawCat(){
-  cat.innerHTML = "";
-  const pixels = [
-    ["transparent","orange","orange","orange","transparent"],
-    ["orange","black","orange","black","orange"],
-    ["orange","orange","red","orange","orange"],
-    ["transparent","orange","orange","orange","transparent"],
-    ["transparent","orange","orange","orange","transparent"]
-  ];
-  pixels.forEach(row=>{
-    const divRow = document.createElement("div");
-    divRow.className="pixel-row";
-    row.forEach(color=>{
-      const divPixel=document.createElement("div");
-      divPixel.className="pixel";
-      divPixel.style.background=color;
-      divRow.appendChild(divPixel);
-    });
-    cat.appendChild(divRow);
-  });
-}
-drawCat();
-
-function animateCat(){
-  let dx = mouse.x - parseFloat(cat.style.left || 0);
-  let dy = mouse.y - parseFloat(cat.style.top || 0);
-  cat.style.left = (parseFloat(cat.style.left || 0) + dx*0.1) + "px";
-  cat.style.top = (parseFloat(cat.style.top || 0) + dy*0.1) + "px";
-
-  if(Math.abs(dx)+Math.abs(dy)<1){
-    idleCounter++;
-    // Podés cambiar el color de boca para simular "morder"
-    cat.style.transform="scale(1.2)";
-  } else {
-    idleCounter=0;
-    cat.style.transform="scale(1)";
-  }
-
-  requestAnimationFrame(animateCat);
-}
-
-animateCat();
+let mouseX = window.innerWidth/2;
+let mouseY = window.innerHeight/2;
+let catX = mouseX, catY = mouseY;
 
 document.addEventListener("mousemove",e=>{
-  mouse.x=e.pageX;
-  mouse.y=e.pageY;
+  mouseX = e.pageX;
+  mouseY = e.pageY;
 });
-
 document.addEventListener("touchmove",e=>{
-  mouse.x=e.touches[0].pageX;
-  mouse.y=e.touches[0].pageY;
+  mouseX = e.touches[0].pageX;
+  mouseY = e.touches[0].pageY;
 });
-</script>
 
+function moverGato(){
+  catX += (mouseX - catX)*0.1;
+  catY += (mouseY - catY)*0.1;
+  cat.style.left = catX + "px";
+  cat.style.top = catY + "px";
+
+  // Gatito simple con simulación de morder
+  let dx = Math.abs(catX-mouseX);
+  let dy = Math.abs(catY-mouseY);
+  if(dx<5 && dy<5){
+    cat.textContent = "😼"; // mordiendo
+  } else {
+    cat.textContent = "🐱"; // normal
+  }
+
+  requestAnimationFrame(moverGato);
+}
+moverGato();
+
+/* ==================== SECCIONES INDEPENDIENTES ==================== */
+function openSection(id){
+  document.querySelectorAll(".section").forEach(s=>s.style.display="none");
+  document.getElementById("pantalla-principal").style.display = "none";
+  document.getElementById(id).style.display = "flex";
+  menu.classList.remove("active");
+}
+function goHome(){
+  document.querySelectorAll(".section").forEach(s=>s.style.display="none");
+  document.getElementById("pantalla-principal").style.display = "flex";
+}
+</script>
 </body>
 </html>
+
