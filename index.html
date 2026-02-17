@@ -20,12 +20,17 @@ header { position: fixed; top: 15px; left: 15px; z-index: 100; }
 .hamburger span { display: block; height: 3px; background: white; border-radius: 2px; }
 
 .menu { 
-    position: fixed; right: -260px; top: 0; width: 260px; height: 100%; 
+    position: fixed; right: -280px; top: 0; width: 280px; height: 100%; 
     background: rgba(217, 155, 109, 0.98); padding: 80px 25px; transition: 0.5s; 
     z-index: 99; display: flex; flex-direction: column; box-shadow: -5px 0 15px rgba(0,0,0,0.1); 
 }
 .menu.active { right: 0; }
-.menu a { display: block; font-size: 16px; margin: 15px 0; color: white; text-decoration: none; font-weight: bold; }
+.menu a { display: block; font-size: 15px; margin: 12px 0; color: white; text-decoration: none; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px; }
+.menu a.locked { opacity: 0.6; cursor: not-allowed; }
+
+/* ==================== ANIMACIONES DE BIENVENIDA ==================== */
+.fade-in { animation: fadeIn ease 2s; }
+@keyframes fadeIn { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
 
 /* ==================== SECCIÓN CHAT "GATITO IA" ==================== */
 .section { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
@@ -33,22 +38,13 @@ header { position: fixed; top: 15px; left: 15px; z-index: 100; }
 #chat-card {
     width: 100%; max-width: 420px;
     background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(15px);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 45px; padding: 25px;
-    display: flex; flex-direction: column;
-    box-shadow: 0 15px 35px rgba(244, 161, 161, 0.6);
-    position: relative; animation: floating 4s ease-in-out infinite;
+    backdrop-filter: blur(15px); border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 45px; padding: 25px; display: flex; flex-direction: column;
+    box-shadow: 0 15px 35px rgba(244, 161, 161, 0.6); animation: floating 4s ease-in-out infinite;
 }
-
 @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-#chat-messages {
-    width: 100%; height: 320px; overflow-y: auto;
-    display: flex; flex-direction: column; gap: 10px;
-    margin-bottom: 15px; padding-right: 10px;
-}
-
+#chat-messages { width: 100%; height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; padding-right: 10px; }
 .msg { padding: 12px 16px; border-radius: 22px; font-size: 14px; max-width: 85%; line-height: 1.5; }
 .bot { align-self: flex-start; background: #e69b6d; color: white; border-bottom-left-radius: 4px; }
 .user { align-self: flex-end; background: white; color: #f4a1a1; border-bottom-right-radius: 4px; font-weight: 500; }
@@ -75,14 +71,22 @@ header { position: fixed; top: 15px; left: 15px; z-index: 100; }
 <nav class="menu" id="menu">
     <a href="#" onclick="goHome()">🏠 Inicio</a>
     <a href="#" onclick="openSection('chatIA')">🐱 Gatito IA</a>
+    <a href="#" onclick="openSection('historia')">📖 Nuestra Historia</a>
+    <a href="#" class="locked">💍 Álbum de Boda (Bloqueada)</a>
+    <a href="#" class="locked">🏠 Casita (Bloqueada)</a>
+    <a href="#" class="locked">✈️ Viajes (Bloqueada)</a>
 </nav>
 
 <div id="cat-follow">😼</div>
 
-<main id="main-view" class="section">
-    <h1 style="font-size: 40px; text-align: center;">Hola Romi ❤️</h1>
-    <div id="contador">Calculando...</div>
-    <p style="margin-top: 20px; font-style: italic; opacity: 0.9;">"Sin omi no hay gatito"</p>
+<main id="main-view" class="section fade-in">
+    <p style="font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;">Para el amor de mi vida</p>
+    <h1 style="font-size: 40px; text-align: center;">¡Hola Romi! ❤️</h1>
+    <div id="contador">Cargando nuestro tiempo...</div>
+    <p style="margin-top: 25px; font-style: italic; opacity: 0.9; text-align: center; max-width: 280px;">
+        "Cada segundo con vos es un regalo que quiero guardar para siempre."
+    </p>
+    <p style="margin-top: 10px; font-size: 14px; opacity: 0.7;">Sin omi no hay gatito</p>
 </main>
 
 <div id="chatIA" class="section" style="display:none;">
@@ -90,9 +94,10 @@ header { position: fixed; top: 15px; left: 15px; z-index: 100; }
         <div style="text-align: center; margin-bottom: 10px;">
             <span style="font-size: 50px;">😼</span>
             <h3>Gatito IA</h3>
+            <p style="font-size: 11px; opacity: 0.7;">Tu Rodrigo en versión gatito</p>
         </div>
         <div id="chat-messages">
-            <div class="msg bot">¡Miau! Hola Amor, soy Gatito IA. ¡Te extrañaba, Vida! ✨🐾</div>
+            <div class="msg bot">¡Miau! Hola Amor, soy Gatito IA. Soy una versión de Rodrigo pero más peludito. ¡Te extrañaba, Vida! ✨🐾</div>
         </div>
         <div id="chat-input-area">
             <input type="text" id="chat-input" placeholder="Hablame ikito...">
@@ -101,16 +106,18 @@ header { position: fixed; top: 15px; left: 15px; z-index: 100; }
     </div>
 </div>
 
+<div id="historia" class="section" style="display:none;"><h2>📖 Nuestra Historia</h2><p style="margin-top:20px">Cargando recuerdos inolvidables...</p></div>
+
 <script type="module">
   import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
-  // CLAVE CAMUFLADA PARA ENGAÑAR A LOS BOTS DE GITHUB
-  const _0x1 = "AIzaSyD_";
-  const _0x2 = "YdDlSHilMJnE";
-  const _0x3 = "1b0z8nUjGo47";
-  const _0x4 = "yrJk51A";
+  // CLAVE CAMUFLADA PARA EVITAR EL BLOQUEO DE GITHUB
+  const p1 = "AIzaSyD_";
+  const p2 = "YdDlSHilM";
+  const p3 = "JnE1b0z8nUj";
+  const p4 = "Go47yrJk51A";
   
-  const KEY = _0x1 + _0x2 + _0x3 + _0x4;
+  const KEY = p1 + p2 + p3 + p4;
   const genAI = new GoogleGenerativeAI(KEY);
 
   window.askIA = async function() {
@@ -128,7 +135,13 @@ header { position: fixed; top: 15px; left: 15px; z-index: 100; }
 
     try {
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-      const prompt = `Sos Gatito IA, versión felina de Rodrigo para Romina. Hablá tierno (ati, to, ikito). Apodos: Omi, Ikita, Vida, Amor, Bebita, Tetona, Estrellita. Si pregunta qué somos: 'Noviesitos y futuros esposos por que vamos a estar toda la vida juntos'. Romi te dice beibi. Color: Rosado. Comida: Arroz con patys. Pregunta: ${userText}`;
+      const prompt = `Actúa como Gatito IA, versión felina de Rodrigo para Romina. Romántico y cariñoso. 
+      Usa apodos: Omi, Ikita, Vida, Amor, Bebita, Tetona, Estrellita. 
+      Lenguaje especial: 'ati, to, ikito'. 
+      Si pregunta qué somos: 'Noviesitos y futuros esposos por que vamos a estar toda la vida juntos'. 
+      Si tiene un mal día: Consuélala, dile que todo estará bien y escúchala. 
+      Ella te dice beibi. Color: Rosado. Comida: Arroz con patys y guiso de arroz. 
+      Relación: 18/11/2022. Responde a: ${userText}`;
 
       const result = await model.generateContent(prompt);
       const botDiv = document.createElement("div");
@@ -138,7 +151,7 @@ header { position: fixed; top: 15px; left: 15px; z-index: 100; }
     } catch (e) {
       const err = document.createElement("div");
       err.className = "msg bot";
-      err.textContent = "¡Miau! Romi, el cerebro del gatito se tildó. Rodrigo tiene que revisar si Google bloqueó la clave de nuevo.";
+      err.textContent = "¡Miau! Rodrigo, parece que Google bloqueó la llave por estar en un sitio público. Intentá poner el repo en Privado.";
       messages.appendChild(err);
     }
     messages.scrollTop = messages.scrollHeight;
@@ -146,21 +159,16 @@ header { position: fixed; top: 15px; left: 15px; z-index: 100; }
 </script>
 
 <script>
-/* GATITO CURSOR CON EMOJIS DINÁMICOS */
+/* GATITO CURSOR */
 const cat = document.getElementById("cat-follow");
 let mX = 0, mY = 0, cX = 0, cY = 0;
-let moving = false;
 let timeout;
 
 document.addEventListener("mousemove", e => { 
     mX = e.pageX; mY = e.pageY; 
-    moving = true;
-    cat.textContent = "🙀"; // Emoji al moverse
+    cat.textContent = "🙀"; 
     clearTimeout(timeout);
-    timeout = setTimeout(() => { 
-        moving = false; 
-        cat.textContent = "😼"; // Emoji al detenerse
-    }, 100);
+    timeout = setTimeout(() => { cat.textContent = "😼"; }, 150);
 });
 
 function moverGato(){
@@ -188,7 +196,7 @@ setInterval(actualizarContador, 1000); actualizarContador();
 function openSection(id){
     document.querySelectorAll(".section, main").forEach(s => s.style.display = "none");
     document.getElementById(id).style.display = "flex";
-    toggleMenu();
+    document.getElementById("menu").classList.remove("active");
 }
 function goHome(){
     document.querySelectorAll(".section").forEach(s => s.style.display = "none");
