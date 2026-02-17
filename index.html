@@ -3,102 +3,186 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>Una Vida Juntos</title>
 
 <style>
-* {
-  margin:0; padding:0; box-sizing:border-box; font-family:system-ui;
-}
-body {
-  background:#f4a1a1;
+/* RESET */
+*{margin:0; padding:0; box-sizing:border-box; font-family:system-ui;}
+
+/* BODY */
+body{
+  background:#FFB3AB; /* rojo pastel */
   color:white;
   overflow:hidden;
   height:100vh;
+  width:100vw;
+}
+
+/* HEADER */
+header{
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logo{
+  font-size:18px;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.hamburger{
+  width:25px;
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  height:18px;
+}
+
+.hamburger span{
+  display:block;
+  height:3px;
+  background:white;
+  border-radius:2px;
+}
+
+/* MENU */
+.menu{
+  position:fixed;
+  right:-220px;
+  top:0;
+  width:200px;
+  height:100%;
+  background:#E0A96F; /* caramelo */
+  padding:60px 15px;
+  transition:.4s;
+  z-index:99;
+}
+
+.menu.active{
+  right:0;
+}
+
+.menu a{
+  display:block;
+  font-size:14px;
+  margin:12px 0;
+  color:white;
+  text-decoration:none;
+  cursor:pointer;
+}
+
+.locked{
+  opacity:.3;
+  font-size:12px;
+  margin:10px 0;
+}
+
+/* MAIN */
+main{
+  height:100%;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
   position:relative;
 }
 
-/* ==================== HEADER ==================== */
-header {
-  position:fixed; top:10px; left:10px; z-index:100; display:flex; flex-direction:column; align-items:flex-start;
-}
-.logo {
-  font-size:18px; color:white; font-weight:bold; cursor:pointer;
-}
-.hamburger {
-  margin-top:6px; width:22px; cursor:pointer; display:flex; flex-direction:column; justify-content:space-between; height:18px;
-}
-.hamburger span {
-  display:block; height:2px; background:white; border-radius:2px;
+/* FRASES */
+#frases-container{
+  position:absolute;
+  top:40px;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  pointer-events:none;
 }
 
-/* ==================== NOMBRE SECCIÓN ==================== */
-#section-name {
-  position:fixed; top:10px; right:10px; font-size:16px; color:white; font-weight:bold; display:none;
+.phrase{
+  font-size:18px;
+  margin:5px 0;
+  text-align:center;
+  opacity:0;
+  animation:fadeInOut 3s linear infinite;
 }
 
-/* ==================== MENU ==================== */
-.menu {
-  position:fixed; right:-220px; top:0; width:220px; height:100%; background:#d99b6d; padding:60px 15px; transition:0.4s; z-index:99; display:flex; flex-direction:column;
-}
-.menu.active { right:0; }
-.menu a { display:block; font-size:14px; margin:14px 0; color:white; text-decoration:none; }
-.locked { opacity:0.3; font-size:12px; margin:10px 0; }
-
-/* ==================== MAIN ==================== */
-main {
-  height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:30px; position:relative;
+@keyframes fadeInOut{
+  0%{opacity:0;}
+ 10%{opacity:1;}
+ 90%{opacity:1;}
+100%{opacity:0;}
 }
 
-/* ==================== FRASES ==================== */
-#frases-container {
-  position:absolute; top:50px; display:flex; flex-direction:column; align-items:center; width:100%;
-}
-.phrase {
-  font-size:18px; margin:5px 0; text-align:center; opacity:0;
-  animation:fadeInOut 3s infinite;
-}
-.phrase:nth-child(1){animation-delay:0s;}
-.phrase:nth-child(2){animation-delay:3s;}
-.phrase:nth-child(3){animation-delay:6s;}
-.phrase:nth-child(4){animation-delay:9s;}
-.phrase:nth-child(5){animation-delay:12s;}
-.phrase:nth-child(6){animation-delay:15s;}
-.phrase:nth-child(7){animation-delay:18s;}
-.phrase:nth-child(8){animation-delay:21s;}
-.phrase:nth-child(9){animation-delay:24s;}
-.phrase:nth-child(10){animation-delay:27s;}
-.phrase:nth-child(11){animation-delay:30s;}
-.phrase:nth-child(12){animation-delay:33s;}
-.phrase:nth-child(13){animation-delay:36s;}
-.phrase:nth-child(14){animation-delay:39s;}
-
-/* ==================== BIENVENIDA ==================== */
-h1#bienvenida {
-  font-size:32px; color:white; margin-top:200px; display:flex;
-}
-h1#bienvenida span {
-  display:inline-block; opacity:0; transform:translateY(-50px); animation:drop 0.5s forwards;
+/* BIENVENIDA */
+h1#bienvenida{
+  font-size:32px;
+  color:white;
+  margin-top:180px;
+  text-align:center;
 }
 
-/* ==================== CONTADOR ==================== */
-#contador { margin-top:20px; font-size:16px; opacity:0.8; }
-
-/* ==================== FRASE REGALO ==================== */
-#frase-regalo { margin-top:15px; font-size:15px; max-width:500px; text-align:center; opacity:0.9; }
-
-/* ==================== GATITO PIXEL ART ==================== */
-#cat {
-  position:absolute; width:30px; height:30px; pointer-events:none; image-rendering:pixelated; transition:.07s linear;
+/* CONTADOR */
+#contador{
+  margin-top:15px;
+  font-size:18px;
 }
 
-/* ==================== ANIM ==================== */
-@keyframes fadeInOut {
-  0%{opacity:0;} 10%{opacity:1;} 90%{opacity:1;} 100%{opacity:0;}
+/* MENSAJE */
+#mensaje{
+  margin-top:20px;
+  font-size:16px;
+  max-width:80%;
+  line-height:1.4;
+  color:white;
 }
-@keyframes drop {
-  0%{opacity:0; transform:translateY(-50px);}
-  100%{opacity:1; transform:translateY(0);}
+
+/* SECCION ACTIVA */
+.section-active{
+  position:absolute;
+  top:60px;
+  left:0;
+  width:100%;
+  height:calc(100% - 60px);
+  background:#FFB3AB;
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  overflow:auto;
+  padding:20px;
 }
+
+/* TITULO DE SECCION */
+#section-title{
+  position:fixed;
+  top:10px;
+  right:10px;
+  color:white;
+  font-size:18px;
+  font-weight:bold;
+  display:none;
+  z-index:101;
+}
+
+/* CAT */
+#cat{
+  position:absolute;
+  font-size:40px;
+  pointer-events:none;
+  transition:.07s linear;
+}
+
 </style>
 </head>
 
@@ -106,18 +190,20 @@ h1#bienvenida span {
 
 <header>
   <div class="logo" onclick="goHome()">Una Vida Juntos</div>
-  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 </header>
 
-<div id="section-name"></div>
-
 <div class="menu" id="menu">
-  <a href="#" onclick="openSection('historia','Historia')">Historia</a>
-  <a href="#" onclick="openSection('galeria','Galería')">Galería</a>
-  <a href="#" onclick="openSection('proyectos','Proyectos')">Proyectos</a>
-  <a href="#" onclick="openSection('chatIA','Chat con IA')">Chat con IA</a>
-  <a href="#" onclick="openSection('chatConmigo','Chat conmigo')">Chat conmigo</a>
-  <a href="#" onclick="openSection('minijuego','MiniJuego')">MiniJuego</a>
+  <a onclick="openSection('historia')">Historia</a>
+  <a onclick="openSection('galeria')">Galería</a>
+  <a onclick="openSection('proyectos')">Proyectos</a>
+  <a onclick="openSection('chatIA')">Chat con IA</a>
+  <a onclick="openSection('chatConmigo')">Chat conmigo</a>
+  <a onclick="openSection('miniJuego')">MiniJuego</a>
   <div class="locked">Bloqueado</div>
   <div class="locked">Bloqueado</div>
   <div class="locked">Bloqueado</div>
@@ -125,10 +211,11 @@ h1#bienvenida span {
   <div class="locked">Próximamente</div>
 </div>
 
-<!-- GATITO PIXEL ART -->
 <div id="cat">🐱</div>
 
-<main id="pantalla-principal">
+<div id="section-title"></div>
+
+<main>
   <div id="frases-container">
     <div class="phrase">La Única forma de ver el futuro es con el amor que te tengo, por que sé que en 100 años seguiré amandote.</div>
     <div class="phrase">Cualquier necesidad tuya es mi nueva profesión.</div>
@@ -146,99 +233,111 @@ h1#bienvenida span {
     <div class="phrase">Sé que mi amor puede ser intenso, pero es real.</div>
   </div>
 
-  <h1 id="bienvenida"></h1>
+  <h1 id="bienvenida">Bienvenida</h1>
+
   <div id="contador"></div>
-  <div id="frase-regalo">
-    Hola mi amor, quiero que esto sea tuyo, es mi regalo por este 18 de febrero, quiero que con el pasar de los tiempos, podamos actualizarla, meterle más cosas y de acá a 30 años mostrarles esta página a nuestros hijos, te amo amor de mi vida, felices 3 años y 3 meses....
+
+  <div id="mensaje">
+    Hola mi amor, quiero que esto sea tuyo, es mi regalo por este 18 de febrero, quiero que con el pasar de los tiempos, podamos actualizarla, meterle más cosas y de acá a 30 años mostrarles esta pagina a nuestros hijos, te amo amor de mi vida, felices 3 años y 3 meses...
   </div>
+
 </main>
 
-<!-- Secciones independientes -->
-<div id="historia" class="section" style="display:none; justify-content:center; align-items:center;"><h2>Historia</h2></div>
-<div id="galeria" class="section" style="display:none; justify-content:center; align-items:center;"><h2>Galería</h2></div>
-<div id="proyectos" class="section" style="display:none; justify-content:center; align-items:center;"><h2>Proyectos</h2></div>
-<div id="chatIA" class="section" style="display:none; justify-content:center; align-items:center;"><h2>Chat con IA</h2></div>
-<div id="chatConmigo" class="section" style="display:none; justify-content:center; align-items:center;"><h2>Chat conmigo</h2></div>
-<div id="minijuego" class="section" style="display:none; justify-content:center; align-items:center;"><h2>MiniJuego</h2></div>
+<!-- SECCIONES INDEPENDIENTES -->
+<div id="historia" class="section-active">
+  <h2>Historia</h2>
+  <p>Aquí irá la historia...</p>
+</div>
+
+<div id="galeria" class="section-active">
+  <h2>Galería</h2>
+  <p>(Próximamente fotos)</p>
+</div>
+
+<div id="proyectos" class="section-active">
+  <h2>Proyectos</h2>
+  <p>Aquí irán los proyectos...</p>
+</div>
+
+<div id="chatIA" class="section-active">
+  <h2>Chat con IA</h2>
+  <p>(Próximamente)</p>
+</div>
+
+<div id="chatConmigo" class="section-active">
+  <h2>Chat conmigo</h2>
+  <p>(Próximamente)</p>
+</div>
+
+<div id="miniJuego" class="section-active">
+  <h2>MiniJuego</h2>
+  <p>(Próximamente)</p>
+</div>
 
 <script>
-/* ==================== MENU ==================== */
+// MENU
 const menu = document.getElementById("menu");
-function toggleMenu(){ menu.classList.toggle("active"); }
+function toggleMenu(){menu.classList.toggle("active");}
 
-/* ==================== PANTALLA INICIAL ==================== */
-const bienvenidaText = "Bienvenida";
-const bienvenidaContainer = document.getElementById("bienvenida");
-for(let i=0;i<bienvenidaText.length;i++){
-  let span = document.createElement("span");
-  span.textContent = bienvenidaText[i];
-  span.style.animationDelay = (i*0.15) + "s";
-  bienvenidaContainer.appendChild(span);
-}
-
-/* ==================== CONTADOR ==================== */
-const contador = document.getElementById("contador");
-// Fecha exacta de inicio: 3 años y 3 meses
-const inicio = new Date();
-inicio.setFullYear(inicio.getFullYear()-3);
-inicio.setMonth(inicio.getMonth()-3);
-inicio.setDate(17); inicio.setHours(0,0,0,0);
-
-function actualizarContador(){
-  const ahora = new Date();
-  let diff = ahora - inicio;
-  const años = Math.floor(diff / (1000*60*60*24*365));
-  diff -= años*1000*60*60*24*365;
-  const meses = Math.floor(diff / (1000*60*60*24*30));
-  diff -= meses*1000*60*60*24*30;
-  const dias = Math.floor(diff / (1000*60*60*24));
-  diff -= dias*1000*60*60*24;
-  const horas = Math.floor(diff / (1000*60*60));
-  diff -= horas*1000*60*60;
-  const minutos = Math.floor(diff / (1000*60));
-  diff -= minutos*1000*60;
-  const segundos = Math.floor(diff/1000);
-  contador.textContent = `${años} años, ${meses} meses, ${dias} días, ${horas}h ${minutos}m ${segundos}s`;
-}
-actualizarContador();
-setInterval(actualizarContador,1000);
-
-/* ==================== GATITO PIXEL ART ==================== */
+// CAT
 const cat = document.getElementById("cat");
-let mouseX = window.innerWidth/2;
-let mouseY = window.innerHeight/2;
-let catX = mouseX, catY = mouseY;
+document.addEventListener("mousemove",e=>{
+  cat.style.left = e.pageX-20+"px";
+  cat.style.top = e.pageY-20+"px";
+});
+document.addEventListener("touchmove",e=>{
+  cat.style.left = e.touches[0].pageX-20+"px";
+  cat.style.top = e.touches[0].pageY-20+"px";
+});
 
-document.addEventListener("mousemove",e=>{ mouseX=e.pageX; mouseY=e.pageY; });
-document.addEventListener("touchmove",e=>{ mouseX=e.touches[0].pageX; mouseY=e.touches[0].pageY; });
-
-function moverGato(){
-  catX += (mouseX - catX)*0.1;
-  catY += (mouseY - catY)*0.1;
-  cat.style.left = catX+"px";
-  cat.style.top = catY+"px";
-  let dx = Math.abs(catX-mouseX), dy = Math.abs(catY-mouseY);
-  cat.textContent = (dx<5 && dy<5) ? "😼":"🐱";
-  requestAnimationFrame(moverGato);
-}
-moverGato();
-
-/* ==================== SECCIONES ==================== */
-const sectionName = document.getElementById("section-name");
-function openSection(id,name){
-  document.querySelectorAll(".section").forEach(s=>s.style.display="none");
-  document.getElementById("pantalla-principal").style.display="none";
+// SECCIONES
+function openSection(id){
+  // ocultar main
+  document.querySelector("main").style.display="none";
+  // ocultar todas secciones
+  document.querySelectorAll(".section-active").forEach(s=>s.style.display="none");
+  // mostrar la elegida
   document.getElementById(id).style.display="flex";
-  sectionName.textContent=name;
-  sectionName.style.display="block";
+  // mostrar título de sección
+  document.getElementById("section-title").innerText = id.charAt(0).toUpperCase()+id.slice(1);
+  document.getElementById("section-title").style.display="block";
+  // cerrar menú
   menu.classList.remove("active");
 }
+
+// VOLVER AL PRINCIPAL
 function goHome(){
-  document.querySelectorAll(".section").forEach(s=>s.style.display="none");
-  document.getElementById("pantalla-principal").style.display="flex";
-  sectionName.style.display="none";
+  document.querySelector("main").style.display="flex";
+  document.querySelectorAll(".section-active").forEach(s=>s.style.display="none");
+  document.getElementById("section-title").style.display="none";
 }
+
+// CONTADOR
+function updateCounter(){
+  const start = new Date("2023-11-17T00:00:00"); // fecha inicio relación
+  const now = new Date();
+  let diff = now - start;
+
+  const years = Math.floor(diff / (1000*60*60*24*365));
+  diff -= years*1000*60*60*24*365;
+  const months = Math.floor(diff / (1000*60*60*24*30));
+  diff -= months*1000*60*60*24*30;
+  const days = Math.floor(diff / (1000*60*60*24));
+  diff -= days*1000*60*60*24;
+  const hours = Math.floor(diff/1000/60/60);
+  diff -= hours*1000*60*60;
+  const minutes = Math.floor(diff/1000/60);
+  diff -= minutes*1000/60;
+  const seconds = Math.floor(diff/1000);
+
+  document.getElementById("contador").innerText = 
+    `${years} años, ${months} meses, ${days} días, ${hours}h ${minutes}m ${seconds}s`;
+}
+setInterval(updateCounter,1000);
+updateCounter();
+
 </script>
+
 </body>
 </html>
 
