@@ -94,15 +94,14 @@ main{
   position:relative;
 }
 
-/* FRASE UNICA ANIMADA */
-#frase{
+/* FRASES ESTÁTICAS */
+#frases-container{
   position:absolute;
-  top:40px;
+  top:20px;
   width:90%;
   text-align:center;
-  font-size:18px;
-  opacity:0;
-  transition:opacity 1s ease-in-out;
+  font-size:16px;
+  line-height:1.5;
 }
 
 /* BIENVENIDA */
@@ -197,8 +196,23 @@ h1#bienvenida{
 <div id="section-title"></div>
 
 <main>
-  <!-- FRASE ÚNICA -->
-  <div id="frase"></div>
+  <!-- FRASES ESTÁTICAS -->
+  <div id="frases-container">
+    <div>La Única forma de ver el futuro es con el amor que te tengo, por que sé que en 100 años seguiré amandote.</div>
+    <div>Cualquier necesidad tuya es mi nueva profesión.</div>
+    <div>Mi poema favorito es escucharte todos los días.</div>
+    <div>Amo que seas vos.</div>
+    <div>Desde la luna todavía podría verte brillar.</div>
+    <div>Haré lo posible e intentaré lo imposible por vos.</div>
+    <div>Sin omi no hay gatito.</div>
+    <div>Quiero que te sientas afortunada de tenerme, por que yo si lo soy por vos.</div>
+    <div>Cada parte de tu cuerpo necesita ser besada delicadamente.</div>
+    <div>Amo estar con vos, amo pasar tiempo con vos, amo ser yo por que yo estoy con vos.</div>
+    <div>Si alguna vez dudas de mí amor sobre vos, es tan simple con que vengas a hablarme.</div>
+    <div>Hasta el último respiro mi amor.</div>
+    <div>Por favor no huyas de mi.</div>
+    <div>Sé que mi amor puede ser intenso, pero es real.</div>
+  </div>
 
   <h1 id="bienvenida">Bienvenida</h1>
 
@@ -256,39 +270,6 @@ document.addEventListener("touchmove",e=>{
   cat.style.top = e.touches[0].pageY-20+"px";
 });
 
-// FRASES DINÁMICAS
-const frases = [
-"La Única forma de ver el futuro es con el amor que te tengo, por que sé que en 100 años seguiré amandote.",
-"Cualquier necesidad tuya es mi nueva profesión.",
-"Mi poema favorito es escucharte todos los días.",
-"Amo que seas vos.",
-"Desde la luna todavía podría verte brillar.",
-"Haré lo posible e intentaré lo imposible por vos.",
-"Sin omi no hay gatito.",
-"Quiero que te sientas afortunada de tenerme, por que yo si lo soy por vos.",
-"Cada parte de tu cuerpo necesita ser besada delicadamente.",
-"Amo estar con vos, amo pasar tiempo con vos, amo ser yo por que yo estoy con vos.",
-"Si alguna vez dudas de mí amor sobre vos, es tan simple con que vengas a hablarme.",
-"Hasta el último respiro mi amor.",
-"Por favor no huyas de mi.",
-"Sé que mi amor puede ser intenso, pero es real."
-];
-
-let fraseIndex = 0;
-const fraseDiv = document.getElementById("frase");
-
-function mostrarFrase(){
-  fraseDiv.style.opacity = 0;
-  setTimeout(()=>{
-    fraseDiv.innerText = frases[fraseIndex];
-    fraseDiv.style.opacity = 1;
-    fraseIndex = (fraseIndex+1)%frases.length;
-  },500);
-}
-
-mostrarFrase();
-setInterval(mostrarFrase, 3500); // cada 3.5 segundos cambia
-
 // SECCIONES
 function openSection(id){
   document.querySelector("main").style.display="none";
@@ -308,7 +289,7 @@ function goHome(){
 
 // CONTADOR
 function updateCounter(){
-  const start = new Date("2023-11-17T00:00:00");
+  const start = new Date("2020-11-17T00:00:00"); // Inicio de relación
   const now = new Date();
   let diff = now - start;
 
