@@ -3,32 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Una Vida Juntos - Rodrigo y Romina</title>
+<title>Una Vida Juntos - R&R</title>
 <style>
-/* ESTILO ORIGINAL DE RODRIGO */
+/* Tu diseño perfecto que guardé en memoria */
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
 body { background: #f4a1a1; color: white; overflow: hidden; height: 100vh; position: relative; }
-header { position: fixed; top: 15px; left: 15px; z-index: 100; display: flex; flex-direction: column; align-items: flex-start; }
-.logo { font-size: 20px; font-weight: bold; cursor: pointer; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+header { position: fixed; top: 15px; left: 15px; z-index: 100; }
+.logo { font-size: 20px; font-weight: bold; cursor: pointer; }
 .hamburger { margin-top: 10px; width: 25px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; height: 18px; }
 .hamburger span { display: block; height: 3px; background: white; border-radius: 2px; }
-.menu { position: fixed; right: -280px; top: 0; width: 280px; height: 100%; background: #d99b6d; padding: 80px 25px; transition: 0.5s; z-index: 99; display: flex; flex-direction: column; box-shadow: -5px 0 15px rgba(0,0,0,0.1); }
+.menu { position: fixed; right: -280px; top: 0; width: 280px; height: 100%; background: #d99b6d; padding: 80px 25px; transition: 0.5s; z-index: 99; display: flex; flex-direction: column; }
 .menu.active { right: 0; }
 .menu a { display: block; font-size: 16px; margin: 15px 0; color: white; text-decoration: none; }
 .locked { opacity: 0.4; font-size: 13px; margin: 12px 0; font-style: italic; }
-main, .section { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
+main { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
 #frases-container { position: absolute; top: 12%; width: 90%; height: 60px; display: flex; justify-content: center; align-items: center; }
 .phrase { font-size: 18px; line-height: 1.4; display: none; animation: fadeIn 0.8s ease-in; }
-h1#bienvenida { font-size: 42px; color: white; margin-top: 40px; display: flex; }
+h1#bienvenida { font-size: 42px; margin-top: 40px; display: flex; }
 h1#bienvenida span { display: inline-block; opacity: 0; transform: translateY(-50px); animation: drop 0.6s forwards; }
-#contador { margin-top: 25px; font-size: 18px; font-weight: 300; background: rgba(255,255,255,0.15); padding: 10px 20px; border-radius: 30px; }
+#contador { margin-top: 25px; font-size: 18px; background: rgba(255,255,255,0.15); padding: 10px 20px; border-radius: 30px; }
 #frase-regalo { margin-top: 25px; font-size: 15px; max-width: 550px; line-height: 1.6; opacity: 0.95; }
-#chat-card { width: 100%; max-width: 400px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 30px; padding: 20px; border: 1px solid rgba(255,255,255,0.3); }
-#chat-messages { height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; padding: 10px; }
-.msg { padding: 10px 15px; border-radius: 18px; font-size: 14px; max-width: 80%; text-align: left; }
-.bot { align-self: flex-start; background: #d99b6d; color: white; }
-.user { align-self: flex-end; background: white; color: #f4a1a1; }
-#cat { position: absolute; font-size: 30px; pointer-events: none; z-index: 1000; transition: transform 0.1s linear; }
+#cat { position: absolute; font-size: 30px; pointer-events: none; z-index: 1000; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes drop { to { opacity: 1; transform: translateY(0); } }
 </style>
@@ -36,83 +31,34 @@ h1#bienvenida span { display: inline-block; opacity: 0; transform: translateY(-5
 <body>
 
 <header>
-  <div class="logo" onclick="goHome()">Una Vida Juntos</div>
+  <div class="logo">Una Vida Juntos</div>
   <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
 </header>
 
 <nav class="menu" id="menu">
-  <a href="#" onclick="openSection('chatIA','Gatito IA')">🐱 Chat con Gatito IA</a>
-  <div class="locked">🔒 Planes de viaje</div>
-  <div class="locked">🔒 Nuestra Casita</div>
-  <div class="locked">🔒 Álbum de Bodas</div>
+  <a href="#">❤️ Nuestro Inicio: 18/11/2022</a>
+  <div class="locked">🔒 Planes de viaje (Próximamente)</div>
+  <div class="locked">🔒 Nuestra Casita (Próximamente)</div>
+  <div class="locked">🔒 Álbum de Bodas (Próximamente)</div>
 </nav>
 
 <div id="cat">🐱</div>
 
-<main id="pantalla-principal">
+<main>
   <div id="frases-container">
     <div class="phrase">La única forma de ver el futuro es con el amor que te tengo.</div>
-    <div class="phrase">Mi poema favorito es escucharte todos los días.</div>
     <div class="phrase">Amo que seas vos.</div>
-    <div class="phrase">Sin omi no hay gatito.</div>
     <div class="phrase">Hasta el último respiro mi amor.</div>
   </div>
   <h1 id="bienvenida"></h1>
-  <div id="contador">Cargando nuestro tiempo...</div>
+  <div id="contador">Cargando...</div>
   <div id="frase-regalo">
-    Hola Romina, mi amor. Quiero que esto sea tuyo... Te amo amor de mi vida, felices 3 años y 3 meses hoy 18 de febrero.
+    Hola Romina... felices 3 años y 3 meses hoy 18 de febrero. Te amo, Rodrigo.
   </div>
 </main>
 
-<div id="chatIA" class="section" style="display:none;">
-    <div id="chat-card">
-        <div style="margin-bottom:10px">😼 <b>Gatito IA</b></div>
-        <div id="chat-messages"><div class="msg bot">¡Miau! Hola Omi, soy tu Gatito IA. ¿En qué puedo ayudarte hoy, Vida? 🐾</div></div>
-        <div style="display:flex; background:white; border-radius:25px; padding:5px;">
-            <input type="text" id="chat-input" placeholder="Hablame ikito..." style="flex:1; border:none; padding:8px 15px; outline:none; border-radius:25px; color:#333;">
-            <button onclick="askIA()" style="background:#d99b6d; border:none; color:white; padding:8px 15px; border-radius:20px; cursor:pointer;">Enviar</button>
-        </div>
-    </div>
-</div>
-
-<script type="module">
-  import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
-  
-  // AQUÍ PEGA TU CÓDIGO SECRETO (EL QUE GENERASTE CON LA HERRAMIENTA)
-  const _s = "zdDT3hFRKRGR2Q1SidVdJdFViBDUMVnRtQkVUR2MEBXQ5NVY6lUQ"; 
-  const _k = () => atob(_s.split('').reverse().join(''));
-
-  window.askIA = async function() {
-    const input = document.getElementById("chat-input");
-    const messages = document.getElementById("chat-messages");
-    if(!input.value.trim()) return;
-    const userMsg = input.value;
-    const userDiv = document.createElement("div");
-    userDiv.className = "msg user"; userDiv.textContent = userMsg;
-    messages.appendChild(userDiv);
-    input.value = "";
-    messages.scrollTop = messages.scrollHeight;
-
-    try {
-      const genAI = new GoogleGenerativeAI(_k());
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-      const prompt = `Actúa como Gatito IA, versión de Rodrigo para Romina. Romántico. Apodos: Omi, Ikita, Vida, Amor. Usa: 'ati, to, ikito'. Hoy 18/02/2026 cumplen 3 años y 3 meses. Responde a: ${userMsg}`;
-      const result = await model.generateContent(prompt);
-      const botDiv = document.createElement("div");
-      botDiv.className = "msg bot"; botDiv.textContent = result.response.text();
-      messages.appendChild(botDiv);
-    } catch (e) {
-      console.error(e);
-      const err = document.createElement("div"); err.className = "msg bot";
-      err.textContent = "¡Miau! Rodrigo, parece que Google bloqueó el acceso. Intentá refrescar o revisar AI Studio.";
-      messages.appendChild(err);
-    }
-    messages.scrollTop = messages.scrollHeight;
-  }
-</script>
-
 <script>
-/* LÓGICA DE INTERFAZ */
+/* Lógica de Bienvenida y Menú */
 function toggleMenu() { document.getElementById("menu").classList.toggle("active"); }
 const bienvenidaText = "Bienvenida";
 const bienvenidaContainer = document.getElementById("bienvenida");
@@ -120,9 +66,12 @@ for(let i=0; i<bienvenidaText.length; i++){
   let span = document.createElement("span"); span.textContent = bienvenidaText[i];
   span.style.animationDelay = (i*0.15) + "s"; bienvenidaContainer.appendChild(span);
 }
+
+/* Ciclo de Frases */
 const frases = document.querySelectorAll(".phrase");
 let idx = 0; setInterval(() => { frases.forEach(f => f.style.display="none"); frases[idx].style.display="block"; idx=(idx+1)%frases.length; }, 4000);
 
+/* Contador Exacto desde 18/11/2022 */
 const inicio = new Date("2022-11-18T00:00:00");
 function actualizar() {
   const ahora = new Date();
@@ -135,14 +84,12 @@ function actualizar() {
 }
 setInterval(actualizar, 1000); actualizar();
 
+/* El Gatito que sigue el mouse */
 const cat = document.getElementById("cat");
 let mX=0, mY=0, cX=0, cY=0;
 document.addEventListener("mousemove", e => { mX=e.pageX; mY=e.pageY; cat.textContent="🙀"; setTimeout(()=>cat.textContent="🐱",150); });
 function mover(){ cX+=(mX-cX)*0.1; cY+=(mY-cY)*0.1; cat.style.left=(cX-15)+"px"; cat.style.top=(cY-15)+"px"; requestAnimationFrame(mover); }
 mover();
-
-function openSection(id){ document.querySelectorAll(".section, main").forEach(s=>s.style.display="none"); document.getElementById(id).style.display="flex"; toggleMenu(); }
-function goHome(){ document.querySelectorAll(".section").forEach(s=>s.style.display="none"); document.getElementById("pantalla-principal").style.display="flex"; document.getElementById("menu").classList.remove("active"); }
 </script>
 </body>
 </html>
