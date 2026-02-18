@@ -5,287 +5,171 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Nuestra Historia - R&R</title>
     <style>
-        /* CSS MEJORADO - Rodrigo & Romina 
-           Ajuste de posición de frases superiores
-        */
-
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            font-family: 'Segoe UI', sans-serif; 
-        }
+        /* RESET Y BASE */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
 
         body { 
             background: #f4a1a1; 
             color: white; 
-            overflow-x: hidden; 
             min-height: 100vh; 
-            position: relative; 
-            scroll-behavior: smooth;
+            overflow: hidden; /* Evita el scroll entre secciones */
         }
 
+        /* --- HEADER --- */
         header { 
-            position: fixed; 
-            top: 15px; 
-            left: 15px; 
-            z-index: 1000; 
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 20px; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
         }
 
         .logo { 
-            font-size: 20px; 
-            font-weight: bold; 
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+            font-size: 22px; font-weight: bold; cursor: pointer;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
         }
 
         .hamburger { 
-            margin-top: 10px; 
-            width: 25px; 
-            cursor: pointer; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: space-between; 
-            height: 18px; 
+            width: 25px; cursor: pointer; display: flex; 
+            flex-direction: column; justify-content: space-between; height: 18px; 
         }
 
-        .hamburger span { 
-            display: block; 
-            height: 3px; 
-            background: white; 
-            border-radius: 2px; 
-            transition: 0.3s;
-        }
+        .hamburger span { display: block; height: 3px; background: white; border-radius: 2px; }
 
+        /* --- MENÚ LATERAL --- */
         .menu { 
-            position: fixed; 
-            right: -280px; 
-            top: 0; 
-            width: 280px; 
-            height: 100%; 
-            background: #d99b6d; 
-            padding: 80px 25px; 
-            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            z-index: 999; 
-            display: flex; 
-            flex-direction: column; 
-            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            position: fixed; right: -280px; top: 0; width: 280px; height: 100%; 
+            background: #d99b6d; padding: 80px 25px; transition: 0.4s ease; 
+            z-index: 999; box-shadow: -5px 0 15px rgba(0,0,0,0.2);
         }
 
         .menu.active { right: 0; }
-
         .menu a { 
-            display: block; 
-            font-size: 16px; 
-            margin: 15px 0; 
-            color: white; 
-            text-decoration: none; 
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 5px;
+            display: block; font-size: 18px; margin: 20px 0; color: white; 
+            text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px;
         }
 
-        .locked { 
-            opacity: 0.5; 
-            font-size: 13px; 
-            margin: 12px 0; 
-            font-style: italic; 
-        }
-
-        main { width: 100%; }
-
-        section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        /* --- SISTEMA DE PÁGINAS --- */
+        .page {
+            display: none; /* Ocultas por defecto */
+            width: 100%; height: 100vh;
+            padding: 100px 20px 40px;
+            flex-direction: column; align-items: center; justify-content: center;
             text-align: center;
-            padding: 40px 20px;
-            position: relative;
         }
 
-        /* --- CORRECCIÓN DE FRASES --- */
-        #frases-container { 
-            position: absolute; 
-            top: 60px; /* Separado del borde superior */
-            width: 100%; 
-            height: 50px; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-            z-index: 10;
-        }
+        .page.active { display: flex; animation: fadeIn 0.4s ease; }
 
-        .phrase { 
-            font-size: 17px; 
-            font-style: italic;
-            line-height: 1.4; 
-            display: none; 
-            animation: fadeIn 0.8s ease-in; 
-            padding: 0 20px;
-        }
+        /* --- SECCIÓN INICIO --- */
+        #frases-container { height: 30px; margin-bottom: 10px; }
+        .phrase { font-size: 18px; font-style: italic; display: none; }
 
-        h1#bienvenida { 
-            font-size: 42px; 
-            margin-top: 20px; 
-            display: flex; 
-        }
-
-        h1#bienvenida span { 
-            display: inline-block; 
-            opacity: 0; 
-            transform: translateY(-50px); 
-            animation: drop 0.6s forwards; 
-        }
+        h1#bienvenida { font-size: 45px; margin-bottom: 20px; display: flex; }
+        h1#bienvenida span { display: inline-block; opacity: 0; transform: translateY(-30px); animation: drop 0.5s forwards; }
 
         #contador { 
-            margin-top: 25px; 
-            font-size: 18px; 
-            background: rgba(255,255,255,0.15); 
-            padding: 15px 25px; 
-            border-radius: 30px; 
-            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.15); padding: 20px 30px; 
+            border-radius: 30px; margin: 25px 0; border: 1px solid rgba(255,255,255,0.3);
         }
 
-        #frase-regalo { 
-            margin-top: 25px; 
-            font-size: 15px; 
-            max-width: 550px; 
-            line-height: 1.6; 
-            opacity: 0.95; 
+        /* --- SECCIONES INDEPENDIENTES --- */
+        .locked-info { font-size: 24px; margin-top: 20px; opacity: 0.8; }
+        .placeholder-box { 
+            width: 100%; max-width: 400px; height: 200px; 
+            border: 2px dashed rgba(255,255,255,0.5); 
+            display: flex; align-items: center; justify-content: center; border-radius: 20px;
         }
 
-        /* Galería */
-        section#galeria { background: #e88a8a; }
-
-        .album-container { 
-            width: 320px; 
-            height: 400px; 
-            position: relative; 
-            border-radius: 20px; 
-            overflow: hidden; 
-            border: 5px solid white; 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2); 
-        }
-
-        .foto { 
-            position: absolute; 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            opacity: 0; 
-            transition: opacity 1s ease-in-out; 
-        }
-
-        .foto.active { opacity: 1; }
-
-        /* Minijuego */
-        .game-area {
-            width: 300px; height: 200px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 20px;
-            display: flex; justify-content: center; align-items: center;
-            border: 2px dashed white; margin-top: 20px;
-            position: relative; cursor: crosshair;
-            overflow: hidden;
-        }
-
-        #cat { 
-            position: absolute; 
-            font-size: 30px; 
-            pointer-events: none; 
-            z-index: 2000; 
-        }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* ANIMACIONES */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes drop { to { opacity: 1; transform: translateY(0); } }
 
-        @media (max-width: 600px) {
-            h1#bienvenida { font-size: 35px; }
-            #frases-container { top: 70px; }
-            .album-container { width: 280px; height: 350px; }
-        }
+        .locked-item { opacity: 0.5; font-size: 14px; margin-top: 15px; font-style: italic; }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">Una Vida Juntos</div>
+        <div class="logo" onclick="showPage('inicio')">Una Vida Juntos</div>
         <div class="hamburger" onclick="toggleMenu()">
             <span></span><span></span><span></span>
         </div>
     </header>
 
     <nav class="menu" id="menu">
-        <a href="#inicio" onclick="toggleMenu()">❤️ Inicio</a>
-        <a href="#galeria" onclick="toggleMenu()">📸 Nuestro Álbum</a>
-        <a href="#inicio" onclick="toggleMenu()">📖 Nuestra Historia</a>
-        <a href="#minijuego" onclick="toggleMenu()">🎮 Minijuego con Gatito</a>
-        <div class="locked">🔒 Nuestros Proyectos</div>
-        <div class="locked">🔒 Planes de viaje</div>
-        <div class="locked">🔒 Nuestra Casita</div>
-        <div class="locked">🔒 Gatito IA (Próximamente)</div>
+        <a href="#" onclick="showPage('inicio')">❤️ Inicio</a>
+        <a href="#" onclick="showPage('galeria')">📸 Nuestro Álbum</a>
+        <a href="#" onclick="showPage('minijuego')">🎮 Minijuego de Gatito</a>
+        <a href="#" onclick="showPage('ia')">🐱 Gatito IA</a>
+        <div class="locked-item">🔒 Planes de viaje (Próximamente)</div>
+        <div class="locked-item">🔒 Nuestra Casita (Próximamente)</div>
     </nav>
 
-    <div id="cat">🐱</div>
-
     <main>
-        <section id="inicio">
+        <section id="inicio" class="page active">
             <div id="frases-container">
-                <div class="phrase">La única forma de ver el futuro es con el amor que te tengo.</div>
-                <div class="phrase">Amo que seas vos.</div>
-                <div class="phrase">Hasta el último respiro mi amor.</div>
-                <div class="phrase">Sin omi no hay gatito.</div>
+                <div class="phrase">"La única forma de ver el futuro es con el amor que te tengo"</div>
+                <div class="phrase">"Amo que seas vos"</div>
+                <div class="phrase">"Hasta el último respiro mi amor"</div>
+                <div class="phrase">"Sin omi no hay gatito"</div>
             </div>
-
+            
             <h1 id="bienvenida"></h1>
             
-            <div id="contador">Calculando nuestro tiempo...</div>
+            <div id="contador">Calculando...</div>
 
-            <div id="frase-regalo">
-                Hola Romina... felices 3 años y 3 meses hoy 18 de febrero. <br>
-                Sos lo más lindo que me pasó en la vida. Te amo, Rodrigo.
-            </div>
-            <div style="margin-top: 30px; font-size: 11px; opacity: 0.6;">(Deslizá para navegar por las secciones)</div>
-        </section>
-
-        <section id="galeria">
-            <h2 style="margin-bottom:20px;">Nuestros Recuerdos</h2>
-            <div class="album-container">
-                <img src="foto1.jpg" class="foto active">
-                <img src="foto2.jpg" class="foto">
-                <img src="foto3.jpg" class="foto">
-                <img src="foto4.jpg" class="foto">
+            <div id="mensaje-personal">
+                <p>Hola Romina... felices 3 años y 3 meses hoy 18 de febrero.</p>
+                <p>Sos lo más lindo que me pasó en la vida. Te amo, Rodrigo.</p>
             </div>
         </section>
 
-        <section id="minijuego">
-            <h2>Minijuego con Gatito</h2>
-            <div class="game-area" id="game-area">
-                <span id="target-cat" style="font-size: 40px; cursor: pointer; position: absolute;">🐱</span>
+        <section id="galeria" class="page">
+            <h2>Nuestro Álbum</h2>
+            <div class="placeholder-box" style="margin-top:20px;">
+                <p>📸 Espacio para fotos</p>
             </div>
-            <p id="score-text" style="margin-top: 20px;">Gatitos atrapados: 0</p>
         </section>
 
-        <section id="ia-section" style="background: #d99b6d; min-height: 40vh;">
+        <section id="minijuego" class="page">
+            <h2>Minijuego de Gatito</h2>
+            <div class="placeholder-box" style="margin-top:20px;">
+                <p>🎮 Próximamente...</p>
+            </div>
+        </section>
+
+        <section id="ia" class="page">
             <h2>Gatito IA</h2>
-            <div class="locked" style="font-size: 20px; opacity: 1;">🔒 Próximamente</div>
+            <div class="placeholder-box" style="margin-top:20px;">
+                <p>🤖 Sección en desarrollo</p>
+            </div>
         </section>
     </main>
 
     <script>
-        function toggleMenu() { document.getElementById("menu").classList.toggle("active"); }
-
-        // Título animado
-        const texto = "Bienvenida";
-        const container = document.getElementById("bienvenida");
-        for(let i=0; i < texto.length; i++) {
-            let s = document.createElement("span");
-            s.textContent = texto[i];
-            s.style.animationDelay = (i * 0.1) + "s";
-            container.appendChild(s);
+        // NAVEGACIÓN ENTRE "PÁGINAS"
+        function showPage(pageId) {
+            // Oculta todas las secciones
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            // Muestra la seleccionada
+            document.getElementById(pageId).classList.add('active');
+            // Cierra el menú lateral
+            document.getElementById("menu").classList.remove("active");
         }
 
-        // Ciclo de frases superior
+        function toggleMenu() {
+            document.getElementById("menu").classList.toggle("active");
+        }
+
+        // TÍTULO ANIMADO (BIENVENIDA)
+        const texto = "Bienvenida";
+        const container = document.getElementById("bienvenida");
+        [...texto].forEach((letra, i) => {
+            let s = document.createElement("span");
+            s.textContent = letra;
+            s.style.animationDelay = (i * 0.1) + "s";
+            container.appendChild(s);
+        });
+
+        // ROTACIÓN DE FRASES SUPERIORES
         const frases = document.querySelectorAll(".phrase");
         let fIdx = 0;
         function rotar() {
@@ -295,49 +179,18 @@
         }
         setInterval(rotar, 4000); rotar();
 
-        // Reloj R&R
-        const inicio = new Date("2022-11-18T00:00:00");
+        // CONTADOR DE TIEMPO
+        const fechaInicio = new Date("2022-11-18T00:00:00");
         function actualizar() {
             const ahora = new Date();
-            let a = ahora.getFullYear() - inicio.getFullYear();
-            let m = ahora.getMonth() - inicio.getMonth();
-            let d = ahora.getDate() - inicio.getDate();
+            let a = ahora.getFullYear() - fechaInicio.getFullYear();
+            let m = ahora.getMonth() - fechaInicio.getMonth();
+            let d = ahora.getDate() - fechaInicio.getDate();
             if (d < 0) { m--; d += new Date(ahora.getFullYear(), ahora.getMonth(), 0).getDate(); }
             if (m < 0) { a--; m += 12; }
             document.getElementById("contador").innerHTML = `${a} años, ${m} meses, ${d} días<br><small>${ahora.getHours()}h ${ahora.getMinutes()}m ${ahora.getSeconds()}s</small>`;
         }
         setInterval(actualizar, 1000); actualizar();
-
-        // Gatito sigue puntero
-        const cat = document.getElementById("cat");
-        let mX=0, mY=0, cX=0, cY=0;
-        document.addEventListener("mousemove", e => { mX=e.pageX; mY=e.pageY; });
-        function moveCat(){
-            cX+=(mX-cX)*0.1; cY+=(mY-cY)*0.1;
-            cat.style.left=(cX-15)+"px"; cat.style.top=(cY-15)+"px";
-            requestAnimationFrame(moveCat);
-        }
-        moveCat();
-
-        // Álbum
-        const fotos = document.querySelectorAll(".foto");
-        let iIdx = 0;
-        setInterval(() => {
-            fotos.forEach(f => f.classList.remove("active"));
-            iIdx = (iIdx + 1) % fotos.length;
-            fotos[iIdx].classList.add("active");
-        }, 3000);
-
-        // Minijuego
-        const target = document.getElementById("target-cat");
-        const area = document.getElementById("game-area");
-        let score = 0;
-        target.addEventListener("mouseover", () => {
-            target.style.left = Math.random() * (area.clientWidth - 40) + "px";
-            target.style.top = Math.random() * (area.clientHeight - 40) + "px";
-            score++;
-            document.getElementById("score-text").textContent = `Gatitos atrapados: ${score}`;
-        });
     </script>
 </body>
 </html>
