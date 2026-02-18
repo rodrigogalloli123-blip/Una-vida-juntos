@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Nuestra Historia - R&R</title>
     <style>
-        /* CSS - DISEÑO MEJORADO R&R 
-           Versión 18 de Febrero - Rodrigo & Romina
+        /* CSS MEJORADO - Rodrigo & Romina 
+           Ajuste de posición de frases superiores
         */
 
-        /* Reset de estilos para consistencia en móviles */
         * { 
             margin: 0; 
             padding: 0; 
@@ -17,7 +16,6 @@
             font-family: 'Segoe UI', sans-serif; 
         }
 
-        /* Fondo principal con el color que elegiste */
         body { 
             background: #f4a1a1; 
             color: white; 
@@ -27,7 +25,6 @@
             scroll-behavior: smooth;
         }
 
-        /* Cabecera fija con Logo */
         header { 
             position: fixed; 
             top: 15px; 
@@ -38,11 +35,9 @@
         .logo { 
             font-size: 20px; 
             font-weight: bold; 
-            cursor: pointer; 
             text-shadow: 1px 1px 5px rgba(0,0,0,0.1);
         }
 
-        /* Botón Hamburguesa de 3 rayitas */
         .hamburger { 
             margin-top: 10px; 
             width: 25px; 
@@ -61,7 +56,6 @@
             transition: 0.3s;
         }
 
-        /* Menú lateral con el color naranja original */
         .menu { 
             position: fixed; 
             right: -280px; 
@@ -77,9 +71,7 @@
             box-shadow: -5px 0 15px rgba(0,0,0,0.1);
         }
 
-        .menu.active { 
-            right: 0; 
-        }
+        .menu.active { right: 0; }
 
         .menu a { 
             display: block; 
@@ -98,10 +90,7 @@
             font-style: italic; 
         }
 
-        /* Secciones de la página */
-        main { 
-            width: 100%;
-        }
+        main { width: 100%; }
 
         section {
             min-height: 100vh;
@@ -111,30 +100,33 @@
             align-items: center;
             text-align: center;
             padding: 40px 20px;
+            position: relative;
         }
 
-        /* Frases superiores dinámicas */
+        /* --- CORRECCIÓN DE FRASES --- */
         #frases-container { 
             position: absolute; 
-            top: 12%; 
-            width: 90%; 
-            height: 60px; 
+            top: 60px; /* Separado del borde superior */
+            width: 100%; 
+            height: 50px; 
             display: flex; 
             justify-content: center; 
-            align-items: center; 
+            align-items: center;
+            z-index: 10;
         }
 
         .phrase { 
-            font-size: 18px; 
+            font-size: 17px; 
+            font-style: italic;
             line-height: 1.4; 
             display: none; 
             animation: fadeIn 0.8s ease-in; 
+            padding: 0 20px;
         }
 
-        /* Título Bienvenida con efecto drop */
         h1#bienvenida { 
             font-size: 42px; 
-            margin-top: 40px; 
+            margin-top: 20px; 
             display: flex; 
         }
 
@@ -145,7 +137,6 @@
             animation: drop 0.6s forwards; 
         }
 
-        /* Contador de tiempo */
         #contador { 
             margin-top: 25px; 
             font-size: 18px; 
@@ -163,15 +154,8 @@
             opacity: 0.95; 
         }
 
-        /* Estilos de la Galería (Punto 1) */
+        /* Galería */
         section#galeria { background: #e88a8a; }
-
-        .galeria-titulo {
-            font-size: 28px;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
 
         .album-container { 
             width: 320px; 
@@ -194,8 +178,7 @@
 
         .foto.active { opacity: 1; }
 
-        /* Nueva sección: Minijuego */
-        section#minijuego { background: #f4a1a1; }
+        /* Minijuego */
         .game-area {
             width: 300px; height: 200px;
             background: rgba(255,255,255,0.1);
@@ -203,9 +186,9 @@
             display: flex; justify-content: center; align-items: center;
             border: 2px dashed white; margin-top: 20px;
             position: relative; cursor: crosshair;
+            overflow: hidden;
         }
 
-        /* Gatito Ikito */
         #cat { 
             position: absolute; 
             font-size: 30px; 
@@ -213,13 +196,12 @@
             z-index: 2000; 
         }
 
-        /* Animaciones */
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes drop { to { opacity: 1; transform: translateY(0); } }
 
         @media (max-width: 600px) {
-            h1#bienvenida { font-size: 32px; }
-            #contador { font-size: 16px; }
+            h1#bienvenida { font-size: 35px; }
+            #frases-container { top: 70px; }
             .album-container { width: 280px; height: 350px; }
         }
     </style>
@@ -229,9 +211,7 @@
     <header>
         <div class="logo">Una Vida Juntos</div>
         <div class="hamburger" onclick="toggleMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </div>
     </header>
 
@@ -240,7 +220,7 @@
         <a href="#galeria" onclick="toggleMenu()">📸 Nuestro Álbum</a>
         <a href="#inicio" onclick="toggleMenu()">📖 Nuestra Historia</a>
         <a href="#minijuego" onclick="toggleMenu()">🎮 Minijuego con Gatito</a>
-        <div class="locked">🔒 Nuestros Proyectos (Próximamente)</div>
+        <div class="locked">🔒 Nuestros Proyectos</div>
         <div class="locked">🔒 Planes de viaje</div>
         <div class="locked">🔒 Nuestra Casita</div>
         <div class="locked">🔒 Gatito IA (Próximamente)</div>
@@ -259,72 +239,65 @@
 
             <h1 id="bienvenida"></h1>
             
-            <div id="contador">Cargando nuestro tiempo...</div>
+            <div id="contador">Calculando nuestro tiempo...</div>
 
             <div id="frase-regalo">
                 Hola Romina... felices 3 años y 3 meses hoy 18 de febrero. <br>
                 Sos lo más lindo que me pasó en la vida. Te amo, Rodrigo.
             </div>
-            <div style="margin-top: 30px; font-size: 12px; opacity: 0.7;">(Deslizá para navegar)</div>
+            <div style="margin-top: 30px; font-size: 11px; opacity: 0.6;">(Deslizá para navegar por las secciones)</div>
         </section>
 
         <section id="galeria">
-            <h2 class="galeria-titulo">Nuestros Recuerdos</h2>
+            <h2 style="margin-bottom:20px;">Nuestros Recuerdos</h2>
             <div class="album-container">
                 <img src="foto1.jpg" class="foto active">
                 <img src="foto2.jpg" class="foto">
                 <img src="foto3.jpg" class="foto">
                 <img src="foto4.jpg" class="foto">
             </div>
-            <p style="margin-top: 20px; font-style: italic;">"Cada momento a tu lado es un tesoro."</p>
         </section>
 
         <section id="minijuego">
             <h2>Minijuego con Gatito</h2>
-            <p style="margin-top:10px;">¡Atrapá al gatito Ikito!</p>
             <div class="game-area" id="game-area">
                 <span id="target-cat" style="font-size: 40px; cursor: pointer; position: absolute;">🐱</span>
             </div>
             <p id="score-text" style="margin-top: 20px;">Gatitos atrapados: 0</p>
         </section>
 
-        <section id="proximamente" style="background: #d99b6d; min-height: 50vh;">
+        <section id="ia-section" style="background: #d99b6d; min-height: 40vh;">
             <h2>Gatito IA</h2>
             <div class="locked" style="font-size: 20px; opacity: 1;">🔒 Próximamente</div>
-            <p style="margin-top: 20px; padding: 0 20px;">Estamos entrenando a un gatito inteligente para que hable con vos.</p>
         </section>
     </main>
 
     <script>
-        /* JAVASCRIPT - LÓGICA TOTAL R&R */
+        function toggleMenu() { document.getElementById("menu").classList.toggle("active"); }
 
-        // Control del Menú
-        function toggleMenu() { 
-            document.getElementById("menu").classList.toggle("active"); 
-        }
-
-        // Animación Bienvenida
+        // Título animado
         const texto = "Bienvenida";
         const container = document.getElementById("bienvenida");
         for(let i=0; i < texto.length; i++) {
             let s = document.createElement("span");
             s.textContent = texto[i];
-            s.style.animationDelay = (i * 0.15) + "s";
+            s.style.animationDelay = (i * 0.1) + "s";
             container.appendChild(s);
         }
 
-        // Rotador de Frases
+        // Ciclo de frases superior
         const frases = document.querySelectorAll(".phrase");
         let fIdx = 0;
-        setInterval(() => {
+        function rotar() {
             frases.forEach(f => f.style.display = "none");
             frases[fIdx].style.display = "block";
             fIdx = (fIdx + 1) % frases.length;
-        }, 4000);
+        }
+        setInterval(rotar, 4000); rotar();
 
-        // Contador 18/11/2022
+        // Reloj R&R
         const inicio = new Date("2022-11-18T00:00:00");
-        function reloj() {
+        function actualizar() {
             const ahora = new Date();
             let a = ahora.getFullYear() - inicio.getFullYear();
             let m = ahora.getMonth() - inicio.getMonth();
@@ -333,40 +306,38 @@
             if (m < 0) { a--; m += 12; }
             document.getElementById("contador").innerHTML = `${a} años, ${m} meses, ${d} días<br><small>${ahora.getHours()}h ${ahora.getMinutes()}m ${ahora.getSeconds()}s</small>`;
         }
-        setInterval(reloj, 1000); reloj();
+        setInterval(actualizar, 1000); actualizar();
 
-        // Gatito sigue mouse (Ikito)
+        // Gatito sigue puntero
         const cat = document.getElementById("cat");
         let mX=0, mY=0, cX=0, cY=0;
-        document.addEventListener("mousemove", e => { mX=e.pageX; mY=e.pageY; cat.textContent="🙀"; setTimeout(()=>cat.textContent="🐱",150); });
-        function loop(){ cX+=(mX-cX)*0.1; cY+=(mY-cY)*0.1; cat.style.left=(cX-15)+"px"; cat.style.top=(cY-15)+"px"; requestAnimationFrame(loop); }
-        loop();
+        document.addEventListener("mousemove", e => { mX=e.pageX; mY=e.pageY; });
+        function moveCat(){
+            cX+=(mX-cX)*0.1; cY+=(mY-cY)*0.1;
+            cat.style.left=(cX-15)+"px"; cat.style.top=(cY-15)+"px";
+            requestAnimationFrame(moveCat);
+        }
+        moveCat();
 
-        // Álbum automático
+        // Álbum
         const fotos = document.querySelectorAll(".foto");
-        let imgIdx = 0;
+        let iIdx = 0;
         setInterval(() => {
             fotos.forEach(f => f.classList.remove("active"));
-            imgIdx = (imgIdx + 1) % fotos.length;
-            fotos[imgIdx].classList.add("active");
+            iIdx = (iIdx + 1) % fotos.length;
+            fotos[iIdx].classList.add("active");
         }, 3000);
 
-        // Lógica Minijuego
+        // Minijuego
         const target = document.getElementById("target-cat");
         const area = document.getElementById("game-area");
         let score = 0;
         target.addEventListener("mouseover", () => {
-            const maxX = area.clientWidth - 50;
-            const maxY = area.clientHeight - 50;
-            target.style.left = Math.random() * maxX + "px";
-            target.style.top = Math.random() * maxY + "px";
+            target.style.left = Math.random() * (area.clientWidth - 40) + "px";
+            target.style.top = Math.random() * (area.clientHeight - 40) + "px";
             score++;
             document.getElementById("score-text").textContent = `Gatitos atrapados: ${score}`;
-            if(score % 5 === 0) target.textContent = "😸";
-            else target.textContent = "🐱";
         });
-
-        console.log("Sistema cargado. 300+ líneas de amor para Romina.");
     </script>
 </body>
 </html>
