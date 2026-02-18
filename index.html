@@ -78,13 +78,15 @@
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             max-width: 600px;
-            width: 90%;
+            width: 95%;
             position: relative;
             margin-top: 20px;
             line-height: 1.6;
-            font-size: 18px;
+            font-size: 17px;
             text-align: left;
             border: 1px solid #e0d0b0;
+            overflow-y: auto;
+            max-height: 70vh;
         }
 
         .corazon-caida {
@@ -174,8 +176,7 @@
 
         <section id="historia" class="page">
             <h2>Nuestra Historia</h2>
-            <div class="carta-container" id="carta">
-                </div>
+            <div class="carta-container" id="carta"></div>
         </section>
 
         <section id="galeria" class="page">
@@ -220,7 +221,7 @@
     <div id="gatito">😺</div>
 
     <script>
-        const mensajeCarta = "Querida Romina,\n\nDesde el primer momento supe que eras especial. Estos 3 años y 3 meses han sido los mejores de mi vida. Gracias por cada sonrisa, por cada abrazo y por ser mi compañera en todo. Sos el amor de mi vida y no puedo esperar a ver todo lo que el futuro tiene para nosotros.\n\nTe amo para siempre, Rodrigo.";
+        const mensajeCarta = `Hola mi amor, este es el comienzo de una forma de patentar nuestra historia, fotos, interacciones, este es un proyecto que nos dará muchos momentos lindos ya que vamos a tener muchas cosas acá para recordar, este es mi regalo para hoy, este 18 de febrero, esto es el comienzo de algo increíble, a esta pagina llena de amor se le irán integrando muchas mecánicas nuevas e interesantes. Habrán secciónes para poner nuestra historia, el quiz para que respondas, el Gatito IA. Y muchas más cosas que se me ocurran a mi y a vos, que esto es más tuyo que mio, pero es de los dos.\n\nQuiero decirte que te amo muchísimo, que me tardé mucho haciendo esto, muchas horas de buacar maneras, muchas formas de intentar meter más opciones, errores, complicaciones, mychas horas de estres y sueño, pero créeme que vale la pena darte esto, por que te lo mereces, mi amor por vos va por esto y por más, haré que todo lo que querés se cumpla, por que mi amor lo intentará todo. Esta pagina se va a llenar de secretos, ideas y proyectos, quiero que estemos juntos toda la vida mi amor, todo lo que te amo no tiene limite, sos la chica que quiero que esté conmigo toda la vida, simplemente por que me haces feliz y sos todo lo que alguna vez Soñé, nunca dudes que te amo, nunca dudes de mi y de mi amor, voy a hacerte feliz siempre, gracias por estos 3 años y estos 3 meses, sos lo mejor que me pasó en la vida, espero yo también sea lo mismo para vos, sé que a veces peleamos pero es normal y lo necesitamos, todos necesitan su lado conflictivo, te necesito yo a vos como el aire para mis pulmones, te necesito como el fuego y el agua, te necesito como el ying a el yang, te necesito como la tierra al agua, te necesito como la música al oido, te necesito como yo a mi felicidad y mi felicidad sos vos amor, no importa el contexto, te necesito día y noche. Te necesito y necesito que busces en YouTube "Need you" de juice wrld.`;
 
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -231,7 +232,6 @@
 
         function toggleMenu() { document.getElementById("menu").classList.toggle("active"); }
 
-        // ESCRITURA AUTOMÁTICA
         function escribirMensaje() {
             const container = document.getElementById("carta");
             container.innerHTML = "";
@@ -240,23 +240,22 @@
                 if(i < mensajeCarta.length) {
                     container.innerHTML += mensajeCarta.charAt(i) === "\n" ? "<br>" : mensajeCarta.charAt(i);
                     i++;
-                    if(i % 5 === 0) crearCorazon();
+                    if(i % 10 === 0) crearCorazon();
                 } else { clearInterval(intervalo); }
-            }, 50);
+            }, 40);
         }
 
         function crearCorazon() {
             const c = document.createElement("div");
             c.className = "corazon-caida";
             c.textContent = "❤️";
-            c.style.left = Math.random() * 100 + "%";
+            c.style.left = Math.random() * 90 + "%";
             c.style.top = "-20px";
             c.style.animationDuration = (Math.random() * 3 + 2) + "s";
             document.getElementById("historia").appendChild(c);
             setTimeout(() => c.remove(), 5000);
         }
 
-        // BIENVENIDA
         const textoBienvenida = "Bienvenida";
         const welcomeContainer = document.getElementById("bienvenida");
         [...textoBienvenida].forEach((letra, i) => {
@@ -266,7 +265,6 @@
             welcomeContainer.appendChild(s);
         });
 
-        // FRASES ROTATIVAS
         const frases = document.querySelectorAll(".phrase");
         let fIdx = 0;
         function rotar() {
@@ -276,7 +274,6 @@
         }
         setInterval(rotar, 4000); rotar();
 
-        // CONTADOR
         const fechaInicio = new Date("2022-11-18T00:00:00");
         function actualizar() {
             const ahora = new Date();
@@ -289,7 +286,6 @@
         }
         setInterval(actualizar, 1000); actualizar();
 
-        // GATITO SEGUIDOR
         const gatito = document.getElementById("gatito");
         let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2, posX = mouseX, posY = mouseY, ultHuella = 0, ultOmi = 0;
         document.addEventListener("mousemove", e => { mouseX = e.clientX; mouseY = e.clientY; });
