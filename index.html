@@ -3,93 +3,293 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Una Vida Juntos - R&R</title>
+<title>Nuestra Vida Juntos - Rodrigo y Romina</title>
 <style>
-/* Tu diseño perfecto que guardé en memoria */
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-body { background: #f4a1a1; color: white; overflow: hidden; height: 100vh; position: relative; }
-header { position: fixed; top: 15px; left: 15px; z-index: 100; }
-.logo { font-size: 20px; font-weight: bold; cursor: pointer; }
-.hamburger { margin-top: 10px; width: 25px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; height: 18px; }
-.hamburger span { display: block; height: 3px; background: white; border-radius: 2px; }
-.menu { position: fixed; right: -280px; top: 0; width: 280px; height: 100%; background: #d99b6d; padding: 80px 25px; transition: 0.5s; z-index: 99; display: flex; flex-direction: column; }
+/* ESTILOS BASE - DISEÑO EXCLUSIVO R&R
+   Aquí definimos los colores y la estructura principal.
+*/
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+}
+
+body { 
+    background: linear-gradient(135deg, #f4a1a1 0%, #e88a8a 100%); 
+    color: white; 
+    overflow-x: hidden; 
+    min-height: 100vh; 
+    position: relative; 
+    scroll-behavior: smooth;
+}
+
+/* CAPA DE TEXTURA DE FONDO */
+.bg-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/cubes.png');
+    opacity: 0.1;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* HEADER SUPERIOR */
+header { 
+    position: fixed; 
+    top: 0; left: 0; width: 100%;
+    padding: 20px 30px;
+    z-index: 1000; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(244, 161, 161, 0.85);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+
+.logo { 
+    font-size: 22px; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+    letter-spacing: 3px; 
+    cursor: pointer;
+    transition: 0.3s;
+}
+.logo:hover { transform: scale(1.05); }
+
+/* MENÚ HAMBURGUESA */
+.hamburger { 
+    width: 30px; height: 22px; 
+    cursor: pointer; 
+    display: flex; flex-direction: column; justify-content: space-between; 
+}
+.hamburger span { 
+    display: block; height: 4px; background: white; 
+    border-radius: 4px; transition: 0.4s; 
+}
+
+/* MENÚ LATERAL DESPLEGABLE */
+.menu { 
+    position: fixed; right: -100%; top: 0; 
+    width: 320px; height: 100%; 
+    background: #d99b6d; 
+    padding: 100px 40px; 
+    transition: 0.6s cubic-bezier(0.19, 1, 0.22, 1); 
+    z-index: 999; 
+    box-shadow: -15px 0 35px rgba(0,0,0,0.3);
+}
 .menu.active { right: 0; }
-.menu a { display: block; font-size: 16px; margin: 15px 0; color: white; text-decoration: none; }
-.locked { opacity: 0.4; font-size: 13px; margin: 12px 0; font-style: italic; }
-main { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
-#frases-container { position: absolute; top: 12%; width: 90%; height: 60px; display: flex; justify-content: center; align-items: center; }
-.phrase { font-size: 18px; line-height: 1.4; display: none; animation: fadeIn 0.8s ease-in; }
-h1#bienvenida { font-size: 42px; margin-top: 40px; display: flex; }
-h1#bienvenida span { display: inline-block; opacity: 0; transform: translateY(-50px); animation: drop 0.6s forwards; }
-#contador { margin-top: 25px; font-size: 18px; background: rgba(255,255,255,0.15); padding: 10px 20px; border-radius: 30px; }
-#frase-regalo { margin-top: 25px; font-size: 15px; max-width: 550px; line-height: 1.6; opacity: 0.95; }
-#cat { position: absolute; font-size: 30px; pointer-events: none; z-index: 1000; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.menu a { 
+    display: block; font-size: 20px; margin: 25px 0; 
+    color: white; text-decoration: none; 
+    font-weight: 300; border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 10px;
+    transition: 0.3s;
+}
+.menu a:hover { padding-left: 10px; background: rgba(255,255,255,0.1); }
+
+/* SECCIONES PRINCIPALES */
+section { 
+    min-height: 100vh; 
+    display: flex; flex-direction: column; 
+    justify-content: center; align-items: center; 
+    text-align: center; padding: 60px 20px;
+    position: relative;
+    z-index: 2;
+}
+
+/* FRASES ANIMADAS DEL TOP */
+#frases-container { 
+    height: 100px; 
+    margin-bottom: 20px;
+    display: flex; justify-content: center; align-items: center; 
+}
+.phrase { 
+    font-size: 22px; font-style: italic; font-weight: 300;
+    display: none; animation: fadeInOut 4s infinite; 
+    max-width: 80%;
+}
+
+/* BIENVENIDA LETRA POR LETRA */
+h1#bienvenida { 
+    font-size: 60px; 
+    display: flex; 
+    margin-bottom: 10px;
+    text-shadow: 3px 5px 15px rgba(0,0,0,0.2); 
+}
+h1#bienvenida span { 
+    display: inline-block; 
+    opacity: 0; 
+    transform: translateY(-50px); 
+    animation: drop 0.7s forwards; 
+}
+
+/* CONTADOR DE TIEMPO */
+#contador { 
+    margin-top: 35px; 
+    font-size: 22px; 
+    background: rgba(255,255,255,0.25); 
+    padding: 25px 50px; 
+    border-radius: 60px; 
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    border: 1px solid rgba(255,255,255,0.4);
+    line-height: 1.5;
+}
+
+/* PUNTO 1: ÁLBUM DE FOTOS INTERACTIVO */
+.galeria-wrapper {
+    margin-top: 60px;
+    width: 100%; max-width: 600px;
+    perspective: 1000px;
+}
+.galeria {
+    width: 100%;
+    height: 400px;
+    position: relative;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+    border: 5px solid white;
+}
+.foto {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; 
+    opacity: 0; 
+    transition: opacity 1.5s ease-in-out, transform 2s ease-out;
+    transform: scale(1.1);
+}
+.foto.active { 
+    opacity: 1; 
+    transform: scale(1);
+}
+
+/* GATITO IKITO */
+#cat { 
+    position: absolute; 
+    font-size: 40px; 
+    pointer-events: none; 
+    z-index: 2000; 
+    transition: transform 0.1s linear;
+}
+
+/* PARTÍCULAS DE CORAZÓN */
+.heart-particle {
+    position: absolute; 
+    color: rgba(255,255,255,0.7);
+    pointer-events: none; 
+    z-index: 1;
+    animation: floatUp 6s linear forwards;
+}
+
+/* ANIMACIONES KEYFRAMES */
+@keyframes fadeInOut { 0% { opacity: 0; transform: scale(0.9); } 20%, 80% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.1); } }
 @keyframes drop { to { opacity: 1; transform: translateY(0); } }
+@keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 0.5; }
+    100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+}
+
+/* RESPONSIVE - AJUSTES PARA CELULAR */
+@media (max-width: 600px) {
+    h1#bienvenida { font-size: 40px; }
+    .menu { width: 80%; }
+    .galeria { height: 300px; }
+    #contador { font-size: 18px; padding: 20px; }
+}
 </style>
 </head>
 <body>
 
+<div class="bg-overlay"></div>
+<div id="cat">🐱</div>
+
 <header>
-  <div class="logo">Una Vida Juntos</div>
-  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+    <div class="logo" onclick="window.scrollTo(0,0)">R & R</div>
+    <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+    </div>
 </header>
 
 <nav class="menu" id="menu">
-  <a href="#">❤️ Nuestro Inicio: 18/11/2022</a>
-  <div class="locked">🔒 Planes de viaje (Próximamente)</div>
-  <div class="locked">🔒 Nuestra Casita (Próximamente)</div>
-  <div class="locked">🔒 Álbum de Bodas (Próximamente)</div>
+    <a href="#inicio" onclick="toggleMenu()">🏠 Nuestra Bienvenida</a>
+    <a href="#album" onclick="toggleMenu()">📸 Álbum de Recuerdos</a>
+    <a href="#" style="opacity:0.4">🔒 Planes de Viaje</a>
+    <a href="#" style="opacity:0.4">🔒 Nuestra Casita</a>
+    <a href="#" style="opacity:0.4">🔒 Álbum de Bodas</a>
 </nav>
 
-<div id="cat">🐱</div>
-
 <main>
-  <div id="frases-container">
-    <div class="phrase">La única forma de ver el futuro es con el amor que te tengo.</div>
-    <div class="phrase">Amo que seas vos.</div>
-    <div class="phrase">Hasta el último respiro mi amor.</div>
-  </div>
-  <h1 id="bienvenida"></h1>
-  <div id="contador">Cargando...</div>
-  <div id="frase-regalo">
-    Hola Romina... felices 3 años y 3 meses hoy 18 de febrero. Te amo, Rodrigo.
-  </div>
+    <section id="inicio">
+        <div id="frases-container">
+            <div class="phrase">"La única forma de ver el futuro es con el amor que te tengo."</div>
+            <div class="phrase">"Mi poema favorito es escucharte todos los días."</div>
+            <div class="phrase">"Amo que seas vos."</div>
+            <div class="phrase">"Hasta el último respiro mi amor."</div>
+            <div class="phrase">"Sin omi no hay gatito."</div>
+        </div>
+        
+        <h1 id="bienvenida"></h1>
+        
+        <div id="contador">Calculando nuestra eternidad...</div>
+        
+        <div id="frase-regalo" style="margin-top:45px; font-size: 17px; max-width: 600px; line-height: 1.8; text-shadow: 1px 1px 5px rgba(0,0,0,0.1);">
+            Hola Romina, mi amor. Quiero que esto sea tuyo... Te amo amor de mi vida, <br>
+            <b>felices 3 años y 3 meses</b> hoy 18 de febrero.
+        </div>
+    </section>
+
+    <section id="album" style="background: rgba(0,0,0,0.05);">
+        <h2 style="font-size: 32px; margin-bottom: 30px; letter-spacing: 2px;">Nuestros Momentos</h2>
+        <div class="galeria-wrapper">
+            <div class="galeria">
+                <img src="foto1.jpg" class="foto active" alt="Momento 1">
+                <img src="foto2.jpg" class="foto" alt="Momento 2">
+                <img src="foto3.jpg" class="foto" alt="Momento 3">
+                <img src="foto4.jpg" class="foto" alt="Momento 4">
+            </div>
+        </div>
+        <div style="margin-top: 25px; font-style: italic; opacity: 0.9;">
+            Cada foto es un pedacito de mi corazón.
+        </div>
+    </section>
 </main>
 
 <script>
-/* Lógica de Bienvenida y Menú */
-function toggleMenu() { document.getElementById("menu").classList.toggle("active"); }
-const bienvenidaText = "Bienvenida";
-const bienvenidaContainer = document.getElementById("bienvenida");
-for(let i=0; i<bienvenidaText.length; i++){
-  let span = document.createElement("span"); span.textContent = bienvenidaText[i];
-  span.style.animationDelay = (i*0.15) + "s"; bienvenidaContainer.appendChild(span);
+/* LÓGICA DE PROGRAMACIÓN - R&R 
+   Este script controla toda la magia de la página.
+*/
+
+// 1. CONTROL DEL MENÚ LATERAL
+function toggleMenu() { 
+    document.getElementById("menu").classList.toggle("active"); 
 }
 
-/* Ciclo de Frases */
-const frases = document.querySelectorAll(".phrase");
-let idx = 0; setInterval(() => { frases.forEach(f => f.style.display="none"); frases[idx].style.display="block"; idx=(idx+1)%frases.length; }, 4000);
+// 2. ANIMACIÓN DE BIENVENIDA (Letra por Letra)
+const textoBienvenida = "Bienvenida";
+const containerBienvenida = document.getElementById("bienvenida");
+textoBienvenida.split("").forEach((letra, index) => {
+    const span = document.createElement("span");
+    span.textContent = letra;
+    span.style.animationDelay = (index * 0.15) + "s";
+    containerBienvenida.appendChild(span);
+});
 
-/* Contador Exacto desde 18/11/2022 */
-const inicio = new Date("2022-11-18T00:00:00");
-function actualizar() {
-  const ahora = new Date();
-  let anios = ahora.getFullYear() - inicio.getFullYear();
-  let meses = ahora.getMonth() - inicio.getMonth();
-  let dias = ahora.getDate() - inicio.getDate();
-  if (dias < 0) { meses--; const ult = new Date(ahora.getFullYear(), ahora.getMonth(), 0).getDate(); dias += ult; }
-  if (meses < 0) { anios--; meses += 12; }
-  document.getElementById("contador").innerHTML = `${anios} años, ${meses} meses, ${dias} días<br>${ahora.getHours()}h ${ahora.getMinutes()}m ${ahora.getSeconds()}s`;
+// 3. CICLO INFINITO DE FRASES ROMÁNTICAS
+const arrayFrases = document.querySelectorAll(".phrase");
+let fraseActual = 0;
+function rotarFrases() {
+    arrayFrases.forEach(f => f.style.display = "none");
+    arrayFrases[fraseActual].style.display = "block";
+    fraseActual = (fraseActual + 1) % arrayFrases.length;
 }
-setInterval(actualizar, 1000); actualizar();
+setInterval(rotarFrases, 4000); 
+rotarFrases();
 
-/* El Gatito que sigue el mouse */
-const cat = document.getElementById("cat");
-let mX=0, mY=0, cX=0, cY=0;
-document.addEventListener("mousemove", e => { mX=e.pageX; mY=e.pageY; cat.textContent="🙀"; setTimeout(()=>cat.textContent="🐱",150); });
-function mover(){ cX+=(mX-cX)*0.1; cY+=(mY-cY)*0.1; cat.style.left=(cX-15)+"px"; cat.style.top=(cY-15)+"px"; requestAnimationFrame(mover); }
-mover();
-</script>
-</body>
-</html>
+// 4. EL CONTADOR MAESTRO (Desde el 18/11/2022)
+const fechaDeInicio = new Date("2022-11-18T00:00:00");
+function calcularTiempo() {
+    const ahora = new
