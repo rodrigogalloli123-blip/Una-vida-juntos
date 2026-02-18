@@ -1,277 +1,255 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nuestra Historia - R&R</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nuestra Historia - R&R</title>
+    <style>
+        /* RESET Y BASE */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
 
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { 
+            background: #f4a1a1; 
+            color: white; 
+            min-height: 100vh; 
+            overflow-x: hidden;
+        }
 
-body { 
-    background: #f4a1a1; 
-    color: white; 
-    min-height: 100vh; 
-    overflow: hidden;
-}
+        /* --- HEADER --- */
+        header { 
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 20px; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+        }
 
-/* HEADER */
-header { 
-    position: fixed; top: 0; left: 0; width: 100%;
-    padding: 20px; z-index: 1000;
-    display: flex; justify-content: space-between; align-items: center;
-}
+        .logo { 
+            font-size: 22px; font-weight: bold; cursor: pointer;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+        }
 
-.logo { 
-    font-size: 22px; font-weight: bold; cursor: pointer;
-    text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
-}
+        .hamburger { 
+            width: 25px; cursor: pointer; display: flex; 
+            flex-direction: column; justify-content: space-between; height: 18px; 
+        }
 
-.hamburger { 
-    width: 25px; cursor: pointer; display: flex; 
-    flex-direction: column; justify-content: space-between; height: 18px; 
-}
-.hamburger span { height: 3px; background: white; border-radius: 2px; width: 100%; display: block; }
+        .hamburger span { display: block; height: 3px; background: white; border-radius: 2px; }
 
-/* MENÚ */
-.menu { 
-    position: fixed; right: -280px; top: 0; width: 280px; height: 100%; 
-    background: #d99b6d; padding: 80px 25px; transition: 0.4s ease; 
-    z-index: 999; box-shadow: -5px 0 15px rgba(0,0,0,0.2);
-}
-.menu.active { right: 0; }
-.menu a { 
-    display: block; font-size: 18px; margin: 20px 0; color: white; 
-    text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px;
-}
+        /* --- MENÚ LATERAL --- */
+        .menu { 
+            position: fixed; right: -280px; top: 0; width: 280px; height: 100%; 
+            background: #d99b6d; padding: 80px 25px; transition: 0.4s ease; 
+            z-index: 999; box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+        }
 
-/* PÁGINAS */
-.page {
-    display: none;
-    width: 100%; height: 100vh;
-    padding: 100px 20px 40px;
-    flex-direction: column; align-items: center;
-    text-align: center;
-    overflow-y: auto; /* Permite scroll solo si hay muchas fotos */
-}
-.page.active { display: flex; animation: fadeIn 0.4s ease; }
+        .menu.active { right: 0; }
+        .menu a { 
+            display: block; font-size: 18px; margin: 20px 0; color: white; 
+            text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px;
+        }
 
-/* INICIO */
-#frases-container { height: 30px; margin-bottom: 10px; margin-top: 20px;}
-.phrase { font-size: 18px; font-style: italic; display: none; }
+        /* --- SISTEMA DE PÁGINAS --- */
+        .page {
+            display: none; 
+            width: 100%; min-height: 100vh;
+            padding: 100px 20px 40px;
+            flex-direction: column; align-items: center;
+            text-align: center;
+        }
 
-h1#bienvenida { font-size: 45px; margin-bottom: 20px; display: flex; justify-content: center; }
-h1#bienvenida span { display: inline-block; opacity: 0; transform: translateY(-30px); animation: drop 0.5s forwards; }
+        .page.active { display: flex; animation: fadeIn 0.4s ease; }
 
-#contador { 
-    background: rgba(255,255,255,0.15); padding: 20px 30px; 
-    border-radius: 30px; margin: 25px 0; border: 1px solid rgba(255,255,255,0.3);
-}
+        /* --- SECCIÓN INICIO --- */
+        #frases-container { height: 30px; margin-bottom: 10px; }
+        .phrase { font-size: 18px; font-style: italic; display: none; }
 
-/* GALERÍA POLAROID */
-.galeria-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 20px;
-    width: 100%;
-    max-width: 800px;
-    padding: 20px;
-}
+        h1#bienvenida { font-size: 45px; margin-bottom: 20px; display: flex; justify-content: center; }
+        h1#bienvenida span { display: inline-block; opacity: 0; transform: translateY(-30px); animation: drop 0.5s forwards; }
 
-.polaroid {
-    background: white;
-    padding: 10px 10px 25px 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    transform: rotate(var(--r));
-    transition: 0.3s;
-    opacity: 0;
-    animation: slideUp 0.6s forwards;
-    animation-delay: var(--d);
-}
+        #contador { 
+            background: rgba(255,255,255,0.15); padding: 20px 30px; 
+            border-radius: 30px; margin: 25px 0; border: 1px solid rgba(255,255,255,0.3);
+        }
 
-.polaroid:hover {
-    transform: rotate(0deg) scale(1.05);
-    z-index: 10;
-}
+        /* --- GALERÍA ANIMADA --- */
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            width: 100%;
+            max-width: 900px;
+            margin-top: 30px;
+        }
 
-.polaroid img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border: 1px solid #eee;
-}
+        .polaroid {
+            background: white;
+            padding: 8px 8px 20px 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transform: rotate(var(--r));
+            opacity: 0;
+            animation: appear 0.5s forwards;
+            animation-delay: var(--d);
+            transition: transform 0.3s;
+        }
 
-/* GATITO Y EFECTOS */
-#gatito { position: fixed; font-size: 35px; pointer-events: none; z-index: 2000; }
-.huella { position: fixed; font-size: 18px; pointer-events: none; animation: fadeHuella 1s forwards; }
-.omi-text { position: fixed; font-size: 14px; font-weight: bold; animation: fadeHuella 1s forwards; }
+        .polaroid:hover {
+            transform: scale(1.1) rotate(0deg) !important;
+            z-index: 10;
+        }
 
-@keyframes fadeHuella { to { opacity: 0; transform: scale(0.5); } }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes drop { to { opacity: 1; transform: translateY(0); } }
-@keyframes slideUp { 
-    from { opacity: 0; transform: translateY(50px) rotate(var(--r)); } 
-    to { opacity: 1; transform: translateY(0) rotate(var(--r)); } 
-}
+        .polaroid img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border: 1px solid #eee;
+        }
 
-.locked-item { opacity: 0.5; font-size: 14px; margin-top: 15px; font-style: italic; }
+        /* --- PLACEHOLDERS --- */
+        .placeholder-box { 
+            width: 100%; max-width: 400px; height: 200px; 
+            border: 2px dashed rgba(255,255,255,0.5); 
+            display: flex; align-items: center; justify-content: center; border-radius: 20px;
+            margin-top: 20px;
+        }
 
-</style>
+        /* ANIMACIONES */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes drop { to { opacity: 1; transform: translateY(0); } }
+        @keyframes appear { 
+            from { opacity: 0; transform: translateY(20px) rotate(var(--r)); } 
+            to { opacity: 1; transform: translateY(0) rotate(var(--r)); } 
+        }
+
+        .locked-item { opacity: 0.5; font-size: 14px; margin-top: 15px; font-style: italic; }
+    </style>
 </head>
-
 <body>
 
-<header>
-<div class="logo" onclick="showPage('inicio')">Una Vida Juntos</div>
-<div class="hamburger" onclick="toggleMenu()">
-<span></span><span></span><span></span>
-</div>
-</header>
-
-<nav class="menu" id="menu">
-<a href="#" onclick="showPage('inicio')">❤️ Inicio</a>
-<a href="#" onclick="showPage('galeria')">📸 Nuestro Álbum</a>
-<a href="#" onclick="showPage('minijuego')">🎮 Minijuego de Gatito</a>
-<a href="#" onclick="showPage('ia')">🐱 Gatito IA</a>
-<div class="locked-item">🔒 Planes de viaje (Próximamente)</div>
-<div class="locked-item">🔒 Nuestra Casita (Próximamente)</div>
-</nav>
-
-<main>
-    <section id="inicio" class="page active">
-        <div id="frases-container">
-            <div class="phrase">"La única forma de ver el futuro es con el amor que te tengo"</div>
-            <div class="phrase">"Amo que seas vos"</div>
-            <div class="phrase">"Hasta el último respiro mi amor"</div>
-            <div class="phrase">"Sin omi no hay gatito"</div>
+    <header>
+        <div class="logo" onclick="showPage('inicio')">Una Vida Juntos</div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
         </div>
+    </header>
 
-        <h1 id="bienvenida"></h1>
-        <div id="contador">Calculando...</div>
+    <nav class="menu" id="menu">
+        <a href="#" onclick="showPage('inicio')">❤️ Inicio</a>
+        <a href="#" onclick="showPage('galeria')">📸 Nuestro Álbum</a>
+        <a href="#" onclick="showPage('minijuego')">🎮 Minijuego de Gatito</a>
+        <a href="#" onclick="showPage('ia')">🐱 Gatito IA</a>
+        <div class="locked-item">🔒 Planes de viaje (Próximamente)</div>
+        <div class="locked-item">🔒 Nuestra Casita (Próximamente)</div>
+    </nav>
 
-        <div id="mensaje-personal">
-            <p>Hola Romina... felices 3 años y 3 meses hoy 18 de febrero.</p>
-            <p>Sos lo más lindo que me pasó en la vida. Te amo, Rodrigo.</p>
-        </div>
-    </section>
+    <main>
+        <section id="inicio" class="page active">
+            <div id="frases-container">
+                <div class="phrase">"La única forma de ver el futuro es con el amor que te tengo"</div>
+                <div class="phrase">"Amo que seas vos"</div>
+                <div class="phrase">"Hasta el último respiro mi amor"</div>
+                <div class="phrase">"Sin omi no hay gatito"</div>
+            </div>
+            
+            <h1 id="bienvenida"></h1>
+            
+            <div id="contador">Calculando...</div>
 
-    <section id="galeria" class="page">
-        <h2 style="margin-bottom: 30px;">Nuestro Álbum</h2>
-        <div class="galeria-container">
-            <div class="polaroid" style="--r: -3deg; --d: 0.2s;"><img src="1000105225.jpg"></div>
-            <div class="polaroid" style="--r: 2deg; --d: 0.4s;"><img src="1000105281.jpg"></div>
-            <div class="polaroid" style="--r: -5deg; --d: 0.6s;"><img src="1000104939.jpg"></div>
-            <div class="polaroid" style="--r: 4deg; --d: 0.8s;"><img src="1000102521.jpg"></div>
-            <div class="polaroid" style="--r: -2deg; --d: 1s;"><img src="1000102139.jpg"></div>
-            <div class="polaroid" style="--r: 3deg; --d: 1.2s;"><img src="1000105093.jpg"></div>
-            <div class="polaroid" style="--r: -4deg; --d: 1.4s;"><img src="1000104830.jpg"></div>
-            <div class="polaroid" style="--r: 5deg; --d: 1.6s;"><img src="1000103403.jpg"></div>
-            <div class="polaroid" style="--r: -3deg; --d: 1.8s;"><img src="1000102853.jpg"></div>
-        </div>
-    </section>
+            <div id="mensaje-personal">
+                <p>Hola Romina... felices 3 años y 3 meses hoy 18 de febrero.</p>
+                <p>Sos lo más lindo que me pasó en la vida. Te amo, Rodrigo.</p>
+            </div>
+        </section>
 
-    <section id="minijuego" class="page">
-        <h2>Minijuego de Gatito</h2>
-        <p style="margin-top:20px;">Próximamente... 🎮</p>
-    </section>
+        <section id="galeria" class="page">
+            <h2>Nuestro Álbum</h2>
+            <div class="galeria-grid">
+                <div class="polaroid" style="--r:-3deg; --d:0.1s"><img src="https://i.ibb.co/W47wzdrJ/1.jpg"></div>
+                <div class="polaroid" style="--r:2deg; --d:0.2s"><img src="https://i.ibb.co/Ps8LBbXN/2.jpg"></div>
+                <div class="polaroid" style="--r:-4deg; --d:0.3s"><img src="https://i.ibb.co/r2Q5TfF0/3.jpg"></div>
+                <div class="polaroid" style="--r:5deg; --d:0.4s"><img src="https://i.ibb.co/d0jfZC0s/4.jpg"></div>
+                <div class="polaroid" style="--r:-2deg; --d:0.5s"><img src="https://i.ibb.co/GzmYBXV/5.jpg"></div>
+                <div class="polaroid" style="--r:3deg; --d:0.6s"><img src="https://i.ibb.co/wZzkkvBh/6.jpg"></div>
+                <div class="polaroid" style="--r:-5deg; --d:0.7s"><img src="https://i.ibb.co/JRg64k2F/7.jpg"></div>
+                <div class="polaroid" style="--r:4deg; --d:0.8s"><img src="https://i.ibb.co/pBcdp1PF/8.jpg"></div>
+                <div class="polaroid" style="--r:-3deg; --d:0.9s"><img src="https://i.ibb.co/fVkvdFyM/9.jpg"></div>
+                <div class="polaroid" style="--r:2deg; --d:1s"><img src="https://i.ibb.co/VWYwp0mt/10.jpg"></div>
+                <div class="polaroid" style="--r:-4deg; --d:1.1s"><img src="https://i.ibb.co/DH0hBLFZ/11.jpg"></div>
+                <div class="polaroid" style="--r:5deg; --d:1.2s"><img src="https://i.ibb.co/5X8Dy7Ps/12.jpg"></div>
+                <div class="polaroid" style="--r:-2deg; --d:1.3s"><img src="https://i.ibb.co/m5QYjZfB/13.jpg"></div>
+                <div class="polaroid" style="--r:3deg; --d:1.4s"><img src="https://i.ibb.co/v6WHvjfG/14.jpg"></div>
+                <div class="polaroid" style="--r:-5deg; --d:1.5s"><img src="https://i.ibb.co/Q7RG0XND/15.jpg"></div>
+                <div class="polaroid" style="--r:4deg; --d:1.6s"><img src="https://i.ibb.co/cKmHDVnc/16.jpg"></div>
+                <div class="polaroid" style="--r:-3deg; --d:1.7s"><img src="https://i.ibb.co/MyBfdDT4/17.jpg"></div>
+                <div class="polaroid" style="--r:2deg; --d:1.8s"><img src="https://i.ibb.co/pjD5VbCT/18.jpg"></div>
+                <div class="polaroid" style="--r:-4deg; --d:1.9s"><img src="https://i.ibb.co/hJQ2WPsG/19.jpg"></div>
+                <div class="polaroid" style="--r:5deg; --d:2s"><img src="https://i.ibb.co/Z6bfrSfj/20.jpg"></div>
+                <div class="polaroid" style="--r:-2deg; --d:2.1s"><img src="https://i.ibb.co/kZ2Wg4q/21.jpg"></div>
+                <div class="polaroid" style="--r:3deg; --d:2.2s"><img src="https://i.ibb.co/RkBV6FWD/22.jpg"></div>
+                <div class="polaroid" style="--r:-5deg; --d:2.3s"><img src="https://i.ibb.co/hxN7V33Y/23.jpg"></div>
+                <div class="polaroid" style="--r:4deg; --d:2.4s"><img src="https://i.ibb.co/nqFHbkfg/24.jpg"></div>
+                <div class="polaroid" style="--r:-3deg; --d:2.5s"><img src="https://i.ibb.co/chnqMW3r/25.jpg"></div>
+                <div class="polaroid" style="--r:2deg; --d:2.6s"><img src="https://i.ibb.co/KZbNkgm/26.jpg"></div>
+                <div class="polaroid" style="--r:-4deg; --d:2.7s"><img src="https://i.ibb.co/509918g/27.jpg"></div>
+                <div class="polaroid" style="--r:5deg; --d:2.8s"><img src="https://i.ibb.co/rYGrn2V/28.jpg"></div>
+                <div class="polaroid" style="--r:-2deg; --d:2.9s"><img src="https://i.ibb.co/Y4VKKQQt/29.jpg"></div>
+            </div>
+        </section>
 
-    <section id="ia" class="page">
-        <h2>Gatito IA</h2>
-        <p style="margin-top:20px;">Estamos entrenando al michi... 🤖</p>
-    </section>
-</main>
+        <section id="minijuego" class="page">
+            <h2>Minijuego de Gatito</h2>
+            <div class="placeholder-box">
+                <p>🎮 Próximamente...</p>
+            </div>
+        </section>
 
-<div id="gatito">😺</div>
+        <section id="ia" class="page">
+            <h2>Gatito IA</h2>
+            <div class="placeholder-box">
+                <p>🤖 Sección en desarrollo</p>
+            </div>
+        </section>
+    </main>
 
-<script>
-// NAVEGACIÓN
-function showPage(pageId) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(pageId).classList.add('active');
-    document.getElementById("menu").classList.remove("active");
-}
-function toggleMenu() {
-    document.getElementById("menu").classList.toggle("active");
-}
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            document.getElementById("menu").classList.remove("active");
+            window.scrollTo(0,0);
+        }
 
-// BIENVENIDA
-const texto = "Bienvenida";
-const container = document.getElementById("bienvenida");
-[...texto].forEach((letra, i) => {
-    let s = document.createElement("span");
-    s.textContent = letra;
-    s.style.animationDelay = (i * 0.1) + "s";
-    container.appendChild(s);
-});
+        function toggleMenu() {
+            document.getElementById("menu").classList.toggle("active");
+        }
 
-// FRASES
-const frases = document.querySelectorAll(".phrase");
-let fIdx = 0;
-function rotar() {
-    frases.forEach(f => f.style.display = "none");
-    frases[fIdx].style.display = "block";
-    fIdx = (fIdx + 1) % frases.length;
-}
-setInterval(rotar, 4000); rotar();
+        const texto = "Bienvenida";
+        const container = document.getElementById("bienvenida");
+        [...texto].forEach((letra, i) => {
+            let s = document.createElement("span");
+            s.textContent = letra;
+            s.style.animationDelay = (i * 0.1) + "s";
+            container.appendChild(s);
+        });
 
-// CONTADOR
-const fechaInicio = new Date("2022-11-18T00:00:00");
-function actualizar() {
-    const ahora = new Date();
-    let a = ahora.getFullYear() - fechaInicio.getFullYear();
-    let m = ahora.getMonth() - fechaInicio.getMonth();
-    let d = ahora.getDate() - fechaInicio.getDate();
-    if (d < 0) { m--; d += new Date(ahora.getFullYear(), ahora.getMonth(), 0).getDate(); }
-    if (m < 0) { a--; m += 12; }
-    document.getElementById("contador").innerHTML =
-    `${a} años, ${m} meses, ${d} días<br><small>${ahora.getHours()}h ${ahora.getMinutes()}m ${ahora.getSeconds()}s</small>`;
-}
-setInterval(actualizar, 1000); actualizar();
+        const frases = document.querySelectorAll(".phrase");
+        let fIdx = 0;
+        function rotar() {
+            frases.forEach(f => f.style.display = "none");
+            frases[fIdx].style.display = "block";
+            fIdx = (fIdx + 1) % frases.length;
+        }
+        setInterval(rotar, 4000); rotar();
 
-// GATITO SEGUIDOR
-const gatito = document.getElementById("gatito");
-let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-let posX = mouseX, posY = mouseY;
-let ultimaHuella = 0, ultimaOmi = 0;
-
-document.addEventListener("mousemove", e => { mouseX = e.clientX; mouseY = e.clientY; });
-
-function crearHuella(x,y){
-    const ahora = Date.now();
-    if(ahora - ultimaHuella < 1000) return;
-    ultimaHuella = ahora;
-    const h = document.createElement("div");
-    h.className="huella"; h.textContent="🐾";
-    h.style.left=x+"px"; h.style.top=y+"px";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),1000);
-}
-
-function decirOmi(x,y){
-    const ahora = Date.now();
-    if(ahora - ultimaOmi < 1200) return;
-    ultimaOmi = ahora;
-    const t=document.createElement("div");
-    t.className="omi-text"; t.textContent="omi";
-    t.style.left=x+"px"; t.style.top=(y-25)+"px";
-    document.body.appendChild(t);
-    setTimeout(()=>t.remove(),1000);
-}
-
-function animar(){
-    const dist=Math.hypot(mouseX-posX,mouseY-posY);
-    if(dist>20){ posX+=(mouseX-posX)*0.08; posY+=(mouseY-posY)*0.08; }
-    gatito.style.left=posX+"px"; gatito.style.top=posY+"px";
-    if(dist<20){ 
-        gatito.textContent="😼"; crearHuella(posX,posY); decirOmi(posX,posY); 
-    } else if(dist<120){ 
-        gatito.textContent="🙀"; 
-    } else { 
-        gatito.textContent="😺"; 
-    }
-    requestAnimationFrame(animar);
-}
-animar();
-</script>
+        const fechaInicio = new Date("2022-11-18T00:00:00");
+        function actualizar() {
+            const ahora = new Date();
+            let a = ahora.getFullYear() - fechaInicio.getFullYear();
+            let m = ahora.getMonth() - fechaInicio.getMonth();
+            let d = ahora.getDate() - fechaInicio.getDate();
+            if (d < 0) { m--; d += new Date(ahora.getFullYear(), ahora.getMonth(), 0).getDate(); }
+            if (m < 0) { a--; m += 12; }
+            document.getElementById("contador").innerHTML = `${a} años, ${m} meses, ${d} días<br><small>${ahora.getHours()}h ${ahora.getMinutes()}m ${ahora.getSeconds()}s</small>`;
+        }
+        setInterval(actualizar, 1000); actualizar();
+    </script>
 </body>
 </html>
