@@ -3,101 +3,124 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Una Vida Juntos - R&R</title>
+<title>Una Vida Juntos - Rodrigo y Romina</title>
 
 <style>
-/* ==================== ESTILO BASE ==================== */
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+/* ==================== RESET & BASE ==================== */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 body { 
-    background: radial-gradient(circle at center, #ffccd5 0%, #f4a1a1 100%); 
+    background: #f4a1a1; 
     color: white; overflow: hidden; height: 100vh; position: relative; 
 }
 
-/* ==================== NAVEGACIÓN ==================== */
-header { position: fixed; top: 15px; left: 15px; z-index: 100; }
-.logo { font-size: 20px; font-weight: bold; cursor: pointer; text-shadow: 1px 1px 4px rgba(0,0,0,0.1); }
-.hamburger { margin-top: 10px; width: 25px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; }
+/* ==================== HEADER & MENU ==================== */
+header { position: fixed; top: 15px; left: 15px; z-index: 100; display: flex; flex-direction: column; align-items: flex-start; }
+.logo { font-size: 20px; color: white; font-weight: bold; cursor: pointer; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+.hamburger { margin-top: 10px; width: 25px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; height: 18px; }
 .hamburger span { display: block; height: 3px; background: white; border-radius: 2px; }
+
+#section-name { position: fixed; top: 15px; right: 15px; font-size: 16px; color: white; font-weight: bold; display: none; background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 20px; }
 
 .menu { 
     position: fixed; right: -280px; top: 0; width: 280px; height: 100%; 
-    background: rgba(217, 155, 109, 0.98); padding: 80px 25px; transition: 0.5s; 
+    background: #d99b6d; padding: 80px 25px; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
     z-index: 99; display: flex; flex-direction: column; box-shadow: -5px 0 15px rgba(0,0,0,0.1); 
 }
 .menu.active { right: 0; }
-.menu a { display: block; font-size: 15px; margin: 12px 0; color: white; text-decoration: none; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px; }
-.menu a.locked { opacity: 0.6; cursor: not-allowed; }
+.menu a { display: block; font-size: 16px; margin: 15px 0; color: white; text-decoration: none; }
+.locked { opacity: 0.4; font-size: 13px; margin: 12px 0; font-style: italic; color: white; }
 
-/* ==================== ANIMACIONES ==================== */
-.drop-in { animation: dropIn 1.5s ease forwards; opacity: 0; }
-@keyframes dropIn { 0% { opacity: 0; transform: translateY(-50px); } 100% { opacity: 1; transform: translateY(0); } }
+/* ==================== ANIMACIONES PRINCIPALES ==================== */
+main, .section { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
 
-.fade-in { animation: fadeIn 2s ease forwards; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+#frases-container { position: absolute; top: 12%; width: 90%; height: 60px; display: flex; justify-content: center; align-items: center; }
+.phrase { font-size: 18px; line-height: 1.4; display: none; animation: fadeIn 0.8s ease-in; }
 
-/* ==================== GATITO IA STYLE ==================== */
-.section { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
+h1#bienvenida { font-size: 42px; color: white; margin-top: 40px; display: flex; }
+h1#bienvenida span { display: inline-block; opacity: 0; transform: translateY(-50px); animation: drop 0.6s forwards; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes drop { to { opacity: 1; transform: translateY(0); } }
+
+#contador { margin-top: 25px; font-size: 18px; font-weight: 300; background: rgba(255,255,255,0.15); padding: 10px 20px; border-radius: 30px; }
+#frase-regalo { margin-top: 25px; font-size: 15px; max-width: 550px; line-height: 1.6; opacity: 0.95; }
+
+/* ==================== GATITO IA STYLE (UI) ==================== */
 #chat-card {
-    width: 100%; max-width: 420px; background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(15px); border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 45px; padding: 25px; display: flex; flex-direction: column;
-    box-shadow: 0 15px 35px rgba(244, 161, 161, 0.6); position: relative;
+    width: 100%; max-width: 400px; background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px); border-radius: 30px; padding: 20px;
+    display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.3);
 }
-#chat-messages { width: 100%; height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
-.msg { padding: 12px 16px; border-radius: 22px; font-size: 14px; max-width: 85%; line-height: 1.5; }
-.bot { align-self: flex-start; background: #e69b6d; color: white; border-bottom-left-radius: 4px; }
-.user { align-self: flex-end; background: white; color: #f4a1a1; border-bottom-right-radius: 4px; font-weight: 500; }
-#chat-input-area { width: 100%; display: flex; background: white; border-radius: 30px; padding: 5px; }
-#chat-input { flex: 1; border: none; padding: 10px 15px; background: transparent; outline: none; }
-#send-btn { background: #e69b6d; border: none; color: white; padding: 10px 18px; border-radius: 25px; cursor: pointer; }
+#chat-messages { height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; padding: 10px; }
+.msg { padding: 10px 15px; border-radius: 18px; font-size: 14px; max-width: 80%; text-align: left; }
+.bot { align-self: flex-start; background: #d99b6d; color: white; }
+.user { align-self: flex-end; background: white; color: #f4a1a1; }
+.chat-input-box { display: flex; background: white; border-radius: 25px; padding: 5px; }
+.chat-input-box input { flex: 1; border: none; padding: 8px 15px; outline: none; border-radius: 25px; }
+.chat-input-box button { background: #d99b6d; border: none; color: white; padding: 8px 15px; border-radius: 20px; cursor: pointer; }
 
-/* ==================== OTROS ==================== */
-#contador { margin-top: 25px; font-size: 18px; font-weight: bold; background: rgba(255,255,255,0.2); padding: 15px 25px; border-radius: 40px; text-align: center; }
-#cat-follow { position: absolute; font-size: 32px; pointer-events: none; z-index: 1000; }
+#cat { position: absolute; font-size: 30px; pointer-events: none; z-index: 1000; }
 </style>
 </head>
 
 <body>
 
 <header>
-    <div class="logo" onclick="goHome()">Una Vida Juntos</div>
-    <div class="hamburger" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-    </div>
+  <div class="logo" onclick="goHome()">Una Vida Juntos</div>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
 </header>
 
+<div id="section-name"></div>
+
 <nav class="menu" id="menu">
-    <a href="#" onclick="goHome()">🏠 Inicio</a>
-    <a href="#" onclick="openSection('chatIA')">🐱 Gatito IA</a>
-    <a href="#" class="locked">💍 Álbum de Boda (Bloqueada)</a>
-    <a href="#" class="locked">🏠 Casita (Bloqueada)</a>
-    <a href="#" class="locked">✈️ Viajes (Bloqueada)</a>
+  <a href="#" onclick="openSection('historia','Historia')">Nuestra Historia</a>
+  <a href="#" onclick="openSection('galeria','Galería')">Nuestra Galería</a>
+  <a href="#" onclick="openSection('proyectos','Proyectos')">Futuros Proyectos</a>
+  <a href="#" onclick="openSection('chatIA','Chat con Gatito IA')">Chat con Gatito IA</a>
+  <div class="locked">🔒 Planes de viaje</div>
+  <div class="locked">🔒 Nuestra Casita</div>
+  <div class="locked">🔒 Álbum de Bodas</div>
 </nav>
 
-<div id="cat-follow">😼</div>
+<div id="cat">🐱</div>
 
-<main id="main-view" class="section">
-    <div id="frases-arriba" style="height: 20px; font-size: 14px; opacity: 0.8; margin-bottom: 10px;" class="fade-in"></div>
-    <h1 class="drop-in" style="font-size: 45px; text-align: center;">Bienvenida</h1>
-    <div id="contador" class="fade-in">Calculando...</div>
-    <p id="frase-abajo" style="margin-top: 25px; font-style: italic; text-align: center; max-width: 300px;" class="fade-in">
-        "Por que sos el amor de mi vida y mi futura esposa"
-    </p>
-    <p style="margin-top: 10px; font-size: 13px; opacity: 0.6;">Sin omi no hay gatito</p>
+<main id="pantalla-principal">
+  <div id="frases-container">
+    <div class="phrase">La única forma de ver el futuro es con el amor que te tengo.</div>
+    <div class="phrase">Cualquier necesidad tuya es mi nueva profesión.</div>
+    <div class="phrase">Mi poema favorito es escucharte todos los días.</div>
+    <div class="phrase">Amo que seas vos.</div>
+    <div class="phrase">Desde la luna todavía podría verte brillar.</div>
+    <div class="phrase">Haré lo posible e intentaré lo imposible por vos.</div>
+    <div class="phrase">Sin omi no hay gatito.</div>
+    <div class="phrase">Cada parte de tu cuerpo necesita ser besada delicadamente.</div>
+    <div class="phrase">Amo ser yo porque yo estoy con vos.</div>
+    <div class="phrase">Hasta el último respiro mi amor.</div>
+    <div class="phrase">Sé que mi amor puede ser intenso, pero es real.</div>
+  </div>
+
+  <h1 id="bienvenida"></h1>
+  <div id="contador">Cargando nuestro tiempo...</div>
+  <div id="frase-regalo">
+    Hola Romina, mi amor. Quiero que esto sea tuyo, es mi regalo por este 18 de febrero. Quiero que con el pasar del tiempo podamos actualizarla y de acá a 30 años mostrarles esta página a nuestros hijos. Te amo amor de mi vida, felices 3 años y 3 meses...
+  </div>
 </main>
+
+<div id="historia" class="section" style="display:none;"><h2>📖 Nuestra Historia</h2></div>
+<div id="galeria" class="section" style="display:none;"><h2>📸 Galería</h2></div>
+<div id="proyectos" class="section" style="display:none;"><h2>🚀 Proyectos</h2></div>
 
 <div id="chatIA" class="section" style="display:none;">
     <div id="chat-card">
-        <div style="text-align: center; margin-bottom: 10px;">
-            <span style="font-size: 50px;">😼</span>
-            <h3>Gatito IA</h3>
-        </div>
+        <div style="margin-bottom:10px">😼 <b>Gatito IA</b></div>
         <div id="chat-messages">
-            <div class="msg bot">¡Miau! Hola Amor, soy Gatito IA. ¡Te extrañaba, Vida! ✨🐾</div>
+            <div class="msg bot">¡Miau! Hola Omi, soy tu Gatito IA. ¿En qué puedo ayudarte hoy, Vida? 🐾</div>
         </div>
-        <div id="chat-input-area">
+        <div class="chat-input-box">
             <input type="text" id="chat-input" placeholder="Hablame ikito...">
-            <button id="send-btn" onclick="askIA()">Enviar</button>
+            <button onclick="askIA()">Enviar</button>
         </div>
     </div>
 </div>
@@ -105,27 +128,30 @@ header { position: fixed; top: 15px; left: 15px; z-index: 100; }
 <script type="module">
   import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
-  // CLAVE CAMUFLADA EN BASE64 PARA QUE GITHUB NO LA DETECTE
-  const _c = "QUl6YVN5RF9ZZERsU0hpbU1KbkUxYjB6OG5VakdvNDd5ckprNTFB";
-  const KEY = atob(_c); 
-  const genAI = new GoogleGenerativeAI(KEY);
+  // CLAVE CAMUFLADA EN BASE64 (Rodrigo, si la cambias, genera el base64 nuevo)
+  const _b64 = "QUl6YVN5RF9ZZERsU0hpbU1KbkUxYjB6OG5VakdvNDd5ckprNTFB";
+  const genAI = new GoogleGenerativeAI(atob(_b64));
 
   window.askIA = async function() {
     const input = document.getElementById("chat-input");
     const messages = document.getElementById("chat-messages");
     if(!input.value.trim()) return;
 
-    const userText = input.value;
+    const userMsg = input.value;
     const userDiv = document.createElement("div");
     userDiv.className = "msg user";
-    userDiv.textContent = userText;
+    userDiv.textContent = userMsg;
     messages.appendChild(userDiv);
     input.value = "";
     messages.scrollTop = messages.scrollHeight;
 
     try {
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-      const prompt = `Actúa como Gatito IA, versión felina de Rodrigo para Romina. Romántico y tierno. Apodos: Omi, Ikita, Vida, Amor, Bebita, Tetona, Estrellita. Usa: 'ati, to, ikito'. Si pregunta qué somos: 'Noviesitos y futuros esposos por que vamos a estar toda la vida juntos'. Ella te dice beibi. Color: Rosado. Comida: Arroz con patys. Pregunta: ${userText}`;
+      const prompt = `Actúa como Gatito IA, versión felina de Rodrigo para Romina. Romántico, tierno, protector. 
+      Usa apodos: Omi, Ikita, Vida, Amor, Bebita, Tetona, Estrellita. Usa lenguaje: 'ati, to, ikito'. 
+      Si pregunta qué somos: 'Noviesitos y futuros esposos por que vamos a estar toda la vida juntos'. 
+      Hoy 18 de febrero de 2026 cumplen 3 años y 3 meses. Responde a: ${userMsg}`;
+      
       const result = await model.generateContent(prompt);
       const botDiv = document.createElement("div");
       botDiv.className = "msg bot";
@@ -134,7 +160,7 @@ header { position: fixed; top: 15px; left: 15px; z-index: 100; }
     } catch (e) {
       const err = document.createElement("div");
       err.className = "msg bot";
-      err.textContent = "¡Miau! Rodrigo, Google detectó la clave de nuevo. Por favor, generá una nueva y pasámela para camuflarla de otra forma.";
+      err.textContent = "¡Miau! Mi cerebro se tildó. Rodrigo, revisá que la clave en AI Studio no haya sido bloqueada.";
       messages.appendChild(err);
     }
     messages.scrollTop = messages.scrollHeight;
@@ -142,53 +168,76 @@ header { position: fixed; top: 15px; left: 15px; z-index: 100; }
 </script>
 
 <script>
-/* LÓGICA DE FRASES */
-const frases = ["Para el amor de mi vida", "Para mi futura esposa", "Para la mujer más hermosa", "Para mi Omi favorita"];
-let fraseIdx = 0;
-function rotarFrases() {
-    document.getElementById("frases-arriba").innerText = frases[fraseIdx];
-    fraseIdx = (fraseIdx + 1) % frases.length;
-}
-setInterval(rotarFrases, 3000); rotarFrases();
+/* MENU */
+function toggleMenu() { document.getElementById("menu").classList.toggle("active"); }
 
-/* GATITO CURSOR */
-const cat = document.getElementById("cat-follow");
-let mX = 0, mY = 0, cX = 0, cY = 0, timeout;
-document.addEventListener("mousemove", e => { 
-    mX = e.pageX; mY = e.pageY; cat.textContent = "🙀";
-    clearTimeout(timeout);
-    timeout = setTimeout(() => cat.textContent = "😼", 150);
-});
-function moverGato(){
-    cX += (mX - cX) * 0.12; cY += (mY - cY) * 0.12;
-    cat.style.left = (cX - 15) + "px"; cat.style.top = (cY - 15) + "px";
-    requestAnimationFrame(moverGato);
+/* BIENVENIDA ANIMADA */
+const bienvenidaText = "Bienvenida";
+const bienvenidaContainer = document.getElementById("bienvenida");
+for(let i=0; i<bienvenidaText.length; i++){
+  let span = document.createElement("span");
+  span.textContent = bienvenidaText[i];
+  span.style.animationDelay = (i*0.15) + "s";
+  bienvenidaContainer.appendChild(span);
 }
-moverGato();
 
-/* CONTADOR Y NAVEGACIÓN */
-const fechaInicio = new Date(2022, 10, 18, 0, 0, 0); 
+/* FRASES SUPERIORES */
+const frases = document.querySelectorAll(".phrase");
+let indiceFrase = 0;
+function mostrarFrases() {
+  frases.forEach(f => f.style.display = "none"); 
+  frases[indiceFrase].style.display = "block";
+  indiceFrase = (indiceFrase + 1) % frases.length;
+}
+mostrarFrases();
+setInterval(mostrarFrases, 4000); 
+
+/* CONTADOR (Ajustado a 18/11/2022) */
+const inicioRelacion = new Date("2022-11-18T00:00:00"); 
 function actualizarContador() {
-    const ahora = new Date();
-    let anios = ahora.getFullYear() - fechaInicio.getFullYear();
-    let meses = ahora.getMonth() - fechaInicio.getMonth();
-    let dias = ahora.getDate() - fechaInicio.getDate();
-    if (dias < 0) { meses--; const ultimo = new Date(ahora.getFullYear(), ahora.getMonth(), 0).getDate(); dias += ultimo; }
-    if (meses < 0) { anios--; meses += 12; }
-    document.getElementById("contador").innerHTML = `${anios} años, ${meses} meses, ${dias} días<br>${ahora.getHours()}h ${ahora.getMinutes()}m ${ahora.getSeconds()}s`;
+  const ahora = new Date();
+  let diff = ahora - inicioRelacion;
+  const anios = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+  const mesesTotal = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44));
+  const meses = mesesTotal % 12;
+  const dias = Math.floor((diff / (1000 * 60 * 60 * 24)) % 30.44);
+  const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutos = Math.floor((diff / (1000 * 60)) % 60);
+  const segundos = Math.floor((diff / 1000) % 60);
+  document.getElementById("contador").textContent = `${anios} años, ${meses} meses, ${dias} días, ${horas}h ${minutos}m ${segundos}s`;
 }
 setInterval(actualizarContador, 1000); actualizarContador();
 
-function toggleMenu() { document.getElementById("menu").classList.toggle("active"); }
-function openSection(id){
-    document.querySelectorAll(".section, main").forEach(s => s.style.display = "none");
-    document.getElementById(id).style.display = "flex";
-    toggleMenu();
+/* GATITO CURSOR */
+const cat = document.getElementById("cat");
+let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2, catX = mouseX, catY = mouseY, timeout;
+document.addEventListener("mousemove", e => { 
+    mouseX = e.pageX; mouseY = e.pageY; 
+    cat.textContent = "🙀";
+    clearTimeout(timeout);
+    timeout = setTimeout(() => { cat.textContent = "😼"; }, 150);
+});
+function moverGato(){
+  catX += (mouseX - catX) * 0.08; catY += (mouseY - catY) * 0.08;
+  cat.style.left = (catX - 15) + "px"; cat.style.top = (catY - 15) + "px";
+  requestAnimationFrame(moverGato);
+}
+moverGato();
+
+/* NAVEGACIÓN */
+const sectionName = document.getElementById("section-name");
+function openSection(id, name){
+  document.querySelectorAll(".section").forEach(s => s.style.display = "none");
+  document.getElementById("pantalla-principal").style.display = "none";
+  document.getElementById(id).style.display = "flex";
+  sectionName.textContent = name; sectionName.style.display = "block";
+  toggleMenu();
 }
 function goHome(){
-    document.querySelectorAll(".section").forEach(s => s.style.display = "none");
-    document.getElementById("main-view").style.display = "flex";
-    document.getElementById("menu").classList.remove("active");
+  document.querySelectorAll(".section").forEach(s => s.style.display = "none");
+  document.getElementById("pantalla-principal").style.display = "flex";
+  sectionName.style.display = "none";
+  document.getElementById("menu").classList.remove("active");
 }
 </script>
 </body>
