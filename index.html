@@ -32,7 +32,7 @@
             flex-direction: column; justify-content: space-between; height: 18px; 
         }
 
-        .hamburger span { display: block; height: 3px; background: white; border-radius: 2px; }
+        .hamburger span { display: block; height: 3px; background: white; border-radius: 2px; width: 100%; }
 
         /* --- MENÚ LATERAL --- */
         .menu { 
@@ -70,32 +70,34 @@
             border-radius: 30px; margin: 25px 0; border: 1px solid rgba(255,255,255,0.3);
         }
 
-        /* --- CARTA DE AMOR --- */
+        /* --- DISEÑO CARTA DE AMOR --- */
         .carta-container {
             background: #fff9f0;
-            color: #5d4037;
-            padding: 30px;
+            color: #5a3e2b;
+            padding: 40px 30px;
             border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             max-width: 600px;
-            width: 100%;
-            text-align: left;
-            line-height: 1.6;
+            width: 90%;
             position: relative;
-            border: 1px solid #f0e4d7;
-            overflow: hidden;
+            margin-top: 20px;
+            line-height: 1.6;
+            font-size: 18px;
+            text-align: left;
+            border: 1px solid #e0d0b0;
         }
 
-        .carta-texto {
-            font-size: 17px;
-            white-space: pre-wrap;
-            opacity: 0;
-            transform: translateY(20px);
+        .corazon-caida {
+            position: absolute;
+            color: #ff4b4b;
+            font-size: 20px;
+            pointer-events: none;
+            animation: fall linear forwards;
+            z-index: 10;
         }
 
-        .page.active .carta-texto {
-            animation: slideUpFade 1.5s forwards ease-out;
-            animation-delay: 0.5s;
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
         }
 
         /* --- GALERÍA ANIMADA --- */
@@ -119,35 +121,18 @@
             transition: transform 0.3s;
         }
 
-        .polaroid:hover {
-            transform: scale(1.1) rotate(0deg) !important;
-            z-index: 10;
-        }
+        .polaroid img { width: 100%; height: 140px; object-fit: cover; }
 
-        .polaroid img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-            border: 1px solid #eee;
-        }
-
-        .placeholder-box { 
-            width: 100%; max-width: 400px; height: 200px; 
-            border: 2px dashed rgba(255,255,255,0.5); 
-            display: flex; align-items: center; justify-content: center; border-radius: 20px;
-            margin-top: 20px;
-        }
+        /* --- GATITO --- */
+        #gatito { position: fixed; font-size: 35px; pointer-events: none; z-index: 2000; }
+        .huella { position: fixed; font-size: 18px; pointer-events: none; animation: fadeHuella 1s forwards; }
+        .omi-text { position: fixed; font-size: 14px; font-weight: bold; animation: fadeHuella 1s forwards; }
 
         /* ANIMACIONES */
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes drop { to { opacity: 1; transform: translateY(0); } }
-        @keyframes appear { 
-            from { opacity: 0; transform: translateY(20px) rotate(var(--r)); } 
-            to { opacity: 1; transform: translateY(0) rotate(var(--r)); } 
-        }
-        @keyframes slideUpFade {
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes appear { from { opacity: 0; transform: translateY(20px) rotate(var(--r)); } to { opacity: 1; transform: translateY(0) rotate(var(--r)); } }
+        @keyframes fadeHuella { to { opacity: 0; transform: scale(0.5); } }
 
         .locked-item { opacity: 0.5; font-size: 14px; margin-top: 15px; font-style: italic; }
     </style>
@@ -163,7 +148,7 @@
 
     <nav class="menu" id="menu">
         <a href="#" onclick="showPage('inicio')">❤️ Inicio</a>
-        <a href="#" onclick="showPage('carta')">📜 Mi carta de amor</a>
+        <a href="#" onclick="showPage('historia')">📜 Nuestra Historia</a>
         <a href="#" onclick="showPage('galeria')">📸 Nuestro Álbum</a>
         <a href="#" onclick="showPage('minijuego')">🎮 Minijuego de Gatito</a>
         <a href="#" onclick="showPage('ia')">🐱 Gatito IA</a>
@@ -179,26 +164,18 @@
                 <div class="phrase">"Hasta el último respiro mi amor"</div>
                 <div class="phrase">"Sin omi no hay gatito"</div>
             </div>
-            
             <h1 id="bienvenida"></h1>
-            
             <div id="contador">Calculando...</div>
-
             <div id="mensaje-personal">
                 <p>Hola Romina... felices 3 años y 3 meses hoy 18 de febrero.</p>
                 <p>Sos lo más lindo que me pasó en la vida. Te amo, Rodrigo.</p>
             </div>
         </section>
 
-        <section id="carta" class="page" style="background: #f4a1a1;">
-            <h2 style="margin-bottom: 20px;">Mi carta de amor</h2>
-            <div class="carta-container">
-                <div class="carta-texto">
-Hola mi amor, este es el comienzo de una forma de patentar nuestra historia, fotos, interacciones, este es un proyecto que nos dará muchos momentos lindos ya que vamos a tener muchas cosas acá para recordar, este es mi regalo para hoy, este 18 de febrero, esto es el comienzo de algo increíble, a esta pagina llena de amor se le irán integrando muchas mecánicas nuevas e interesantes. Habrán secciónes para poner nuestra historia, el quiz para que respondas, el Gatito IA. Y muchas más cosas que se me ocurran a mi y a vos, que esto es más tuyo que mio, pero es de los dos. 
-
-Quiero decirte que te amo muchísimo, que me tardé mucho haciendo esto, muchas horas de buscar maneras, muchas formas de intentar meter más opciones, errores, complicaciones, muchas horas de estrés y sueño, pero créeme que vale la pena darte esto, por que te lo mereces, mi amor por vos va por esto y por más, haré que todo lo que querés se cumpla, por que mi amor lo intentará todo. Esta pagina se va a llenar de secretos, ideas y proyectos, quiero que estemos juntos toda la vida mi amor, todo lo que te amo no tiene limite, sos la chica que quiero que esté conmigo toda la vida, simplemente por que me haces feliz y sos todo lo que alguna vez Soñé, nunca dudes que te amo, nunca dudes de mi y de mi amor, voy a hacerte feliz siempre, gracias por estos 3 años y estos 3 meses, sos lo mejor que me pasó en la vida, espero yo también sea lo mismo para vos, sé que a veces peleamos pero es normal y lo necesitamos, todos necesitan su lado conflictivo, te necesito yo a vos como el aire para mis pulmones, te necesito como el fuego y el agua, te necesito como el ying a el yang, te necesito como la tierra al agua, te necesito como la música al oido, te necesito como yo a mi felicidad y mi felicidad sos vos amor, no importa el contexto, te necesito día y noche. Te necesito y necesito que busques en YouTube "Need you" de juice wrld.
+        <section id="historia" class="page">
+            <h2>Nuestra Historia</h2>
+            <div class="carta-container" id="carta">
                 </div>
-            </div>
         </section>
 
         <section id="galeria" class="page">
@@ -236,42 +213,60 @@ Quiero decirte que te amo muchísimo, que me tardé mucho haciendo esto, muchas 
             </div>
         </section>
 
-        <section id="minijuego" class="page">
-            <h2>Minijuego de Gatito</h2>
-            <div class="placeholder-box">
-                <p>🎮 Próximamente...</p>
-            </div>
-        </section>
-
-        <section id="ia" class="page">
-            <h2>Gatito IA</h2>
-            <div class="placeholder-box">
-                <p>🤖 Sección en desarrollo</p>
-            </div>
-        </section>
+        <section id="minijuego" class="page"><h2>Minijuego de Gatito</h2><div class="placeholder-box"><p>🎮 Próximamente...</p></div></section>
+        <section id="ia" class="page"><h2>Gatito IA</h2><div class="placeholder-box"><p>🤖 Sección en desarrollo</p></div></section>
     </main>
 
+    <div id="gatito">😺</div>
+
     <script>
+        const mensajeCarta = "Querida Romina,\n\nDesde el primer momento supe que eras especial. Estos 3 años y 3 meses han sido los mejores de mi vida. Gracias por cada sonrisa, por cada abrazo y por ser mi compañera en todo. Sos el amor de mi vida y no puedo esperar a ver todo lo que el futuro tiene para nosotros.\n\nTe amo para siempre, Rodrigo.";
+
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             document.getElementById("menu").classList.remove("active");
-            window.scrollTo(0,0);
+            if(pageId === 'historia') escribirMensaje();
         }
 
-        function toggleMenu() {
-            document.getElementById("menu").classList.toggle("active");
+        function toggleMenu() { document.getElementById("menu").classList.toggle("active"); }
+
+        // ESCRITURA AUTOMÁTICA
+        function escribirMensaje() {
+            const container = document.getElementById("carta");
+            container.innerHTML = "";
+            let i = 0;
+            const intervalo = setInterval(() => {
+                if(i < mensajeCarta.length) {
+                    container.innerHTML += mensajeCarta.charAt(i) === "\n" ? "<br>" : mensajeCarta.charAt(i);
+                    i++;
+                    if(i % 5 === 0) crearCorazon();
+                } else { clearInterval(intervalo); }
+            }, 50);
         }
 
-        const texto = "Bienvenida";
-        const container = document.getElementById("bienvenida");
-        [...texto].forEach((letra, i) => {
+        function crearCorazon() {
+            const c = document.createElement("div");
+            c.className = "corazon-caida";
+            c.textContent = "❤️";
+            c.style.left = Math.random() * 100 + "%";
+            c.style.top = "-20px";
+            c.style.animationDuration = (Math.random() * 3 + 2) + "s";
+            document.getElementById("historia").appendChild(c);
+            setTimeout(() => c.remove(), 5000);
+        }
+
+        // BIENVENIDA
+        const textoBienvenida = "Bienvenida";
+        const welcomeContainer = document.getElementById("bienvenida");
+        [...textoBienvenida].forEach((letra, i) => {
             let s = document.createElement("span");
             s.textContent = letra;
             s.style.animationDelay = (i * 0.1) + "s";
-            container.appendChild(s);
+            welcomeContainer.appendChild(s);
         });
 
+        // FRASES ROTATIVAS
         const frases = document.querySelectorAll(".phrase");
         let fIdx = 0;
         function rotar() {
@@ -281,6 +276,7 @@ Quiero decirte que te amo muchísimo, que me tardé mucho haciendo esto, muchas 
         }
         setInterval(rotar, 4000); rotar();
 
+        // CONTADOR
         const fechaInicio = new Date("2022-11-18T00:00:00");
         function actualizar() {
             const ahora = new Date();
@@ -292,6 +288,34 @@ Quiero decirte que te amo muchísimo, que me tardé mucho haciendo esto, muchas 
             document.getElementById("contador").innerHTML = `${a} años, ${m} meses, ${d} días<br><small>${ahora.getHours()}h ${ahora.getMinutes()}m ${ahora.getSeconds()}s</small>`;
         }
         setInterval(actualizar, 1000); actualizar();
+
+        // GATITO SEGUIDOR
+        const gatito = document.getElementById("gatito");
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2, posX = mouseX, posY = mouseY, ultHuella = 0, ultOmi = 0;
+        document.addEventListener("mousemove", e => { mouseX = e.clientX; mouseY = e.clientY; });
+        function crearHuella(x,y){
+            if(Date.now() - ultHuella < 1000) return;
+            ultHuella = Date.now();
+            const h = document.createElement("div"); h.className="huella"; h.textContent="🐾";
+            h.style.left=x+"px"; h.style.top=y+"px"; document.body.appendChild(h);
+            setTimeout(()=>h.remove(),1000);
+        }
+        function decirOmi(x,y){
+            if(Date.now() - ultOmi < 1200) return;
+            ultOmi = Date.now();
+            const t=document.createElement("div"); t.className="omi-text"; t.textContent="omi";
+            t.style.left=x+"px"; t.style.top=(y-25)+"px"; document.body.appendChild(t);
+            setTimeout(()=>t.remove(),1000);
+        }
+        function animar(){
+            const dist=Math.hypot(mouseX-posX,mouseY-posY);
+            if(dist>20){ posX+=(mouseX-posX)*0.08; posY+=(mouseY-posY)*0.08; }
+            gatito.style.left=posX+"px"; gatito.style.top=posY+"px";
+            if(dist<20){ gatito.textContent="😼"; crearHuella(posX,posY); decirOmi(posX,posY); }
+            else if(dist<120){ gatito.textContent="🙀"; } else { gatito.textContent="😺"; }
+            requestAnimationFrame(animar);
+        }
+        animar();
     </script>
 </body>
 </html>
