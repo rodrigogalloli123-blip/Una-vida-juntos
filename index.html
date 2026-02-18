@@ -1,95 +1,406 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Una Vida Juntos - R&R</title>
-<style>
-/* Tu diseño perfecto que guardé en memoria */
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-body { background: #f4a1a1; color: white; overflow: hidden; height: 100vh; position: relative; }
-header { position: fixed; top: 15px; left: 15px; z-index: 100; }
-.logo { font-size: 20px; font-weight: bold; cursor: pointer; }
-.hamburger { margin-top: 10px; width: 25px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; height: 18px; }
-.hamburger span { display: block; height: 3px; background: white; border-radius: 2px; }
-.menu { position: fixed; right: -280px; top: 0; width: 280px; height: 100%; background: #d99b6d; padding: 80px 25px; transition: 0.5s; z-index: 99; display: flex; flex-direction: column; }
-.menu.active { right: 0; }
-.menu a { display: block; font-size: 16px; margin: 15px 0; color: white; text-decoration: none; }
-.locked { opacity: 0.4; font-size: 13px; margin: 12px 0; font-style: italic; }
-main { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
-#frases-container { position: absolute; top: 12%; width: 90%; height: 60px; display: flex; justify-content: center; align-items: center; }
-.phrase { font-size: 18px; line-height: 1.4; display: none; animation: fadeIn 0.8s ease-in; }
-h1#bienvenida { font-size: 42px; margin-top: 40px; display: flex; }
-h1#bienvenida span { display: inline-block; opacity: 0; transform: translateY(-50px); animation: drop 0.6s forwards; }
-#contador { margin-top: 25px; font-size: 18px; background: rgba(255,255,255,0.15); padding: 10px 20px; border-radius: 30px; }
-#frase-regalo { margin-top: 25px; font-size: 15px; max-width: 550px; line-height: 1.6; opacity: 0.95; }
-#cat { position: absolute; font-size: 30px; pointer-events: none; z-index: 1000; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes drop { to { opacity: 1; transform: translateY(0); } }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nuestra Historia - R&R</title>
+    <style>
+        /* CSS - DISEÑO MEJORADO R&R
+           He mantenido tus colores originales pero con más estructura 
+           para llegar a la cantidad de líneas que pediste.
+        */
+
+        /* Reset general */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', sans-serif; 
+        }
+
+        /* Cuerpo de la página */
+        body { 
+            background: #f4a1a1; 
+            color: white; 
+            overflow-x: hidden; 
+            min-height: 100vh; 
+            position: relative; 
+            scroll-behavior: smooth;
+        }
+
+        /* Estilos del Header */
+        header { 
+            position: fixed; 
+            top: 15px; 
+            left: 15px; 
+            z-index: 1000; 
+        }
+
+        .logo { 
+            font-size: 20px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Botón de Menú Hamburguesa */
+        .hamburger { 
+            margin-top: 10px; 
+            width: 25px; 
+            cursor: pointer; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+            height: 18px; 
+        }
+
+        .hamburger span { 
+            display: block; 
+            height: 3px; 
+            background: white; 
+            border-radius: 2px; 
+            transition: 0.3s;
+        }
+
+        /* Menú Lateral Desplegable */
+        .menu { 
+            position: fixed; 
+            right: -280px; 
+            top: 0; 
+            width: 280px; 
+            height: 100%; 
+            background: #d99b6d; 
+            padding: 80px 25px; 
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            z-index: 999; 
+            display: flex; 
+            flex-direction: column; 
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        }
+
+        .menu.active { 
+            right: 0; 
+        }
+
+        .menu a { 
+            display: block; 
+            font-size: 16px; 
+            margin: 15px 0; 
+            color: white; 
+            text-decoration: none; 
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 5px;
+        }
+
+        .locked { 
+            opacity: 0.5; 
+            font-size: 13px; 
+            margin: 12px 0; 
+            font-style: italic; 
+        }
+
+        /* Contenedor Principal */
+        main { 
+            width: 100%;
+        }
+
+        /* SECCIÓN 1: PANTALLA DE INICIO */
+        section#inicio {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Frases que rotan */
+        #frases-container { 
+            position: absolute; 
+            top: 12%; 
+            width: 90%; 
+            height: 60px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+        }
+
+        .phrase { 
+            font-size: 18px; 
+            line-height: 1.4; 
+            display: none; 
+            animation: fadeIn 0.8s ease-in; 
+        }
+
+        /* Título Bienvenida */
+        h1#bienvenida { 
+            font-size: 42px; 
+            margin-top: 40px; 
+            display: flex; 
+        }
+
+        h1#bienvenida span { 
+            display: inline-block; 
+            opacity: 0; 
+            transform: translateY(-50px); 
+            animation: drop 0.6s forwards; 
+        }
+
+        /* Contador */
+        #contador { 
+            margin-top: 25px; 
+            font-size: 18px; 
+            background: rgba(255,255,255,0.15); 
+            padding: 15px 25px; 
+            border-radius: 30px; 
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        #frase-regalo { 
+            margin-top: 25px; 
+            font-size: 15px; 
+            max-width: 550px; 
+            line-height: 1.6; 
+            opacity: 0.95; 
+        }
+
+        /* SECCIÓN 2: GALERÍA (Punto 1 Integrado) */
+        section#galeria {
+            min-height: 100vh;
+            background: #e88a8a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 20px;
+        }
+
+        .galeria-titulo {
+            font-size: 28px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .album-container { 
+            width: 320px; 
+            height: 400px; 
+            position: relative; 
+            border-radius: 20px; 
+            overflow: hidden; 
+            border: 5px solid white; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2); 
+        }
+
+        .foto { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            opacity: 0; 
+            transition: opacity 1s ease-in-out; 
+        }
+
+        .foto.active { 
+            opacity: 1; 
+        }
+
+        /* Elementos flotantes */
+        #cat { 
+            position: absolute; 
+            font-size: 30px; 
+            pointer-events: none; 
+            z-index: 2000; 
+        }
+
+        /* Keyframes Animaciones */
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        @keyframes drop { 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1#bienvenida { font-size: 32px; }
+            #contador { font-size: 16px; }
+            .album-container { width: 280px; height: 350px; }
+        }
+    </style>
 </head>
 <body>
 
-<header>
-  <div class="logo">Una Vida Juntos</div>
-  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
-</header>
+    <header>
+        <div class="logo">Una Vida Juntos</div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
 
-<nav class="menu" id="menu">
-  <a href="#">❤️ Nuestro Inicio: 18/11/2022</a>
-  <div class="locked">🔒 Planes de viaje (Próximamente)</div>
-  <div class="locked">🔒 Nuestra Casita (Próximamente)</div>
-  <div class="locked">🔒 Álbum de Bodas (Próximamente)</div>
-</nav>
+    <nav class="menu" id="menu">
+        <a href="#inicio" onclick="toggleMenu()">❤️ Inicio</a>
+        <a href="#galeria" onclick="toggleMenu()">📸 Nuestro Álbum</a>
+        <div class="locked">🔒 Planes de viaje (Próximamente)</div>
+        <div class="locked">🔒 Nuestra Casita (Próximamente)</div>
+        <div class="locked">🔒 Álbum de Bodas (Próximamente)</div>
+    </nav>
 
-<div id="cat">🐱</div>
+    <div id="cat">🐱</div>
 
-<main>
-  <div id="frases-container">
-    <div class="phrase">La única forma de ver el futuro es con el amor que te tengo.</div>
-    <div class="phrase">Amo que seas vos.</div>
-    <div class="phrase">Hasta el último respiro mi amor.</div>
-  </div>
-  <h1 id="bienvenida"></h1>
-  <div id="contador">Cargando...</div>
-  <div id="frase-regalo">
-    Hola Romina... felices 3 años y 3 meses hoy 18 de febrero. Te amo, Rodrigo.
-  </div>
-</main>
+    <main>
+        <section id="inicio">
+            <div id="frases-container">
+                <div class="phrase">La única forma de ver el futuro es con el amor que te tengo.</div>
+                <div class="phrase">Amo que seas vos.</div>
+                <div class="phrase">Hasta el último respiro mi amor.</div>
+                <div class="phrase">Sin omi no hay gatito.</div>
+            </div>
 
-<script>
-/* Lógica de Bienvenida y Menú */
-function toggleMenu() { document.getElementById("menu").classList.toggle("active"); }
-const bienvenidaText = "Bienvenida";
-const bienvenidaContainer = document.getElementById("bienvenida");
-for(let i=0; i<bienvenidaText.length; i++){
-  let span = document.createElement("span"); span.textContent = bienvenidaText[i];
-  span.style.animationDelay = (i*0.15) + "s"; bienvenidaContainer.appendChild(span);
-}
+            <h1 id="bienvenida"></h1>
+            
+            <div id="contador">Cargando nuestro tiempo...</div>
 
-/* Ciclo de Frases */
-const frases = document.querySelectorAll(".phrase");
-let idx = 0; setInterval(() => { frases.forEach(f => f.style.display="none"); frases[idx].style.display="block"; idx=(idx+1)%frases.length; }, 4000);
+            <div id="frase-regalo">
+                Hola Romina... felices 3 años y 3 meses hoy 18 de febrero. <br>
+                Sos lo más lindo que me pasó en la vida. Te amo, Rodrigo.
+            </div>
+            
+            <div style="margin-top: 30px; font-size: 12px; opacity: 0.7;">
+                (Deslizá hacia abajo o usá el menú para ver más)
+            </div>
+        </section>
 
-/* Contador Exacto desde 18/11/2022 */
-const inicio = new Date("2022-11-18T00:00:00");
-function actualizar() {
-  const ahora = new Date();
-  let anios = ahora.getFullYear() - inicio.getFullYear();
-  let meses = ahora.getMonth() - inicio.getMonth();
-  let dias = ahora.getDate() - inicio.getDate();
-  if (dias < 0) { meses--; const ult = new Date(ahora.getFullYear(), ahora.getMonth(), 0).getDate(); dias += ult; }
-  if (meses < 0) { anios--; meses += 12; }
-  document.getElementById("contador").innerHTML = `${anios} años, ${meses} meses, ${dias} días<br>${ahora.getHours()}h ${ahora.getMinutes()}m ${ahora.getSeconds()}s`;
-}
-setInterval(actualizar, 1000); actualizar();
+        <section id="galeria">
+            <h2 class="galeria-titulo">Nuestros Recuerdos</h2>
+            <div class="album-container">
+                <img src="foto1.jpg" class="foto active">
+                <img src="foto2.jpg" class="foto">
+                <img src="foto3.jpg" class="foto">
+                <img src="foto4.jpg" class="foto">
+            </div>
+            <p style="margin-top: 20px; font-style: italic; opacity: 0.9;">
+                "Cada momento a tu lado es un tesoro."
+            </p>
+        </section>
+    </main>
 
-/* El Gatito que sigue el mouse */
-const cat = document.getElementById("cat");
-let mX=0, mY=0, cX=0, cY=0;
-document.addEventListener("mousemove", e => { mX=e.pageX; mY=e.pageY; cat.textContent="🙀"; setTimeout(()=>cat.textContent="🐱",150); });
-function mover(){ cX+=(mX-cX)*0.1; cY+=(mY-cY)*0.1; cat.style.left=(cX-15)+"px"; cat.style.top=(cY-15)+"px"; requestAnimationFrame(mover); }
-mover();
-</script>
+    <script>
+        /* JAVASCRIPT - LÓGICA R&R
+           He expandido los comentarios para que el código sea más largo 
+           y fácil de mantener.
+        */
+
+        // 1. FUNCIONALIDAD DEL MENÚ HAMBURGUESA
+        // Esta función abre y cierra el menú lateral
+        function toggleMenu() { 
+            const menu = document.getElementById("menu");
+            menu.classList.toggle("active"); 
+        }
+
+        // 2. ANIMACIÓN DE BIENVENIDA (Letra por Letra)
+        // Genera el efecto de caída de las letras del título
+        const bienvenidaText = "Bienvenida";
+        const bienvenidaContainer = document.getElementById("bienvenida");
+        
+        for(let i=0; i < bienvenidaText.length; i++) {
+            let span = document.createElement("span");
+            span.textContent = bienvenidaText[i];
+            // Retraso calculado para cada letra
+            span.style.animationDelay = (i * 0.15) + "s";
+            bienvenidaContainer.appendChild(span);
+        }
+
+        // 3. CICLO DE FRASES SUPERIORES
+        // Cambia la frase cada 4 segundos
+        const frases = document.querySelectorAll(".phrase");
+        let fraseIdx = 0;
+        
+        function rotarFrases() {
+            frases.forEach(f => f.style.display = "none");
+            frases[fraseIdx].style.display = "block";
+            fraseIdx = (fraseIdx + 1) % frases.length;
+        }
+        
+        setInterval(rotarFrases, 4000);
+        rotarFrases(); // Ejecución inicial
+
+        // 4. CONTADOR EXACTO (Desde el 18/11/2022)
+        // Calcula años, meses, días, horas, minutos y segundos
+        const fechaInicio = new Date("2022-11-18T00:00:00");
+        
+        function actualizarReloj() {
+            const ahora = new Date();
+            let anios = ahora.getFullYear() - fechaInicio.getFullYear();
+            let meses = ahora.getMonth() - fechaInicio.getMonth();
+            let dias = ahora.getDate() - fechaInicio.getDate();
+            
+            // Lógica para ajustar meses y días negativos
+            if (dias < 0) {
+                meses--;
+                const ultimoDiaMesAnterior = new Date(ahora.getFullYear(), ahora.getMonth(), 0).getDate();
+                dias += ultimoDiaMesAnterior;
+            }
+            if (meses < 0) {
+                anios--;
+                meses += 12;
+            }
+            
+            const horas = ahora.getHours();
+            const minutos = ahora.getMinutes();
+            const segundos = ahora.getSeconds();
+
+            document.getElementById("contador").innerHTML = 
+                `${anios} años, ${meses} meses, ${dias} días<br>` +
+                `<small>${horas}h ${minutos}m ${segundos}s</small>`;
+        }
+        
+        setInterval(actualizarReloj, 1000);
+        actualizarReloj();
+
+        // 5. EL GATITO QUE SIGUE EL MOUSE
+        // Efecto de suavizado para que el gato siga el cursor
+        const cat = document.getElementById("cat");
+        let mouseX = 0, mouseY = 0, catX = 0, catY = 0;
+        
+        document.addEventListener("mousemove", e => {
+            mouseX = e.pageX;
+            mouseY = e.pageY;
+            // El gato se asusta cuando movés el mouse
+            cat.textContent = "🙀";
+            setTimeout(() => cat.textContent = "🐱", 150);
+        });
+
+        function animarGatito() {
+            // Ajuste de velocidad de seguimiento (0.1 = suave)
+            catX += (mouseX - catX) * 0.1;
+            catY += (mouseY - catY) * 0.1;
+            cat.style.left = (catX - 15) + "px";
+            cat.style.top = (catY - 15) + "px";
+            requestAnimationFrame(animarGatito);
+        }
+        animarGatito();
+
+        // 6. LÓGICA DEL ÁLBUM DE FOTOS (Sección Galería)
+        // Cambia las imágenes del álbum automáticamente
+        const fotosAlbum = document.querySelectorAll(".foto");
+        let albumIdx = 0;
+        
+        function cambiarImagen() {
+            fotosAlbum.forEach(f => f.classList.remove("active"));
+            albumIdx = (albumIdx + 1) % fotosAlbum.length;
+            fotosAlbum[albumIdx].classList.add("active");
+        }
+        
+        setInterval(cambiarImagen, 3000); // Cambio cada 3 segundos
+
+        // Mensaje de consola para verificar carga
+        console.log("Página de Rodrigo y Romina cargada correctamente.");
+    </script>
 </body>
 </html>
