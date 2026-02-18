@@ -31,7 +31,7 @@ header {
     width: 25px; cursor: pointer; display: flex; 
     flex-direction: column; justify-content: space-between; height: 18px; 
 }
-.hamburger span { height: 3px; background: white; border-radius: 2px; }
+.hamburger span { height: 3px; background: white; border-radius: 2px; width: 100%; display: block; }
 
 /* MENÚ */
 .menu { 
@@ -50,16 +50,17 @@ header {
     display: none;
     width: 100%; height: 100vh;
     padding: 100px 20px 40px;
-    flex-direction: column; align-items: center; justify-content: center;
+    flex-direction: column; align-items: center;
     text-align: center;
+    overflow-y: auto; /* Permite scroll solo si hay muchas fotos */
 }
 .page.active { display: flex; animation: fadeIn 0.4s ease; }
 
 /* INICIO */
-#frases-container { height: 30px; margin-bottom: 10px; }
+#frases-container { height: 30px; margin-bottom: 10px; margin-top: 20px;}
 .phrase { font-size: 18px; font-style: italic; display: none; }
 
-h1#bienvenida { font-size: 45px; margin-bottom: 20px; display: flex; }
+h1#bienvenida { font-size: 45px; margin-bottom: 20px; display: flex; justify-content: center; }
 h1#bienvenida span { display: inline-block; opacity: 0; transform: translateY(-30px); animation: drop 0.5s forwards; }
 
 #contador { 
@@ -67,34 +68,51 @@ h1#bienvenida span { display: inline-block; opacity: 0; transform: translateY(-3
     border-radius: 30px; margin: 25px 0; border: 1px solid rgba(255,255,255,0.3);
 }
 
-/* GATITO */
-#gatito {
-    position: fixed;
-    font-size: 35px;
-    pointer-events: none;
-    z-index: 2000;
+/* GALERÍA POLAROID */
+.galeria-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
 }
 
-.huella {
-    position: fixed;
-    font-size: 18px;
-    pointer-events: none;
-    animation: fadeHuella 1s forwards;
+.polaroid {
+    background: white;
+    padding: 10px 10px 25px 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transform: rotate(var(--r));
+    transition: 0.3s;
+    opacity: 0;
+    animation: slideUp 0.6s forwards;
+    animation-delay: var(--d);
 }
 
-@keyframes fadeHuella {
-    to { opacity: 0; transform: scale(0.5); }
+.polaroid:hover {
+    transform: rotate(0deg) scale(1.05);
+    z-index: 10;
 }
 
-.omi-text {
-    position: fixed;
-    font-size: 14px;
-    font-weight: bold;
-    animation: fadeHuella 1s forwards;
+.polaroid img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border: 1px solid #eee;
 }
 
+/* GATITO Y EFECTOS */
+#gatito { position: fixed; font-size: 35px; pointer-events: none; z-index: 2000; }
+.huella { position: fixed; font-size: 18px; pointer-events: none; animation: fadeHuella 1s forwards; }
+.omi-text { position: fixed; font-size: 14px; font-weight: bold; animation: fadeHuella 1s forwards; }
+
+@keyframes fadeHuella { to { opacity: 0; transform: scale(0.5); } }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes drop { to { opacity: 1; transform: translateY(0); } }
+@keyframes slideUp { 
+    from { opacity: 0; transform: translateY(50px) rotate(var(--r)); } 
+    to { opacity: 1; transform: translateY(0) rotate(var(--r)); } 
+}
 
 .locked-item { opacity: 0.5; font-size: 14px; margin-top: 15px; font-style: italic; }
 
@@ -120,144 +138,140 @@ h1#bienvenida span { display: inline-block; opacity: 0; transform: translateY(-3
 </nav>
 
 <main>
-<section id="inicio" class="page active">
-<div id="frases-container">
-<div class="phrase">"La única forma de ver el futuro es con el amor que te tengo"</div>
-<div class="phrase">"Amo que seas vos"</div>
-<div class="phrase">"Hasta el último respiro mi amor"</div>
-<div class="phrase">"Sin omi no hay gatito"</div>
-</div>
+    <section id="inicio" class="page active">
+        <div id="frases-container">
+            <div class="phrase">"La única forma de ver el futuro es con el amor que te tengo"</div>
+            <div class="phrase">"Amo que seas vos"</div>
+            <div class="phrase">"Hasta el último respiro mi amor"</div>
+            <div class="phrase">"Sin omi no hay gatito"</div>
+        </div>
 
-<h1 id="bienvenida"></h1>
-<div id="contador">Calculando...</div>
+        <h1 id="bienvenida"></h1>
+        <div id="contador">Calculando...</div>
 
-<div id="mensaje-personal">
-<p>Hola Romina... felices 3 años y 3 meses hoy 18 de febrero.</p>
-<p>Sos lo más lindo que me pasó en la vida. Te amo, Rodrigo.</p>
-</div>
-</section>
+        <div id="mensaje-personal">
+            <p>Hola Romina... felices 3 años y 3 meses hoy 18 de febrero.</p>
+            <p>Sos lo más lindo que me pasó en la vida. Te amo, Rodrigo.</p>
+        </div>
+    </section>
+
+    <section id="galeria" class="page">
+        <h2 style="margin-bottom: 30px;">Nuestro Álbum</h2>
+        <div class="galeria-container">
+            <div class="polaroid" style="--r: -3deg; --d: 0.2s;"><img src="1000105225.jpg"></div>
+            <div class="polaroid" style="--r: 2deg; --d: 0.4s;"><img src="1000105281.jpg"></div>
+            <div class="polaroid" style="--r: -5deg; --d: 0.6s;"><img src="1000104939.jpg"></div>
+            <div class="polaroid" style="--r: 4deg; --d: 0.8s;"><img src="1000102521.jpg"></div>
+            <div class="polaroid" style="--r: -2deg; --d: 1s;"><img src="1000102139.jpg"></div>
+            <div class="polaroid" style="--r: 3deg; --d: 1.2s;"><img src="1000105093.jpg"></div>
+            <div class="polaroid" style="--r: -4deg; --d: 1.4s;"><img src="1000104830.jpg"></div>
+            <div class="polaroid" style="--r: 5deg; --d: 1.6s;"><img src="1000103403.jpg"></div>
+            <div class="polaroid" style="--r: -3deg; --d: 1.8s;"><img src="1000102853.jpg"></div>
+        </div>
+    </section>
+
+    <section id="minijuego" class="page">
+        <h2>Minijuego de Gatito</h2>
+        <p style="margin-top:20px;">Próximamente... 🎮</p>
+    </section>
+
+    <section id="ia" class="page">
+        <h2>Gatito IA</h2>
+        <p style="margin-top:20px;">Estamos entrenando al michi... 🤖</p>
+    </section>
 </main>
 
 <div id="gatito">😺</div>
 
 <script>
-
 // NAVEGACIÓN
 function showPage(pageId) {
-document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-document.getElementById(pageId).classList.add('active');
-document.getElementById("menu").classList.remove("active");
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+    document.getElementById("menu").classList.remove("active");
 }
 function toggleMenu() {
-document.getElementById("menu").classList.toggle("active");
+    document.getElementById("menu").classList.toggle("active");
 }
 
 // BIENVENIDA
 const texto = "Bienvenida";
 const container = document.getElementById("bienvenida");
 [...texto].forEach((letra, i) => {
-let s = document.createElement("span");
-s.textContent = letra;
-s.style.animationDelay = (i * 0.1) + "s";
-container.appendChild(s);
+    let s = document.createElement("span");
+    s.textContent = letra;
+    s.style.animationDelay = (i * 0.1) + "s";
+    container.appendChild(s);
 });
 
 // FRASES
 const frases = document.querySelectorAll(".phrase");
 let fIdx = 0;
 function rotar() {
-frases.forEach(f => f.style.display = "none");
-frases[fIdx].style.display = "block";
-fIdx = (fIdx + 1) % frases.length;
+    frases.forEach(f => f.style.display = "none");
+    frases[fIdx].style.display = "block";
+    fIdx = (fIdx + 1) % frases.length;
 }
 setInterval(rotar, 4000); rotar();
 
 // CONTADOR
 const fechaInicio = new Date("2022-11-18T00:00:00");
 function actualizar() {
-const ahora = new Date();
-let a = ahora.getFullYear() - fechaInicio.getFullYear();
-let m = ahora.getMonth() - fechaInicio.getMonth();
-let d = ahora.getDate() - fechaInicio.getDate();
-if (d < 0) { m--; d += new Date(ahora.getFullYear(), ahora.getMonth(), 0).getDate(); }
-if (m < 0) { a--; m += 12; }
-document.getElementById("contador").innerHTML =
-`${a} años, ${m} meses, ${d} días<br><small>${ahora.getHours()}h ${ahora.getMinutes()}m ${ahora.getSeconds()}s</small>`;
+    const ahora = new Date();
+    let a = ahora.getFullYear() - fechaInicio.getFullYear();
+    let m = ahora.getMonth() - fechaInicio.getMonth();
+    let d = ahora.getDate() - fechaInicio.getDate();
+    if (d < 0) { m--; d += new Date(ahora.getFullYear(), ahora.getMonth(), 0).getDate(); }
+    if (m < 0) { a--; m += 12; }
+    document.getElementById("contador").innerHTML =
+    `${a} años, ${m} meses, ${d} días<br><small>${ahora.getHours()}h ${ahora.getMinutes()}m ${ahora.getSeconds()}s</small>`;
 }
 setInterval(actualizar, 1000); actualizar();
 
-// GATITO OPTIMIZADO
+// GATITO SEGUIDOR
 const gatito = document.getElementById("gatito");
+let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+let posX = mouseX, posY = mouseY;
+let ultimaHuella = 0, ultimaOmi = 0;
 
-let mouseX = window.innerWidth / 2;
-let mouseY = window.innerHeight / 2;
-let posX = mouseX;
-let posY = mouseY;
-
-let ultimaHuella = 0;
-let ultimaOmi = 0;
-
-document.addEventListener("mousemove", e => {
-mouseX = e.clientX;
-mouseY = e.clientY;
-});
+document.addEventListener("mousemove", e => { mouseX = e.clientX; mouseY = e.clientY; });
 
 function crearHuella(x,y){
-const ahora = Date.now();
-if(ahora - ultimaHuella < 1000) return;
-ultimaHuella = ahora;
-
-const h = document.createElement("div");
-h.className="huella";
-h.textContent="🐾";
-h.style.left=x+"px";
-h.style.top=y+"px";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),1000);
+    const ahora = Date.now();
+    if(ahora - ultimaHuella < 1000) return;
+    ultimaHuella = ahora;
+    const h = document.createElement("div");
+    h.className="huella"; h.textContent="🐾";
+    h.style.left=x+"px"; h.style.top=y+"px";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),1000);
 }
 
 function decirOmi(x,y){
-const ahora = Date.now();
-if(ahora - ultimaOmi < 1200) return;
-ultimaOmi = ahora;
-
-const t=document.createElement("div");
-t.className="omi-text";
-t.textContent="omi";
-t.style.left=x+"px";
-t.style.top=(y-25)+"px";
-document.body.appendChild(t);
-setTimeout(()=>t.remove(),1000);
+    const ahora = Date.now();
+    if(ahora - ultimaOmi < 1200) return;
+    ultimaOmi = ahora;
+    const t=document.createElement("div");
+    t.className="omi-text"; t.textContent="omi";
+    t.style.left=x+"px"; t.style.top=(y-25)+"px";
+    document.body.appendChild(t);
+    setTimeout(()=>t.remove(),1000);
 }
 
 function animar(){
-const dist=Math.hypot(mouseX-posX,mouseY-posY);
-
-// zona muerta
-if(dist>20){
-posX+=(mouseX-posX)*0.08;
-posY+=(mouseY-posY)*0.08;
-}
-
-gatito.style.left=posX+"px";
-gatito.style.top=posY+"px";
-
-if(dist<20){
-gatito.textContent="😼";
-crearHuella(posX,posY);
-decirOmi(posX,posY);
-}
-else if(dist<120){
-gatito.textContent="🙀";
-}
-else{
-gatito.textContent="😺";
-}
-
-requestAnimationFrame(animar);
+    const dist=Math.hypot(mouseX-posX,mouseY-posY);
+    if(dist>20){ posX+=(mouseX-posX)*0.08; posY+=(mouseY-posY)*0.08; }
+    gatito.style.left=posX+"px"; gatito.style.top=posY+"px";
+    if(dist<20){ 
+        gatito.textContent="😼"; crearHuella(posX,posY); decirOmi(posX,posY); 
+    } else if(dist<120){ 
+        gatito.textContent="🙀"; 
+    } else { 
+        gatito.textContent="😺"; 
+    }
+    requestAnimationFrame(animar);
 }
 animar();
-
 </script>
 </body>
 </html>
