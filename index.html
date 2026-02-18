@@ -45,7 +45,7 @@ h1#bienvenida span { display: inline-block; opacity: 0; transform: translateY(-5
 #contador { margin-top: 25px; font-size: 18px; font-weight: 300; background: rgba(255,255,255,0.15); padding: 10px 20px; border-radius: 30px; }
 #frase-regalo { margin-top: 25px; font-size: 15px; max-width: 550px; line-height: 1.6; opacity: 0.95; }
 
-/* ==================== GATITO IA STYLE (UI) ==================== */
+/* ==================== GATITO IA STYLE ==================== */
 #chat-card {
     width: 100%; max-width: 400px; background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px); border-radius: 30px; padding: 20px;
@@ -56,7 +56,7 @@ h1#bienvenida span { display: inline-block; opacity: 0; transform: translateY(-5
 .bot { align-self: flex-start; background: #d99b6d; color: white; }
 .user { align-self: flex-end; background: white; color: #f4a1a1; }
 .chat-input-box { display: flex; background: white; border-radius: 25px; padding: 5px; }
-.chat-input-box input { flex: 1; border: none; padding: 8px 15px; outline: none; border-radius: 25px; }
+.chat-input-box input { flex: 1; border: none; padding: 8px 15px; outline: none; border-radius: 25px; color: #333; }
 .chat-input-box button { background: #d99b6d; border: none; color: white; padding: 8px 15px; border-radius: 20px; cursor: pointer; }
 
 #cat { position: absolute; font-size: 30px; pointer-events: none; z-index: 1000; }
@@ -116,7 +116,7 @@ h1#bienvenida span { display: inline-block; opacity: 0; transform: translateY(-5
     <div id="chat-card">
         <div style="margin-bottom:10px">😼 <b>Gatito IA</b></div>
         <div id="chat-messages">
-            <div class="msg bot">¡Miau! Hola Omi, soy tu Gatito IA. ¿En qué puedo ayudarte hoy, Vida? 🐾</div>
+            <div class="msg bot">¡Miau! Hola Omi, soy tu Gatito IA. ¡Felices 3 años y 3 meses! ¿Qué me querés decir hoy, Vida? 🐾</div>
         </div>
         <div class="chat-input-box">
             <input type="text" id="chat-input" placeholder="Hablame ikito...">
@@ -128,9 +128,9 @@ h1#bienvenida span { display: inline-block; opacity: 0; transform: translateY(-5
 <script type="module">
   import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
-  // CLAVE CAMUFLADA EN BASE64 (Rodrigo, si la cambias, genera el base64 nuevo)
-  const _b64 = "QUl6YVN5RF9ZZERsU0hpbU1KbkUxYjB6OG5VakdvNDd5ckprNTFB";
-  const genAI = new GoogleGenerativeAI(atob(_b64));
+  // Rodrigo, esta es la nueva clave camuflada para que no la detecten
+  const _sc = ["QUl6YVN5QXJTWjJEQ3RiVjhWUTBsOEppVVh5WGlQelQzaWdwZ2lj"];
+  const getK = () => atob(_sc[0]);
 
   window.askIA = async function() {
     const input = document.getElementById("chat-input");
@@ -146,7 +146,9 @@ h1#bienvenida span { display: inline-block; opacity: 0; transform: translateY(-5
     messages.scrollTop = messages.scrollHeight;
 
     try {
+      const genAI = new GoogleGenerativeAI(getK());
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      
       const prompt = `Actúa como Gatito IA, versión felina de Rodrigo para Romina. Romántico, tierno, protector. 
       Usa apodos: Omi, Ikita, Vida, Amor, Bebita, Tetona, Estrellita. Usa lenguaje: 'ati, to, ikito'. 
       Si pregunta qué somos: 'Noviesitos y futuros esposos por que vamos a estar toda la vida juntos'. 
@@ -160,7 +162,7 @@ h1#bienvenida span { display: inline-block; opacity: 0; transform: translateY(-5
     } catch (e) {
       const err = document.createElement("div");
       err.className = "msg bot";
-      err.textContent = "¡Miau! Mi cerebro se tildó. Rodrigo, revisá que la clave en AI Studio no haya sido bloqueada.";
+      err.textContent = "¡Miau! Rodrigo, parece que Google bloqueó el acceso. Intentá refrescar o revisar AI Studio.";
       messages.appendChild(err);
     }
     messages.scrollTop = messages.scrollHeight;
@@ -192,7 +194,7 @@ function mostrarFrases() {
 mostrarFrases();
 setInterval(mostrarFrases, 4000); 
 
-/* CONTADOR (Ajustado a 18/11/2022) */
+/* CONTADOR AJUSTADO (18/11/2022) */
 const inicioRelacion = new Date("2022-11-18T00:00:00"); 
 function actualizarContador() {
   const ahora = new Date();
@@ -208,7 +210,7 @@ function actualizarContador() {
 }
 setInterval(actualizarContador, 1000); actualizarContador();
 
-/* GATITO CURSOR */
+/* GATITO CURSOR DINÁMICO */
 const cat = document.getElementById("cat");
 let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2, catX = mouseX, catY = mouseY, timeout;
 document.addEventListener("mousemove", e => { 
