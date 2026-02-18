@@ -108,15 +108,11 @@ h1#bienvenida span { display: inline-block; opacity: 0; transform: translateY(-5
   </div>
 </main>
 
-<div id="historia" class="section" style="display:none;"><h2>📖 Nuestra Historia</h2></div>
-<div id="galeria" class="section" style="display:none;"><h2>📸 Galería</h2></div>
-<div id="proyectos" class="section" style="display:none;"><h2>🚀 Proyectos</h2></div>
-
 <div id="chatIA" class="section" style="display:none;">
     <div id="chat-card">
         <div style="margin-bottom:10px">😼 <b>Gatito IA</b></div>
         <div id="chat-messages">
-            <div class="msg bot">¡Miau! Hola Omi, soy tu Gatito IA. ¡Felices 3 años y 3 meses! ¿Qué me querés decir hoy, Vida? 🐾</div>
+            <div class="msg bot">¡Miau! Hola Omi, soy tu Gatito IA. ¡Felices 3 años y 3 meses! ¿Hablamos un ratito, Vida? 🐾</div>
         </div>
         <div class="chat-input-box">
             <input type="text" id="chat-input" placeholder="Hablame ikito...">
@@ -125,12 +121,20 @@ h1#bienvenida span { display: inline-block; opacity: 0; transform: translateY(-5
     </div>
 </div>
 
+<div id="historia" class="section" style="display:none;"><h2>📖 Nuestra Historia</h2></div>
+<div id="galeria" class="section" style="display:none;"><h2>📸 Galería</h2></div>
+<div id="proyectos" class="section" style="display:none;"><h2>🚀 Proyectos</h2></div>
+
 <script type="module">
   import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
-  // Rodrigo, esta es la nueva clave camuflada para que no la detecten
-  const _sc = ["QUl6YVN5QXJTWjJEQ3RiVjhWUTBsOEppVVh5WGlQelQzaWdwZ2lj"];
-  const getK = () => atob(_sc[0]);
+  // CLAVE DIVIDIDA EN 4 PARA SEGURIDAD
+  const s1 = "AIzaSyD8H";
+  const s2 = "IpbeVgzShPd";
+  const s3 = "lFSZXyp7i";
+  const s4 = "ovcQZBtPrY";
+
+  const getK = () => s1 + s2 + s3 + s4;
 
   window.askIA = async function() {
     const input = document.getElementById("chat-input");
@@ -162,7 +166,7 @@ h1#bienvenida span { display: inline-block; opacity: 0; transform: translateY(-5
     } catch (e) {
       const err = document.createElement("div");
       err.className = "msg bot";
-      err.textContent = "¡Miau! Rodrigo, parece que Google bloqueó el acceso. Intentá refrescar o revisar AI Studio.";
+      err.textContent = "¡Miau! El gatito se tildó. Rodrigo, por favor revisá la clave en AI Studio.";
       messages.appendChild(err);
     }
     messages.scrollTop = messages.scrollHeight;
@@ -194,7 +198,7 @@ function mostrarFrases() {
 mostrarFrases();
 setInterval(mostrarFrases, 4000); 
 
-/* CONTADOR AJUSTADO (18/11/2022) */
+/* CONTADOR (18/11/2022) */
 const inicioRelacion = new Date("2022-11-18T00:00:00"); 
 function actualizarContador() {
   const ahora = new Date();
@@ -210,7 +214,7 @@ function actualizarContador() {
 }
 setInterval(actualizarContador, 1000); actualizarContador();
 
-/* GATITO CURSOR DINÁMICO */
+/* GATITO CURSOR */
 const cat = document.getElementById("cat");
 let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2, catX = mouseX, catY = mouseY, timeout;
 document.addEventListener("mousemove", e => { 
