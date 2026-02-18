@@ -86,12 +86,6 @@ h1#bienvenida span { display: inline-block; opacity: 0; transform: translateY(-3
     to { opacity: 0; transform: scale(0.5); }
 }
 
-@keyframes salto {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-    100% { transform: translateY(0); }
-}
-
 .omi-text {
     position: fixed;
     font-size: 14px;
@@ -192,62 +186,72 @@ document.getElementById("contador").innerHTML =
 }
 setInterval(actualizar, 1000); actualizar();
 
-// GATITO
+// GATITO OPTIMIZADO
 const gatito = document.getElementById("gatito");
-let mouseX = window.innerWidth/2;
-let mouseY = window.innerHeight/2;
+
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
 let posX = mouseX;
 let posY = mouseY;
-let atrapado = false;
+
+let ultimaHuella = 0;
+let ultimaOmi = 0;
 
 document.addEventListener("mousemove", e => {
 mouseX = e.clientX;
 mouseY = e.clientY;
-crearHuella(posX, posY);
 });
 
 function crearHuella(x,y){
+const ahora = Date.now();
+if(ahora - ultimaHuella < 1000) return;
+ultimaHuella = ahora;
+
 const h = document.createElement("div");
-h.className = "huella";
-h.textContent = "🐾";
-h.style.left = x+"px";
-h.style.top = y+"px";
+h.className="huella";
+h.textContent="🐾";
+h.style.left=x+"px";
+h.style.top=y+"px";
 document.body.appendChild(h);
 setTimeout(()=>h.remove(),1000);
 }
 
 function decirOmi(x,y){
-const t = document.createElement("div");
-t.className = "omi-text";
-t.textContent = "omi";
-t.style.left = x+"px";
-t.style.top = (y-25)+"px";
+const ahora = Date.now();
+if(ahora - ultimaOmi < 1200) return;
+ultimaOmi = ahora;
+
+const t=document.createElement("div");
+t.className="omi-text";
+t.textContent="omi";
+t.style.left=x+"px";
+t.style.top=(y-25)+"px";
 document.body.appendChild(t);
 setTimeout(()=>t.remove(),1000);
 }
 
 function animar(){
-posX += (mouseX-posX)*0.08;
-posY += (mouseY-posY)*0.08;
-gatito.style.left = posX+"px";
-gatito.style.top = posY+"px";
+const dist=Math.hypot(mouseX-posX,mouseY-posY);
 
-const dist = Math.hypot(mouseX-posX, mouseY-posY);
-
-if(dist<15 && !atrapado){
-gatito.textContent="😼";
-gatito.style.animation="salto 0.3s";
-decirOmi(posX,posY);
-atrapado=true;
-setTimeout(()=>{gatito.style.animation="";},300);
+// zona muerta
+if(dist>20){
+posX+=(mouseX-posX)*0.08;
+posY+=(mouseY-posY)*0.08;
 }
-else if(dist<100){
+
+gatito.style.left=posX+"px";
+gatito.style.top=posY+"px";
+
+if(dist<20){
+gatito.textContent="😼";
+crearHuella(posX,posY);
+decirOmi(posX,posY);
+}
+else if(dist<120){
 gatito.textContent="🙀";
-atrapado=false;
 }
 else{
 gatito.textContent="😺";
-atrapado=false;
 }
 
 requestAnimationFrame(animar);
