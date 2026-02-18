@@ -103,15 +103,33 @@
             border: 1px solid #eee;
         }
 
-        /* --- PLACEHOLDERS --- */
-        .placeholder-box { 
-            width: 100%; max-width: 400px; height: 200px; 
-            border: 2px dashed rgba(255,255,255,0.5); 
-            display: flex; align-items: center; justify-content: center; border-radius: 20px;
-            margin-top: 20px;
+        /* --- GATITO Y HUELLAS --- */
+        #gatito {
+            position: fixed;
+            font-size: 35px;
+            pointer-events: none;
+            z-index: 2000;
         }
 
-        /* ANIMACIONES */
+        .huella {
+            position: fixed;
+            font-size: 18px;
+            pointer-events: none;
+            animation: fadeHuella 1s forwards;
+        }
+
+        .omi-text {
+            position: fixed;
+            font-size: 14px;
+            font-weight: bold;
+            animation: fadeHuella 1s forwards;
+        }
+
+        @keyframes fadeHuella {
+            to { opacity: 0; transform: scale(0.5); }
+        }
+
+        /* --- ANIMACIONES --- */
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes drop { to { opacity: 1; transform: translateY(0); } }
         @keyframes appear { 
@@ -140,6 +158,8 @@
         <div class="locked-item">🔒 Nuestra Casita (Próximamente)</div>
     </nav>
 
+    <div id="gatito">😺</div>
+
     <main>
         <section id="inicio" class="page active">
             <div id="frases-container">
@@ -150,7 +170,6 @@
             </div>
             
             <h1 id="bienvenida"></h1>
-            
             <div id="contador">Calculando...</div>
 
             <div id="mensaje-personal">
@@ -196,20 +215,17 @@
 
         <section id="minijuego" class="page">
             <h2>Minijuego de Gatito</h2>
-            <div class="placeholder-box">
-                <p>🎮 Próximamente...</p>
-            </div>
+            <p style="margin-top:20px;">🎮 Próximamente...</p>
         </section>
 
         <section id="ia" class="page">
             <h2>Gatito IA</h2>
-            <div class="placeholder-box">
-                <p>🤖 Sección en desarrollo</p>
-            </div>
+            <p style="margin-top:20px;">🤖 Sección en desarrollo</p>
         </section>
     </main>
 
     <script>
+        // NAVEGACIÓN
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
@@ -221,6 +237,7 @@
             document.getElementById("menu").classList.toggle("active");
         }
 
+        // BIENVENIDA
         const texto = "Bienvenida";
         const container = document.getElementById("bienvenida");
         [...texto].forEach((letra, i) => {
@@ -230,6 +247,7 @@
             container.appendChild(s);
         });
 
+        // FRASES
         const frases = document.querySelectorAll(".phrase");
         let fIdx = 0;
         function rotar() {
@@ -239,6 +257,7 @@
         }
         setInterval(rotar, 4000); rotar();
 
+        // CONTADOR
         const fechaInicio = new Date("2022-11-18T00:00:00");
         function actualizar() {
             const ahora = new Date();
@@ -250,6 +269,58 @@
             document.getElementById("contador").innerHTML = `${a} años, ${m} meses, ${d} días<br><small>${ahora.getHours()}h ${ahora.getMinutes()}m ${ahora.getSeconds()}s</small>`;
         }
         setInterval(actualizar, 1000); actualizar();
+
+        // LÓGICA DEL GATITO
+        const gatito = document.getElementById("gatito");
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let posX = mouseX, posY = mouseY;
+        let ultimaHuella = 0, ultimaOmi = 0;
+
+        document.addEventListener("mousemove", e => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function crearHuella(x,y){
+            const ahora = Date.now();
+            if(ahora - ultimaHuella < 1000) return;
+            ultimaHuella = ahora;
+            const h = document.createElement("div");
+            h.className="huella"; h.textContent="🐾";
+            h.style.left=x+"px"; h.style.top=y+"px";
+            document.body.appendChild(h);
+            setTimeout(()=>h.remove(),1000);
+        }
+
+        function decirOmi(x,y){
+            const ahora = Date.now();
+            if(ahora - ultimaOmi < 1200) return;
+            ultimaOmi = ahora;
+            const t=document.createElement("div");
+            t.className="omi-text"; t.textContent="omi";
+            t.style.left=x+"px"; t.style.top=(y-25)+"px";
+            document.body.appendChild(t);
+            setTimeout(()=>t.remove(),1000);
+        }
+
+        function animar(){
+            const dist=Math.hypot(mouseX-posX,mouseY-posY);
+            if(dist>20){ posX+=(mouseX-posX)*0.08; posY+=(mouseY-posY)*0.08; }
+            gatito.style.left=posX+"px";
+            gatito.style.top=posY+"px";
+
+            if(dist<20){
+                gatito.textContent="😼";
+                crearHuella(posX,posY);
+                decirOmi(posX,posY);
+            } else if(dist<120){
+                gatito.textContent="🙀";
+            } else {
+                gatito.textContent="😺";
+            }
+            requestAnimationFrame(animar);
+        }
+        animar();
     </script>
 </body>
 </html>
